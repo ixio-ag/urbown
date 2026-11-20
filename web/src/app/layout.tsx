@@ -8,6 +8,13 @@ export const metadata: Metadata = {
   title: { default: "urbown – das geschlossene Netzwerk für Ihre Innenstadt", template: "%s – urbown" },
   applicationName: SITE_NAME,
   formatDetection: { telephone: false, email: false, address: false },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32 48x48" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
 };
 
 export const viewport: Viewport = {

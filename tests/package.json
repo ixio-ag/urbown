@@ -1,0 +1,17 @@
+{
+  "name": "urbown-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "lighthouse": "node lighthouse/run.mjs",
+    "screenshots": "node screenshots/einblick.mjs",
+    "abnahme": "playwright test --project=abnahme"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.1",
+    "chrome-launcher": "^1.2.3",
+    "lighthouse": "^13.6.0"
+  }
+}
