@@ -24,6 +24,11 @@ export function getTurnstileKeys(): { siteKey: string; secretKey: string; isTest
   );
 }
 
+/** Öffentlicher Site-Key für das Widget. Wirft nicht (auch beim Build); production prüft der Startcheck. */
+export function getTurnstileSiteKey(): string {
+  return process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || TURNSTILE_TEST_SITE_KEY;
+}
+
 /** Prüft beim Start in production, dass Turnstile konfiguriert ist (Abbruch mit klarer Meldung). */
 export function assertTurnstileConfigured(): void {
   getTurnstileKeys();

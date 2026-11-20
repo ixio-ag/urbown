@@ -61,6 +61,9 @@ await write("apple-touch-icon.png", await png(icon, 180));
 await write("icon-192.png", await png(icon, 192));
 await write("icon-512.png", await png(icon, 512));
 await write("icon-maskable-512.png", await png(maskable, 512));
+// Quadrat-Logo als PNG für JSON-LD «Organization.logo» (UB03 2.4)
+const quadrat = await readFile(path.join(BRAND, "urbown-quadrat.svg"));
+await write("brand/urbown-quadrat.png", await png(quadrat, 512));
 
 // Open-Graph-Bild 1200 × 630: Original-Logo auf Weiss, Claim in Archivo 800, Mono-Zeile «urbown.com»
 // Pango (sharp) liest nur TTF/OTF: WOFF aus @fontsource in eine temporäre TTF-Datei umwandeln.
