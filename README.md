@@ -57,7 +57,7 @@ cd web && npm run dev          # http://localhost:3100
 |---|---|
 | http://localhost:3100 | Landingpage (Entwicklung) |
 | http://app.localhost:3100 | Platzhalter Netzwerk-App |
-| http://localhost:3100/_styleguide | Styleguide (nur mit `ENABLE_STYLEGUIDE=true`, lokal Standard) |
+| http://localhost:3100/_styleguide | Styleguide (nur mit `ENABLE_STYLEGUIDE=true`, z. B. in `web/.env.local`) |
 | http://localhost:3101 | Supabase Studio |
 | http://localhost:8100 | Supabase API (Kong) |
 | http://localhost:8125 | Mailpit (lokale E-Mails) |
@@ -92,8 +92,8 @@ Migrationen ausserhalb des lokalen Stacks nur nach Freigabe (HALT-Regel in `CLAU
 # Web (im Ordner web/)
 npm run dev | build | start | lint | typecheck
 
-# Tests (im Stammordner)
-npm run test:e2e        # Playwright + axe gegen next start
+# Tests (im Stammordner; vorher: npm run build, Mailpit läuft im Stack)
+npm run test:e2e        # Playwright + axe gegen next start (Ports 3100 und 3103)
 npm run lighthouse      # Lighthouse mobil gegen next start, Tabelle in tests/output/lighthouse/
 npm run screenshots     # Bildschirmfotos «Einblick» (-- --source=prototype|demo)
 npm run abnahme         # Abnahme-Bildschirmfotos 360/768/1280 px nach tests/output/abnahme/

@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { isAnliegen } from "@/content/contact";
 
 /**
  * Auslieferung nach Hostname (UB03 Teil C2, UB01 2.3).
@@ -56,6 +57,17 @@ export function proxy(request: NextRequest) {
     const response = NextResponse.next();
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
     return response;
+  }
+
+  // Kontakt: ?anliegen=… auf die statisch vorgerenderte Variante umschreiben (Vorauswahl auch ohne JavaScript)
+  if (pathname === "/kontakt") {
+    const anliegen = request.nextUrl.searchParams.get("anliegen");
+    if (anliegen && anliegen !== "demo" && isAnliegen(anliegen)) {
+      const url = request.nextUrl.clone();
+      url.pathname = `/kontakt/${anliegen}`;
+      url.search = "";
+      return withRobots(NextResponse.rewrite(url));
+    }
   }
 
   return withRobots(NextResponse.next());

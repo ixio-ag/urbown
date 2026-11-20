@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test --project=e2e",
     "lighthouse": "node lighthouse/run.mjs",
     "screenshots": "node screenshots/einblick.mjs",
     "abnahme": "playwright test --project=abnahme"

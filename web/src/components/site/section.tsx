@@ -14,7 +14,7 @@ export function Lead({ children, className }: { children: ReactNode; className?:
 /** Landing h2 (Archivo 800, display-2). */
 export function H2({ children, id }: { children: ReactNode; id?: string }) {
   return (
-    <h2 id={id} className="text-display-2 font-extrabold">
+    <h2 id={id} className="text-display-2 font-extrabold hyphens-auto">
       {children}
     </h2>
   );
@@ -100,7 +100,7 @@ export function Hero({ label, title, lead, actions, aside, children }: HeroProps
       >
         <div className="flex min-w-0 flex-col gap-7">
           <Eyebrow>{label}</Eyebrow>
-          <h1 id="seitentitel" className="font-display-black text-display-1 font-black">
+          <h1 id="seitentitel" className="font-display-black text-display-1 font-black hyphens-auto">
             {title}
           </h1>
           <Lead>{lead}</Lead>

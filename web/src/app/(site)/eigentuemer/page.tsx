@@ -55,7 +55,7 @@ export default function EigentuemerPage() {
         }
         aside={
           <HeroCard label="Zugang">
-            <H3>Nur auf Einladung</H3>
+            <h2 className="text-xl font-bold">Nur auf Einladung</h2>
             <p className="text-ink-2">
               Sie werden von einem Mitglied oder der Stadt eingeladen. So bleibt das Netzwerk vertraulich und jedes Profil echt.
             </p>
