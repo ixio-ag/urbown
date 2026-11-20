@@ -1,0 +1,15 @@
+{
+  "name": "urbown",
+  "private": true,
+  "description": "urbown 2.0 – Befehle im Stammordner (leiten an web/ und tests/ weiter)",
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "lint": "npm --prefix web run lint",
+    "typecheck": "npm --prefix web run typecheck",
+    "test:e2e": "npm --prefix tests run test:e2e",
+    "lighthouse": "npm --prefix tests run lighthouse",
+    "screenshots": "npm --prefix tests run screenshots --",
+    "abnahme": "npm --prefix tests run abnahme"
+  }
+}

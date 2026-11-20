@@ -1,0 +1,33 @@
+# Geheimnisse – nie einchecken
+.env
+.env.*
+!.env.example
+!**/.env.example
+docker/.env
+*.pem
+*.key
+secrets/
+
+# Lokale Daten des Docker-Stacks
+docker/volumes/
+docker/supabase/volumes/db/data/
+docker/supabase/volumes/storage/
+docker/supabase/volumes/snippets/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+web/next-env.d.ts
+*.tsbuildinfo
+npm-debug.log*
+
+# Tests
+tests/output/
+tests/test-results/
+tests/playwright-report/
+tests/blob-report/
+
+# System
+.DS_Store
+Thumbs.db

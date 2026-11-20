@@ -1,0 +1,5 @@
+urbown – Fotos Landingpage (UB03), aufbereitet am 18.11.2026
+Graustufen, max. 2400 px, JPEG. Ziel im Repository: web/src/assets/landing/
+landing/  = werden in Block 1 verwendet (Zuordnung und Alt-Texte: docs/grundlagen/UB03-landingpage-texte.md, Abschnitt 4)
+reserve/  = Reserve, nicht einbauen
+Bildrechte: Pexels/Unsplash/Pixabay frei nutzbar; Fotolia/Adobe Stock und Placeit-Mockup nur mit gültiger Lizenz von IXIO AG.

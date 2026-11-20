@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>urbown 2.0 – Styleguide (UB02)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Tokens = UB02-design.md Abschnitt 3/4 */
+:root{
+  --white:#FFFFFF;--paper:#F6F6F4;--muted:#EFEFEC;--hover:#FAFAF8;--fill:#DADAD5;--line:#E2E2DD;--field:#8A8A84;
+  --ink-3:#6B6B65;--ink-2:#55554F;--ink-hover:#33332F;--ink:#111111;--scrim:rgb(17 17 17 / .45);
+  --display:'Archivo','Helvetica Neue',Arial,sans-serif;--sans:'Inter','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --r-xs:3px;--r-sm:4px;--r-md:6px;--r-lg:10px;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+@media(min-width:900px){body{font-size:15px;line-height:1.5}}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.01em;text-wrap:balance;line-height:1.15}
+h1{font-size:28px;font-weight:800}h2{font-size:20px;font-weight:700}h3{font-size:16px;font-weight:700}
+p{margin:0}
+a{color:inherit}
+.lbl{font:400 11px/1.35 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.mono{font-family:var(--mono)}.num{font-variant-numeric:tabular-nums}.muted{color:var(--ink-2)}.sm{font-size:13px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hit{position:relative}.hit::after{content:"";position:absolute;inset:min(0px,calc((100% - 44px)/2))}
+.ico{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.wrap{max-width:1120px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-left)) 96px;display:flex;flex-direction:column;gap:20px}
+header.top{background:var(--white);border-bottom:1px solid var(--ink);padding:14px max(16px,env(safe-area-inset-left));display:flex;gap:16px;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+header.top nav{display:flex;gap:4px;flex-wrap:wrap}header.top nav a{font-size:13px;color:var(--ink-2);text-decoration:none;padding:6px 8px;border-radius:var(--r-sm)}header.top nav a:hover{background:var(--muted);color:var(--ink)}
+@media(max-width:899px){header.top nav{display:none}}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-md)}
+.pad{padding:16px}.stack{display:flex;flex-direction:column;gap:12px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sec{display:flex;flex-direction:column;gap:12px;scroll-margin-top:72px}
+.sec>.h{display:flex;flex-direction:column;gap:2px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.state{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.state .lbl{color:var(--ink-3)}
+/* Farben */
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.sw>div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white)}
+.sw .c{height:56px;border-bottom:1px solid var(--line)}.sw .t{padding:8px 10px;font-size:12px;font-family:var(--mono)}
+/* Button */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid var(--ink);background:var(--ink);color:var(--white);border-radius:var(--r-md);font:600 15px/1 var(--sans);cursor:pointer;text-decoration:none;transition:background .15s}
+.btn:hover,.btn.is-hover{background:var(--ink-hover)}.btn:active,.btn.is-active{transform:translateY(1px)}
+.btn.sec2{background:var(--white);color:var(--ink)}.btn.sec2:hover,.btn.sec2.is-hover{background:var(--muted)}
+.btn.link{background:none;border-color:transparent;color:var(--ink);text-decoration:underline;text-underline-offset:3px;font-weight:500;padding:0 6px}.btn.link:hover,.btn.link.is-hover{text-decoration-thickness:2px;background:none}
+.btn.small{min-height:36px;padding:0 12px;font-size:13px}
+.btn.lg{min-height:48px;padding:0 20px;font-size:16px;border-radius:var(--r-sm)}
+.btn.icon{width:44px;padding:0;background:var(--white);color:var(--ink);border-color:transparent}.btn.icon:hover{background:var(--muted)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.is-focus{outline:2px solid var(--ink);outline-offset:2px}
+.spin{width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp 0.8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* Felder */
+.field{display:flex;flex-direction:column;gap:6px;min-width:0;width:100%}
+.field label,.field legend{font-size:13px;font-weight:600;padding:0}
+.field .help{font-size:13px;color:var(--ink-2)}
+.in{width:100%;min-height:44px;padding:10px 12px;background:var(--white);border:1px solid var(--field);border-radius:var(--r-md);font:16px/1.4 var(--sans);color:var(--ink)}
+.in::placeholder{color:var(--ink-3)}
+.in:hover,.in.is-hover{border-color:var(--ink-2)}
+.in:focus,.in.is-focus{outline:2px solid var(--ink);outline-offset:-1px;border-color:var(--ink)}
+.in[aria-invalid=true]{border:2px solid var(--ink);padding:9px 11px}
+.in:disabled{background:var(--muted);color:var(--ink-2);border-color:var(--line);cursor:not-allowed}
+.in[readonly]{background:var(--paper);border-color:var(--line)}
+.err{display:flex;gap:6px;align-items:flex-start;font-size:13px;font-weight:500}
+.unit{position:relative}.unit .in{padding-right:56px}.unit span{position:absolute;right:12px;top:50%;transform:translateY(-50%);font:13px var(--mono);color:var(--ink-2)}
+.code{font:500 24px/1 var(--mono);letter-spacing:.5em;text-align:center;min-height:56px}
+.chk{display:flex;gap:12px;align-items:center;min-height:44px;cursor:pointer}
+.chk input{appearance:none;width:20px;height:20px;margin:0;border:1px solid var(--field);border-radius:var(--r-xs);background:var(--white);display:grid;place-items:center;flex:none;cursor:pointer}
+.chk input[type=radio]{border-radius:50%}
+.chk input:checked{background:var(--ink);border-color:var(--ink)}
+.chk input[type=checkbox]:checked::after{content:"";width:10px;height:5px;border:2px solid var(--white);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.chk input[type=radio]:checked::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--white)}
+.sw-toggle{display:inline-flex;gap:10px;align-items:center;min-height:44px;background:none;border:0;padding:0;cursor:pointer;font:inherit}
+.sw-toggle .tr{width:44px;height:26px;border:1px solid var(--ink);border-radius:999px;position:relative;background:var(--white);transition:background .15s}
+.sw-toggle .tr::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--ink);transition:left .15s}
+.sw-toggle[aria-checked=true] .tr{background:var(--ink)}.sw-toggle[aria-checked=true] .tr::after{left:21px;background:var(--white)}
+details.more{border-top:1px solid var(--line)}details.more summary{min-height:44px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:600;list-style:none}
+details.more summary::-webkit-details-marker{display:none}details.more summary .ico{transition:transform .15s}details.more[open] summary .ico{transform:rotate(180deg)}
+.drop{border:1px dashed var(--field);border-radius:var(--r-md);background:var(--white);padding:24px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+.drop.over{border-color:var(--ink);background:var(--muted)}
+.bar{height:4px;background:var(--fill);border-radius:2px;overflow:hidden;width:100%}.bar i{display:block;height:100%;background:var(--ink)}
+/* Chips, Segment, Tabs */
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border:1px solid var(--field);border-radius:999px;background:var(--white);font:13px var(--sans);cursor:pointer;white-space:nowrap;color:var(--ink)}
+.chip:hover,.chip.is-hover{background:var(--muted)}.chip[aria-pressed=true]{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--ink);border-radius:var(--r-md);overflow:hidden}
+.seg button{min-height:44px;padding:0 16px;border:0;background:var(--white);font:500 13px var(--sans);cursor:pointer;color:var(--ink)}
+.seg button+button{border-left:1px solid var(--ink)}.seg button:hover{background:var(--muted)}
+.seg button[aria-checked=true]{background:var(--ink);color:var(--white);font-weight:600}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{min-height:44px;padding:0 12px;border:0;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--ink-2);font:500 15px var(--sans);cursor:pointer;white-space:nowrap}
+.tabs button:hover{color:var(--ink)}.tabs button[aria-selected=true]{color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}
+/* Badges */
+.badge{display:inline-flex;align-items:center;gap:4px;font:400 11px/1.35 var(--mono);letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--ink);border-radius:var(--r-xs);padding:1px 6px;white-space:nowrap}
+.badge.solid{background:var(--ink);color:var(--white)}.badge.soft{border-color:var(--line);color:var(--ink-2)}
+.badge .ico{width:12px;height:12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ink);display:inline-block}
+/* Avatar/Person */
+.av{width:36px;height:36px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;font:700 13px var(--display);background:var(--white);flex:none}
+.av.s{width:28px;height:28px;font-size:11px}
+.who{display:flex;gap:10px;align-items:center;min-width:0}.who .n{font-weight:600}
+/* Liste, Inserat */
+.list>*+*{border-top:1px solid var(--line)}
+.item{padding:14px 16px;display:flex;gap:12px;align-items:flex-start;position:relative}.item>.badge{flex:none}
+.item.click:hover{background:var(--hover)}
+.thumb{aspect-ratio:16/9;border:1px solid var(--line);border-radius:var(--r-sm);background:repeating-linear-gradient(135deg,var(--muted) 0 10px,var(--white) 10px 20px);display:grid;place-items:center;font:11px var(--mono);color:var(--ink-3)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:13px;margin:0}.kv dt{color:var(--ink-2)}.kv dd{margin:0;font-weight:500}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.stats>div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 16px;background:var(--white)}
+.stats b{display:block;font:800 26px/1.1 var(--display);font-variant-numeric:tabular-nums}
+/* Feed */
+.feed{padding:16px;display:flex;flex-direction:column;gap:10px}
+.fmeta{display:flex;gap:8px;align-items:center}
+.status{font:700 22px/1.25 var(--display)}
+.popt{position:relative;width:100%;min-height:44px;border:1px solid var(--ink);border-radius:var(--r-md);background:var(--white);padding:0 12px;display:flex;justify-content:space-between;align-items:center;gap:8px;overflow:hidden;font:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+.popt .b{position:absolute;inset:0 auto 0 0;background:var(--muted)}.popt span{position:relative}
+.popt[aria-checked=true]{font-weight:600}.popt[aria-checked=true] .b{background:var(--fill)}
+.comments{border-left:2px solid var(--line);padding-left:12px;display:flex;flex-direction:column;gap:8px}
+/* Tabelle */
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{text-align:left;font:400 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);padding:10px 12px;border-bottom:1px solid var(--ink);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:hover{background:var(--hover)}td.r,th.r{text-align:right}
+/* Modal, Toast (Vorschau statisch) */
+.ovdemo{position:relative;background:var(--scrim);border-radius:var(--r-md);padding:24px 12px 0;display:flex;justify-content:center;align-items:flex-end;min-height:330px;overflow:hidden}
+.modal{background:var(--white);width:100%;max-width:640px;border:1px solid var(--ink);border-radius:var(--r-lg) var(--r-lg) 0 0;display:flex;flex-direction:column}
+.modal .mh{display:flex;justify-content:space-between;align-items:center;padding:6px 6px 6px 16px;border-bottom:1px solid var(--line)}
+.modal .mb{padding:16px;display:flex;flex-direction:column;gap:14px}
+.modal .mf{padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.toast{display:inline-flex;gap:12px;align-items:center;background:var(--ink);color:var(--white);border-radius:var(--r-md);padding:10px 16px;font-weight:500}
+.toast .btn.link{color:var(--white)}
+/* Navigation */
+.navdemo{display:grid;grid-template-columns:248px minmax(0,1fr);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--paper)}
+.side{background:var(--white);border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:14px}
+.side .grp{font:400 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:12px 10px 4px}
+.side a{display:flex;align-items:center;gap:10px;min-height:40px;padding:0 10px;border-radius:var(--r-md);text-decoration:none;color:var(--ink-2);font-weight:500}
+.side a:hover{background:var(--muted);color:var(--ink)}.side a[aria-current]{background:var(--ink);color:var(--white)}
+.side a .cnt{margin-left:auto;font:11px var(--mono)}
+@media(max-width:899px){.navdemo{grid-template-columns:minmax(0,1fr)}.navdemo .side{border-right:0}}
+.phone{width:min(375px,100%);height:640px;border:1px solid var(--ink);border-radius:24px;overflow:hidden;position:relative;background:var(--paper);display:flex;flex-direction:column}
+.mtop{background:var(--white);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
+.pbody{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.tabbar{display:grid;grid-template-columns:repeat(5,1fr);background:var(--white);border-top:1px solid var(--ink)}
+.tabbar a,.tabbar button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;font:12px var(--sans);color:var(--ink-2);text-decoration:none;border:0;background:none;cursor:pointer}
+.tabbar .ico{width:22px;height:22px}
+.tabbar [aria-current]{color:var(--ink);font-weight:600}.tabbar [aria-current]::before{content:"";position:absolute;top:-1px;left:25%;right:25%;height:2px;background:var(--ink)}
+.tabbar .plus .ico{width:36px;height:36px;padding:8px;background:var(--ink);color:var(--white);border-radius:50%}
+.tabbar .bub{position:absolute;top:6px;left:calc(50% + 4px);min-width:18px;height:18px;border-radius:9px;background:var(--ink);color:var(--white);font:500 11px/18px var(--mono);text-align:center;padding:0 4px}
+.sheetgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sheetgrid a{min-height:88px;border:1px solid var(--line);border-radius:var(--r-md);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:13px;text-decoration:none;color:var(--ink);text-align:center}
+.sheetgrid a:hover{border-color:var(--ink)}.sheetgrid .ico{width:24px;height:24px}
+/* Karte */
+.map{position:relative;height:340px;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--muted)}
+.map svg.streets{position:absolute;inset:0;width:100%;height:100%}
+.mk{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;display:grid;place-items:center;border:0;background:none;cursor:pointer;padding:0}
+.mk i{width:18px;height:18px;border:2.5px solid var(--ink);box-shadow:0 0 0 2px var(--white);display:block}
+.mk.fl i{background:var(--ink)}.mk.im i{background:var(--white)}.mk.ev i{background:var(--ink);border-radius:50%}.mk.pt i{background:var(--white);border-radius:50%}.mk.nw i{background:var(--white);border-radius:50%;border-style:dashed}
+.mk.sel i{width:26px;height:26px}
+.cl{position:absolute;width:36px;height:36px;margin:-18px 0 0 -18px;border-radius:50%;background:var(--white);border:2px solid var(--ink);display:grid;place-items:center;font:500 13px var(--mono)}
+.zoom{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;border:1px solid var(--ink);border-radius:var(--r-md);overflow:hidden;background:var(--white)}
+.zoom button{width:44px;height:44px;border:0;background:var(--white);font:600 20px var(--sans);cursor:pointer}.zoom button+button{border-top:1px solid var(--ink)}.zoom button:hover{background:var(--muted)}
+.popup{position:absolute;left:50%;top:40px;transform:translateX(-50%);background:var(--white);border:1px solid var(--ink);border-radius:var(--r-md);padding:10px 12px;display:flex;flex-direction:column;gap:4px;width:220px;font-size:13px}
+.attr{position:absolute;right:0;bottom:0;background:rgba(255,255,255,.8);font-size:12px;color:var(--ink-2);padding:0 6px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink-2)}.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:12px;height:12px;border:2px solid var(--ink);display:inline-block}
+/* Kalender */
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-left:1px solid var(--line);border-top:1px solid var(--line);background:var(--white)}
+.cal>div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:76px;padding:6px;font-size:12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.cal .dh{min-height:0;font:400 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);background:var(--muted)}
+.cal .off{color:var(--ink-3);background:var(--paper)}
+.cal .today b{width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--white);display:grid;place-items:center;font-weight:600}
+.cal .ev{background:var(--ink);color:var(--white);border:0;border-radius:var(--r-xs);padding:1px 4px;font:12px var(--sans);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+@media(max-width:679px){.cal>div{min-height:44px}.cal .ev{display:none}.cal .has::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--ink);align-self:center}}
+.datebox{display:flex;flex-direction:column;align-items:center;width:52px;flex:none}.datebox b{font:800 26px/1 var(--display);font-variant-numeric:tabular-nums}
+/* Dokumente */
+.crumbs{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px}.crumbs a{color:var(--ink)}
+.ft{width:34px;height:40px;border:1px solid var(--ink);border-radius:var(--r-xs);display:grid;place-items:center;font:500 10px var(--mono);text-transform:uppercase;flex:none;background:var(--white)}
+.ft.dir{background:var(--muted)}
+.doc{display:flex;gap:12px;align-items:center;padding:12px 16px;min-height:64px}
+.doc .b{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.acts{display:flex;gap:2px}@media(max-width:899px){.acts .btn.link{display:none}}
+/* Landing */
+.hero{background:var(--white);border:1px solid var(--line);border-radius:var(--r-md);padding:24px;display:flex;flex-direction:column;gap:16px}
+.d1{font:900 clamp(40px,7.2vw,72px)/1.05 var(--display);letter-spacing:-.02em}
+.o{color:transparent;-webkit-text-stroke:1.5px var(--ink)}@media(min-width:900px){.o{-webkit-text-stroke-width:2px}}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+.g3>div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:20px;display:flex;flex-direction:column;gap:8px;background:var(--white)}
+.logo-row{display:flex;gap:24px;align-items:flex-end;flex-wrap:wrap}
+.logo-row figure{margin:0;display:flex;flex-direction:column;gap:6px}
+.logo-row svg{display:block;width:auto}
+.checker{background:var(--white);border:1px solid var(--line);border-radius:var(--r-md);padding:16px}
+</style>
+</head>
+<body>
+<a href="#main" class="btn sr" style="position:fixed;left:8px;top:8px" onfocus="this.classList.remove('sr')" onblur="this.classList.add('sr')">Zum Inhalt springen</a>
+<header class="top">
+  <span style="display:inline-flex"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3479 778" role="img" aria-label="urbown" style="height:30px;width:auto;display:block"><g fill="#111111"><path transform="translate(-38 749) scale(1 -1)" d="M541 0V540H401V216C401 152 356 110 288 110C228 110 198 142 198 207V540H58V178C58 59 124 -9 239 -9C312 -9 361 18 401 71V0Z"/><path transform="translate(532 749) scale(1 -1)" d="M370 406V548C362 549 357 549 353 549C289 549 233 507 203 434V540H63V0H203V287C203 369 244 410 326 410C341 410 351 409 370 406Z"/><path transform="translate(922 749) scale(1 -1)" d="M575 263C575 416 490 549 348 549C281 549 233 524 199 470V729H59V0H199V62C233 16 280 -9 348 -9C477 -9 575 100 575 263ZM435 269C435 171 386 108 317 108C246 108 199 169 199 272C199 370 247 432 317 432C386 432 435 369 435 269Z"/></g><g fill="none" stroke="#111111" stroke-width="40" stroke-linejoin="round"><path transform="translate(1536 749) scale(1 -1)" d="M569 266C569 449 470 549 301 549C136 549 35 447 35 270C35 92 136 -9 302 -9C466 -9 569 93 569 266ZM429 268C429 167 377 104 302 104C226 104 175 167 175 270C175 373 226 436 302 436C379 436 429 374 429 268Z"/><path transform="translate(2136 749) scale(1 -1)" d="M766 540H621L539 162L458 540H318L236 162L150 540H5L157 0H301L387 381L468 0H613Z"/><path transform="translate(2913 749) scale(1 -1)" d="M546 0V362C546 481 480 549 365 549C292 549 243 522 203 462V540H63V0H203V324C203 388 248 430 316 430C376 430 406 397 406 333V0Z"/></g></svg></span>
+  <nav aria-label="Abschnitte">
+    <a href="#farben">Farben</a><a href="#schrift">Schrift</a><a href="#logo">Logo</a><a href="#buttons">Buttons</a><a href="#felder">Felder</a><a href="#auswahl">Chips · Segment · Tabs</a><a href="#cards">Cards · Badges</a><a href="#feed">Feed</a><a href="#tabelle">Tabelle</a><a href="#modal">Modal · Toast</a><a href="#nav">Navigation</a><a href="#karte">Karte</a><a href="#kalender">Kalender</a><a href="#dokumente">Dokumente</a>
+  </nav>
+</header>
+<main id="main" class="wrap">
+  <div class="stack" style="gap:4px"><span class="lbl">UB02 · Design-System · Stand 18.11.2026</span><h1>urbown 2.0 – Bausteine und Zustände</h1>
+  <p class="muted" style="max-width:70ch">Visuelle Referenz zu <span class="mono">claude/UB02-design.md</span>. Zustände wie Hover, Fokus und Gedrückt sind zum Vergleich als feste Beispiele gezeigt; alle Elemente sind zusätzlich echt bedienbar (Tab-Taste für Fokus). Bei Abweichungen gilt das Dokument.</p></div>
+
+  <section class="sec" id="farben"><div class="h"><span class="lbl">3.1</span><h2>Farben</h2></div>
+    <div class="sw">
+      <div><div class="c" style="background:#FFFFFF"></div><div class="t"><b>white</b><br>#FFFFFF<br><span style="color:var(--ink-2)">Flächen</span></div></div><div><div class="c" style="background:#F6F6F4"></div><div class="t"><b>paper</b><br>#F6F6F4<br><span style="color:var(--ink-2)">Seitengrund</span></div></div><div><div class="c" style="background:#EFEFEC"></div><div class="t"><b>muted</b><br>#EFEFEC<br><span style="color:var(--ink-2)">Hover, Kopf</span></div></div><div><div class="c" style="background:#FAFAF8"></div><div class="t"><b>hover</b><br>#FAFAF8<br><span style="color:var(--ink-2)">Zeilen-Hover</span></div></div><div><div class="c" style="background:#DADAD5"></div><div class="t"><b>fill</b><br>#DADAD5<br><span style="color:var(--ink-2)">Balken</span></div></div><div><div class="c" style="background:#E2E2DD"></div><div class="t"><b>line</b><br>#E2E2DD<br><span style="color:var(--ink-2)">Trennlinie 1,3:1</span></div></div><div><div class="c" style="background:#8A8A84"></div><div class="t"><b>field</b><br>#8A8A84<br><span style="color:var(--ink-2)">Feldrahmen 3,5:1</span></div></div><div><div class="c" style="background:#6B6B65"></div><div class="t"><b>ink-3</b><br>#6B6B65<br><span style="color:var(--ink-2)">Text 5,4:1</span></div></div><div><div class="c" style="background:#55554F"></div><div class="t"><b>ink-2</b><br>#55554F<br><span style="color:var(--ink-2)">Text 7,5:1</span></div></div><div><div class="c" style="background:#33332F"></div><div class="t"><b>ink-hover</b><br>#33332F<br><span style="color:var(--ink-2)">Hover schwarz</span></div></div><div><div class="c" style="background:#111111"></div><div class="t"><b>ink</b><br>#111111<br><span style="color:var(--ink-2)">Text 18,9:1</span></div></div>
+    </div>
+    <p class="sm muted">Text nur in <b>ink</b>, <b>ink-2</b>, <b>ink-3</b>. Rahmen von Bedienelementen in <b>field</b> oder <b>ink</b>. <b>line</b> nur für dekorative Trennlinien.</p>
+  </section>
+
+  <section class="sec" id="schrift"><div class="h"><span class="lbl">3.2 · 3.3</span><h2>Schrift</h2></div>
+    <div class="card pad stack">
+      <div class="d1">Die Innenstadt gehört denen, die sie <span class="o">gemeinsam</span> gestalten.</div>
+      <p class="lbl">display-1 · Archivo 900 · clamp(40–96 px) · Konturwort ab 30 px</p>
+      <hr style="border:0;border-top:1px solid var(--line);width:100%">
+      <h1>Vakante Flächen</h1><p class="lbl">App h1 · Archivo 800 · 28 px (Handy 24 px)</p>
+      <h2>Aktuelle Themen</h2><p class="lbl">App h2 · Archivo 700 · 20 px</p>
+      <h3>Laden mit Schaufenster in 1A-Lage</h3><p class="lbl">h3 · Archivo 700 · 16 px</p>
+      <p style="max-width:65ch">Fliesstext Inter 400: 16 px auf dem Handy, 15 px in der App ab 900 px. Ein Mieter zieht in sechs Monaten aus, ein Erbe will verkaufen, ein Händler sucht 100 m² in bester Lage.</p>
+      <p class="mono">P7, 14 · 142 m² · Front 11,5 m · ab 01.02.2027 · app.urbown.com/mannheim</p><p class="lbl">Mono · IBM Plex Mono 400 · Daten, Adressen, Quadrate</p>
+      <p class="lbl" style="color:var(--ink-2)">Label · Mono 11 px · Grossbuchstaben · 0,08 em</p>
+    </div>
+  </section>
+
+  <section class="sec" id="logo"><div class="h"><span class="lbl">5</span><h2>Logo</h2></div>
+    <div class="checker stack">
+      <div class="logo-row">
+        <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3456 755" role="img" aria-label="urbown" style="height:64px;width:auto;display:block"><g fill="#111111"><path transform="translate(-50 738) scale(1 -1)" d="M541 0V540H401V216C401 152 356 110 288 110C228 110 198 142 198 207V540H58V178C58 59 124 -9 239 -9C312 -9 361 18 401 71V0Z"/><path transform="translate(520 738) scale(1 -1)" d="M370 406V548C362 549 357 549 353 549C289 549 233 507 203 434V540H63V0H203V287C203 369 244 410 326 410C341 410 351 409 370 406Z"/><path transform="translate(910 738) scale(1 -1)" d="M575 263C575 416 490 549 348 549C281 549 233 524 199 470V729H59V0H199V62C233 16 280 -9 348 -9C477 -9 575 100 575 263ZM435 269C435 171 386 108 317 108C246 108 199 169 199 272C199 370 247 432 317 432C386 432 435 369 435 269Z"/></g><g fill="none" stroke="#111111" stroke-width="17" stroke-linejoin="round"><path transform="translate(1524 738) scale(1 -1)" d="M569 266C569 449 470 549 301 549C136 549 35 447 35 270C35 92 136 -9 302 -9C466 -9 569 93 569 266ZM429 268C429 167 377 104 302 104C226 104 175 167 175 270C175 373 226 436 302 436C379 436 429 374 429 268Z"/><path transform="translate(2124 738) scale(1 -1)" d="M766 540H621L539 162L458 540H318L236 162L150 540H5L157 0H301L387 381L468 0H613Z"/><path transform="translate(2902 738) scale(1 -1)" d="M546 0V362C546 481 480 549 365 549C292 549 243 522 203 462V540H63V0H203V324C203 388 248 430 316 430C376 430 406 397 406 333V0Z"/></g></svg><figcaption class="lbl">urbown-logo.svg · ab 40 px</figcaption></figure>
+        <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3479 778" role="img" aria-label="urbown" style="height:30px;width:auto;display:block"><g fill="#111111"><path transform="translate(-38 749) scale(1 -1)" d="M541 0V540H401V216C401 152 356 110 288 110C228 110 198 142 198 207V540H58V178C58 59 124 -9 239 -9C312 -9 361 18 401 71V0Z"/><path transform="translate(532 749) scale(1 -1)" d="M370 406V548C362 549 357 549 353 549C289 549 233 507 203 434V540H63V0H203V287C203 369 244 410 326 410C341 410 351 409 370 406Z"/><path transform="translate(922 749) scale(1 -1)" d="M575 263C575 416 490 549 348 549C281 549 233 524 199 470V729H59V0H199V62C233 16 280 -9 348 -9C477 -9 575 100 575 263ZM435 269C435 171 386 108 317 108C246 108 199 169 199 272C199 370 247 432 317 432C386 432 435 369 435 269Z"/></g><g fill="none" stroke="#111111" stroke-width="40" stroke-linejoin="round"><path transform="translate(1536 749) scale(1 -1)" d="M569 266C569 449 470 549 301 549C136 549 35 447 35 270C35 92 136 -9 302 -9C466 -9 569 93 569 266ZM429 268C429 167 377 104 302 104C226 104 175 167 175 270C175 373 226 436 302 436C379 436 429 374 429 268Z"/><path transform="translate(2136 749) scale(1 -1)" d="M766 540H621L539 162L458 540H318L236 162L150 540H5L157 0H301L387 381L468 0H613Z"/><path transform="translate(2913 749) scale(1 -1)" d="M546 0V362C546 481 480 549 365 549C292 549 243 522 203 462V540H63V0H203V324C203 388 248 430 316 430C376 430 406 397 406 333V0Z"/></g></svg><figcaption class="lbl">Web · Kopf Landing 30 px</figcaption></figure>
+        <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3479 778" role="img" aria-label="urbown" style="height:26px;width:auto;display:block"><g fill="#111111"><path transform="translate(-38 749) scale(1 -1)" d="M541 0V540H401V216C401 152 356 110 288 110C228 110 198 142 198 207V540H58V178C58 59 124 -9 239 -9C312 -9 361 18 401 71V0Z"/><path transform="translate(532 749) scale(1 -1)" d="M370 406V548C362 549 357 549 353 549C289 549 233 507 203 434V540H63V0H203V287C203 369 244 410 326 410C341 410 351 409 370 406Z"/><path transform="translate(922 749) scale(1 -1)" d="M575 263C575 416 490 549 348 549C281 549 233 524 199 470V729H59V0H199V62C233 16 280 -9 348 -9C477 -9 575 100 575 263ZM435 269C435 171 386 108 317 108C246 108 199 169 199 272C199 370 247 432 317 432C386 432 435 369 435 269Z"/></g><g fill="none" stroke="#111111" stroke-width="40" stroke-linejoin="round"><path transform="translate(1536 749) scale(1 -1)" d="M569 266C569 449 470 549 301 549C136 549 35 447 35 270C35 92 136 -9 302 -9C466 -9 569 93 569 266ZM429 268C429 167 377 104 302 104C226 104 175 167 175 270C175 373 226 436 302 436C379 436 429 374 429 268Z"/><path transform="translate(2136 749) scale(1 -1)" d="M766 540H621L539 162L458 540H318L236 162L150 540H5L157 0H301L387 381L468 0H613Z"/><path transform="translate(2913 749) scale(1 -1)" d="M546 0V362C546 481 480 549 365 549C292 549 243 522 203 462V540H63V0H203V324C203 388 248 430 316 430C376 430 406 397 406 333V0Z"/></g></svg><figcaption class="lbl">Web · Sidebar 26 px</figcaption></figure>
+        <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3479 778" role="img" aria-label="urbown" style="height:24px;width:auto;display:block"><g fill="#111111"><path transform="translate(-38 749) scale(1 -1)" d="M541 0V540H401V216C401 152 356 110 288 110C228 110 198 142 198 207V540H58V178C58 59 124 -9 239 -9C312 -9 361 18 401 71V0Z"/><path transform="translate(532 749) scale(1 -1)" d="M370 406V548C362 549 357 549 353 549C289 549 233 507 203 434V540H63V0H203V287C203 369 244 410 326 410C341 410 351 409 370 406Z"/><path transform="translate(922 749) scale(1 -1)" d="M575 263C575 416 490 549 348 549C281 549 233 524 199 470V729H59V0H199V62C233 16 280 -9 348 -9C477 -9 575 100 575 263ZM435 269C435 171 386 108 317 108C246 108 199 169 199 272C199 370 247 432 317 432C386 432 435 369 435 269Z"/></g><g fill="none" stroke="#111111" stroke-width="40" stroke-linejoin="round"><path transform="translate(1536 749) scale(1 -1)" d="M569 266C569 449 470 549 301 549C136 549 35 447 35 270C35 92 136 -9 302 -9C466 -9 569 93 569 266ZM429 268C429 167 377 104 302 104C226 104 175 167 175 270C175 373 226 436 302 436C379 436 429 374 429 268Z"/><path transform="translate(2136 749) scale(1 -1)" d="M766 540H621L539 162L458 540H318L236 162L150 540H5L157 0H301L387 381L468 0H613Z"/><path transform="translate(2913 749) scale(1 -1)" d="M546 0V362C546 481 480 549 365 549C292 549 243 522 203 462V540H63V0H203V324C203 388 248 430 316 430C376 430 406 397 406 333V0Z"/></g></svg><figcaption class="lbl">Web · Handy 24 px</figcaption></figure>
+        <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3456 755" role="img" aria-label="urbown" style="height:24px;width:auto;display:block"><g fill="#111111"><path transform="translate(-50 738) scale(1 -1)" d="M541 0V540H401V216C401 152 356 110 288 110C228 110 198 142 198 207V540H58V178C58 59 124 -9 239 -9C312 -9 361 18 401 71V0Z"/><path transform="translate(520 738) scale(1 -1)" d="M370 406V548C362 549 357 549 353 549C289 549 233 507 203 434V540H63V0H203V287C203 369 244 410 326 410C341 410 351 409 370 406Z"/><path transform="translate(910 738) scale(1 -1)" d="M575 263C575 416 490 549 348 549C281 549 233 524 199 470V729H59V0H199V62C233 16 280 -9 348 -9C477 -9 575 100 575 263ZM435 269C435 171 386 108 317 108C246 108 199 169 199 272C199 370 247 432 317 432C386 432 435 369 435 269Z"/></g><g fill="none" stroke="#111111" stroke-width="17" stroke-linejoin="round"><path transform="translate(1524 738) scale(1 -1)" d="M569 266C569 449 470 549 301 549C136 549 35 447 35 270C35 92 136 -9 302 -9C466 -9 569 93 569 266ZM429 268C429 167 377 104 302 104C226 104 175 167 175 270C175 373 226 436 302 436C379 436 429 374 429 268Z"/><path transform="translate(2124 738) scale(1 -1)" d="M766 540H621L539 162L458 540H318L236 162L150 540H5L157 0H301L387 381L468 0H613Z"/><path transform="translate(2902 738) scale(1 -1)" d="M546 0V362C546 481 480 549 365 549C292 549 243 522 203 462V540H63V0H203V324C203 388 248 430 316 430C376 430 406 397 406 333V0Z"/></g></svg><figcaption class="lbl">Original bei 24 px – zu blass, nicht verwenden</figcaption></figure>
+      </div>
+      <div class="logo-row">
+        <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1218 1218" role="img" aria-label="urbown" style="height:120px;width:auto;display:block"><g fill="#111111"><path d="M393 465.4V206H311.3V465.4C311.3 512.7 286.7 535.2 235.5 535.2C184.3 535.2 159.7 512.7 159.7 465.4V206H78V465.4C78 557.8 144.5 603.9 235.5 603.9C326.5 603.9 393 557.8 393 465.4Z"/><path d="M771 597.5V583C758.7 576 754 568 754 550.8C751.8 435.3 749.7 430 700.2 408.5C743.8 391.3 765.7 359.6 765.7 311.8C765.7 251.1 730 206 661.3 206H453V597.5H532.9V442.3H624.5C659.1 442.3 674.1 456.3 674.1 489L673 530.4C673 566.9 675.1 578.7 685.2 597.5ZM685.8 323.1C685.8 358 674.6 375.2 629.3 375.2H532.9V273.2H629.3C673 273.2 685.8 289.3 685.8 323.1Z"/><path d="M1145 484.7C1145 446.1 1123.5 415.5 1078.3 389.7C1118 365 1133.4 342.4 1133.4 309.1C1133.4 253.8 1086 206 1002.2 206H823V597.5H1003.8C1097.6 597.5 1145 549.2 1145 484.7ZM1054 317.7C1054 346.2 1033.6 361.8 995.6 361.8H905.7V273.2H995.6C1033.6 273.2 1054 288.7 1054 317.7ZM1065.6 479.9C1065.6 512.7 1044.7 530.4 1004.4 530.4H905.7V428.9H1004.4C1044.7 428.9 1065.6 446.6 1065.6 479.9Z"/></g><g fill="none" stroke="#111111" stroke-width="10.0" stroke-linejoin="round"><path d="M393 833.2C393 715 330.2 628.6 234 628.6C137.4 628.6 76 718.3 76 830.5C76 947.6 137.9 1032.9 234.5 1032.9C330.2 1032.9 393 947.6 393 833.2ZM325.3 832.6C325.3 912.7 288.7 964.2 234.5 964.2C179.9 964.2 143.7 912.7 143.7 830.5C143.7 751.6 179.9 697.3 234.5 697.3C290 697.3 325.3 751 325.3 832.6Z"/><path d="M826 635H753L702.9 928.8L648.8 635H580.8L528.9 928.2L477 635H404L498.6 1026.5H560.6L615.2 720.9L671.3 1026.5H733.2Z"/><path d="M1142 1026.5V635H1073.7V901.4L942.1 635H872V1026.5H940.3V755.9L1073.7 1026.5Z"/></g></svg><figcaption class="lbl">urbown-quadrat.svg</figcaption></figure>
+        <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1218 1218" role="img" aria-label="urbown" style="height:120px;width:auto;display:block"><rect width="1218" height="1218" fill="#FFFFFF"/><g fill="#111111"><path d="M393 465.4V206H311.3V465.4C311.3 512.7 286.7 535.2 235.5 535.2C184.3 535.2 159.7 512.7 159.7 465.4V206H78V465.4C78 557.8 144.5 603.9 235.5 603.9C326.5 603.9 393 557.8 393 465.4Z"/><path d="M771 597.5V583C758.7 576 754 568 754 550.8C751.8 435.3 749.7 430 700.2 408.5C743.8 391.3 765.7 359.6 765.7 311.8C765.7 251.1 730 206 661.3 206H453V597.5H532.9V442.3H624.5C659.1 442.3 674.1 456.3 674.1 489L673 530.4C673 566.9 675.1 578.7 685.2 597.5ZM685.8 323.1C685.8 358 674.6 375.2 629.3 375.2H532.9V273.2H629.3C673 273.2 685.8 289.3 685.8 323.1Z"/><path d="M1145 484.7C1145 446.1 1123.5 415.5 1078.3 389.7C1118 365 1133.4 342.4 1133.4 309.1C1133.4 253.8 1086 206 1002.2 206H823V597.5H1003.8C1097.6 597.5 1145 549.2 1145 484.7ZM1054 317.7C1054 346.2 1033.6 361.8 995.6 361.8H905.7V273.2H995.6C1033.6 273.2 1054 288.7 1054 317.7ZM1065.6 479.9C1065.6 512.7 1044.7 530.4 1004.4 530.4H905.7V428.9H1004.4C1044.7 428.9 1065.6 446.6 1065.6 479.9Z"/></g><g fill="none" stroke="#111111" stroke-width="30.0" stroke-linejoin="round"><path d="M393 833.2C393 715 330.2 628.6 234 628.6C137.4 628.6 76 718.3 76 830.5C76 947.6 137.9 1032.9 234.5 1032.9C330.2 1032.9 393 947.6 393 833.2ZM325.3 832.6C325.3 912.7 288.7 964.2 234.5 964.2C179.9 964.2 143.7 912.7 143.7 830.5C143.7 751.6 179.9 697.3 234.5 697.3C290 697.3 325.3 751 325.3 832.6Z"/><path d="M826 635H753L702.9 928.8L648.8 635H580.8L528.9 928.2L477 635H404L498.6 1026.5H560.6L615.2 720.9L671.3 1026.5H733.2Z"/><path d="M1142 1026.5V635H1073.7V901.4L942.1 635H872V1026.5H940.3V755.9L1073.7 1026.5Z"/></g></svg><figcaption class="lbl">urbown-icon.svg</figcaption></figure>
+        <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1218 1218" role="img" aria-label="urbown" style="height:48px;width:auto;display:block"><rect width="1218" height="1218" fill="#FFFFFF"/><g fill="#111111"><path d="M393 465.4V206H311.3V465.4C311.3 512.7 286.7 535.2 235.5 535.2C184.3 535.2 159.7 512.7 159.7 465.4V206H78V465.4C78 557.8 144.5 603.9 235.5 603.9C326.5 603.9 393 557.8 393 465.4Z"/><path d="M771 597.5V583C758.7 576 754 568 754 550.8C751.8 435.3 749.7 430 700.2 408.5C743.8 391.3 765.7 359.6 765.7 311.8C765.7 251.1 730 206 661.3 206H453V597.5H532.9V442.3H624.5C659.1 442.3 674.1 456.3 674.1 489L673 530.4C673 566.9 675.1 578.7 685.2 597.5ZM685.8 323.1C685.8 358 674.6 375.2 629.3 375.2H532.9V273.2H629.3C673 273.2 685.8 289.3 685.8 323.1Z"/><path d="M1145 484.7C1145 446.1 1123.5 415.5 1078.3 389.7C1118 365 1133.4 342.4 1133.4 309.1C1133.4 253.8 1086 206 1002.2 206H823V597.5H1003.8C1097.6 597.5 1145 549.2 1145 484.7ZM1054 317.7C1054 346.2 1033.6 361.8 995.6 361.8H905.7V273.2H995.6C1033.6 273.2 1054 288.7 1054 317.7ZM1065.6 479.9C1065.6 512.7 1044.7 530.4 1004.4 530.4H905.7V428.9H1004.4C1044.7 428.9 1065.6 446.6 1065.6 479.9Z"/></g><g fill="none" stroke="#111111" stroke-width="30.0" stroke-linejoin="round"><path d="M393 833.2C393 715 330.2 628.6 234 628.6C137.4 628.6 76 718.3 76 830.5C76 947.6 137.9 1032.9 234.5 1032.9C330.2 1032.9 393 947.6 393 833.2ZM325.3 832.6C325.3 912.7 288.7 964.2 234.5 964.2C179.9 964.2 143.7 912.7 143.7 830.5C143.7 751.6 179.9 697.3 234.5 697.3C290 697.3 325.3 751 325.3 832.6Z"/><path d="M826 635H753L702.9 928.8L648.8 635H580.8L528.9 928.2L477 635H404L498.6 1026.5H560.6L615.2 720.9L671.3 1026.5H733.2Z"/><path d="M1142 1026.5V635H1073.7V901.4L942.1 635H872V1026.5H940.3V755.9L1073.7 1026.5Z"/></g></svg><figcaption class="lbl">Icon 48 px</figcaption></figure>
+        <figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1218 1218" role="img" aria-label="urbown" style="height:120px;width:auto;display:block"><rect width="1218" height="1218" fill="#FFFFFF"/><g fill="#111111"><path d="M475.1 520V359.2H424.4V520C424.4 549.3 409.2 563.2 377.4 563.2C345.7 563.2 330.5 549.3 330.5 520V359.2H279.8V520C279.8 577.2 321 605.9 377.4 605.9C433.9 605.9 475.1 577.2 475.1 520Z"/><path d="M709.4 601.9V592.9C701.8 588.6 698.9 583.6 698.9 572.9C697.6 501.3 696.2 498 665.5 484.7C692.6 474 706.1 454.4 706.1 424.7C706.1 387.1 684 359.2 641.4 359.2H512.3V601.9H561.8V505.7H618.6C640.1 505.7 649.3 514.3 649.3 534.6L648.7 560.3C648.7 582.9 650 590.2 656.3 601.9ZM656.6 431.7C656.6 453.4 649.7 464 621.6 464H561.8V400.8H621.6C648.7 400.8 656.6 410.8 656.6 431.7Z"/><path d="M941.3 532C941.3 508 928 489 900 473C924.6 457.7 934.1 443.7 934.1 423.1C934.1 388.8 904.7 359.2 852.8 359.2H741.7V601.9H853.8C911.9 601.9 941.3 571.9 941.3 532ZM884.9 428.4C884.9 446.1 872.3 455.7 848.7 455.7H793V400.8H848.7C872.3 400.8 884.9 410.4 884.9 428.4ZM892.1 529C892.1 549.3 879.1 560.3 854.1 560.3H793V497.3H854.1C879.1 497.3 892.1 508.3 892.1 529Z"/></g><g fill="none" stroke="#111111" stroke-width="18.6" stroke-linejoin="round"><path d="M475.1 748C475.1 674.7 436.2 621.1 376.5 621.1C316.6 621.1 278.5 676.7 278.5 746.3C278.5 818.9 316.9 871.8 376.8 871.8C436.2 871.8 475.1 818.9 475.1 748ZM433.1 747.7C433.1 797.3 410.4 829.2 376.8 829.2C342.9 829.2 320.5 797.3 320.5 746.3C320.5 697.4 342.9 663.8 376.8 663.8C411.2 663.8 433.1 697.1 433.1 747.7Z"/><path d="M743.5 625.1H698.3L667.2 807.3L633.6 625.1H591.5L559.3 806.9L527.2 625.1H481.9L540.5 867.8H579L612.9 678.4L647.6 867.8H686Z"/><path d="M939.5 867.8V625.1H897.1V790.3L815.5 625.1H772.1V867.8H814.4V700L897.1 867.8Z"/></g></svg><figcaption class="lbl">maskable (Schutzzone)</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="buttons"><div class="h"><span class="lbl">8.1</span><h2>Buttons</h2></div>
+    <div class="card pad stack" style="gap:20px">
+      <div class="row" style="gap:20px;align-items:flex-start">
+        <div class="state"><span class="lbl">primary</span><button class="btn">Fläche inserieren</button></div>
+        <div class="state"><span class="lbl">hover</span><button class="btn is-hover" tabindex="-1">Fläche inserieren</button></div>
+        <div class="state"><span class="lbl">fokus</span><button class="btn is-focus" tabindex="-1">Fläche inserieren</button></div>
+        <div class="state"><span class="lbl">laden</span><button class="btn" aria-busy="true" disabled style="opacity:1"><span class="spin"></span>Wird gespeichert …</button></div>
+        <div class="state"><span class="lbl">deaktiviert</span><button class="btn" disabled>Fläche inserieren</button></div>
+      </div>
+      <div class="row" style="gap:20px;align-items:flex-start">
+        <div class="state"><span class="lbl">secondary</span><button class="btn sec2">Abbrechen</button></div>
+        <div class="state"><span class="lbl">hover</span><button class="btn sec2 is-hover" tabindex="-1">Abbrechen</button></div>
+        <div class="state"><span class="lbl">fokus</span><button class="btn sec2 is-focus" tabindex="-1">Abbrechen</button></div>
+        <div class="state"><span class="lbl">link</span><button class="btn link">Alle anzeigen</button></div>
+        <div class="state"><span class="lbl">link hover</span><button class="btn link is-hover" tabindex="-1">Alle anzeigen</button></div>
+        <div class="state"><span class="lbl">icon 44</span><button class="btn icon" aria-label="Weitere Aktionen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button></div>
+      </div>
+      <div class="row" style="gap:20px;align-items:flex-start">
+        <div class="state"><span class="lbl">sm · 36 + Trefferfläche 44</span><button class="btn small sec2 hit">Bearbeiten</button></div>
+        <div class="state"><span class="lbl">lg · Landing 48</span><button class="btn lg">Demo anfragen</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="felder"><div class="h"><span class="lbl">8.2</span><h2>Formularfelder</h2></div>
+    <div class="grid2">
+      <div class="card pad stack">
+        <div class="field"><label for="f1">Titel</label><input class="in" id="f1" placeholder="z. B. Laden mit Schaufenster"></div>
+        <div class="field"><label for="f2">Titel <span class="lbl" style="text-transform:none;letter-spacing:0">(Hover)</span></label><input class="in is-hover" id="f2" value="Laden P7, 14"></div>
+        <div class="field"><label for="f3">Titel <span class="muted" style="font-weight:400">(Fokus)</span></label><input class="in is-focus" id="f3" value="Laden P7, 14"></div>
+        <div class="field"><label for="f4">Fläche</label><div class="unit"><input class="in" id="f4" inputmode="decimal" aria-invalid="true" aria-describedby="f4e"><span>m²</span></div><p class="err" id="f4e"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg>Bitte geben Sie die Fläche in m² ein.</p></div>
+        <div class="field"><label for="f5">Miete pro Monat (optional)</label><div class="unit"><input class="in" id="f5" inputmode="decimal" aria-describedby="f5h"><span>EUR</span></div><p class="help" id="f5h">Leer lassen = «auf Anfrage».</p></div>
+        <div class="field"><label for="f6">Netzwerk</label><input class="in" id="f6" value="Mannheim" disabled></div>
+        <div class="field"><label for="f7">Hochgeladen am</label><input class="in" id="f7" value="14.03.2023" readonly></div>
+      </div>
+      <div class="card pad stack">
+        <div class="field"><label for="f8">Nutzungsart</label><select class="in" id="f8"><option>Einzelhandel</option><option>Gastronomie</option><option>Büro</option><option>Praxis</option><option>Dienstleistung</option><option>Pop-up/Zwischennutzung</option></select></div>
+        <div class="field"><label for="f9">Kurzbeschreibung (optional)</label><textarea class="in" id="f9" style="min-height:88px"></textarea></div>
+        <fieldset class="field" style="border:0;margin:0;padding:0"><legend>Sichtbar für</legend>
+          <label class="chk"><input type="radio" name="vis" checked>Nur Netzwerk Mannheim (Standard)</label>
+          <label class="chk"><input type="radio" name="vis">Alle urbown-Mitglieder</label>
+          <p class="help">Freigegebene Inhalte tragen die Kennzeichnung urbown-weit.</p></fieldset>
+        <label class="chk"><input type="checkbox" checked>Zwischennutzung möglich</label>
+        <label class="chk"><input type="checkbox">barrierefrei</label>
+        <div class="row" style="justify-content:space-between"><span style="font-weight:600;font-size:13px" id="swl">2FA für alle Admins verpflichtend</span><button class="sw-toggle" role="switch" aria-checked="false" aria-labelledby="swl" onclick="const v=this.getAttribute('aria-checked')!=='true';this.setAttribute('aria-checked',v);this.querySelector('em').textContent=v?'Ein':'Aus'"><span class="tr"></span><em style="font-style:normal">Aus</em></button></div>
+        <details class="more"><summary>Weitere Angaben (optional) <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="stack" style="padding:8px 0 4px"><div class="field"><label for="f10">Raumhöhe</label><div class="unit"><input class="in" id="f10"><span>m</span></div></div></div></details>
+      </div>
+      <div class="card pad stack">
+        <div class="field"><label for="f11">Code aus der E-Mail</label><input class="in code" id="f11" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="······"><p class="help">Wir haben Ihnen eine E-Mail an j•••@stadt-mannheim.de geschickt. Der Code ist 15 Minuten gültig.</p></div>
+        <button class="btn" style="width:100%">Code bestätigen</button>
+        <button class="btn link" style="align-self:flex-start">E-Mail erneut senden</button>
+        <div class="drop"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg><b>Dateien hierher ziehen oder auswählen</b><span class="sm muted">Bilder oder PDF, max. 20 MB</span></div>
+        <div class="drop over"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg><b>Loslassen zum Hochladen</b><span class="sm muted">Zustand: Datei wird darübergezogen</span></div>
+        <div class="stack" style="gap:4px"><span class="sm">grundriss.pdf · 64 %</span><div class="bar" role="progressbar" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100" aria-label="grundriss.pdf wird hochgeladen"><i style="width:64%"></i></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="auswahl"><div class="h"><span class="lbl">8.3 · 8.4 · 8.5</span><h2>Chips, Segment-Umschalter, Tabs</h2></div>
+    <div class="card pad stack" style="gap:20px">
+      <div class="chips" role="group" aria-label="Feed filtern">
+        <button class="chip hit" aria-pressed="true">Alles</button><button class="chip hit" aria-pressed="false">Beiträge</button><button class="chip hit is-hover" aria-pressed="false">Flächen</button><button class="chip hit" aria-pressed="false">Immobilien</button><button class="chip hit" aria-pressed="false">City News</button><button class="chip hit" aria-pressed="false">Forum</button><button class="chip hit" aria-pressed="false">Events</button>
+      </div>
+      <div class="row" style="gap:16px">
+        <div class="seg" role="radiogroup" aria-label="Bereich"><button role="radio" aria-checked="true">Netzwerk Mannheim</button><button role="radio" aria-checked="false">urbown-weit</button></div>
+        <div class="seg" role="radiogroup" aria-label="Ansicht"><button role="radio" aria-checked="false">Liste</button><button role="radio" aria-checked="true">Karte</button></div>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Admin"><button role="tab" aria-selected="true">Übersicht</button><button role="tab" aria-selected="false">Einladungen</button><button role="tab" aria-selected="false">Mitglieder</button><button role="tab" aria-selected="false">Moderation</button><button role="tab" aria-selected="false">Sammelimport</button><button role="tab" aria-selected="false">Einstellungen</button></div>
+    </div>
+  </section>
+
+  <section class="sec" id="cards"><div class="h"><span class="lbl">8.6 · 8.8 · 8.9</span><h2>Cards, Badges, Personen</h2></div>
+    <div class="grid2">
+      <article class="card" style="overflow:hidden">
+        <div class="pad stack" style="gap:10px">
+          <div class="thumb">Kein Foto</div>
+          <div class="row" style="gap:6px"><span class="badge solid">verfügbar</span><span class="badge">Einzelhandel</span><span class="badge soft"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:12px;height:12px"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>urbown-weit<span class="sr"> – für alle urbown-Mitglieder sichtbar</span></span></div>
+          <h3><a href="#cards" style="text-decoration:none">Laden mit Schaufenster in 1A-Lage</a></h3>
+          <p class="mono sm">P7, 14</p>
+          <p class="mono sm num muted">142 m² · Front 11,5 m · ab 01.02.2027</p>
+          <p style="font-weight:600" class="num">2 400 € / Monat</p>
+        </div>
+      </article>
+      <div class="card">
+        <div class="pad row" style="justify-content:space-between"><h2>Vakante Flächen</h2><a class="btn link" href="#cards">Alle</a></div>
+        <div class="list">
+          <div class="item click"><div style="flex:1;min-width:0"><b>Eckladen am Paradeplatz</b><p class="sm muted mono">O5, 9 · 95 m²</p></div><span class="badge soft">reserviert</span></div>
+          <div class="item click"><div style="flex:1;min-width:0"><b>Büro im 1. OG</b><p class="sm muted mono">Q6, 2 · 210 m²</p></div><span class="badge solid">verfügbar</span></div>
+          <div class="item click"><div style="flex:1;min-width:0"><b>Gastronomiefläche</b><p class="sm muted mono">N2, 3 · 160 m²</p></div><span class="badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:12px;height:12px"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>wartet auf Freigabe</span></div>
+        </div>
+      </div>
+      <div class="card pad stack">
+        <span class="lbl">Rollen-Badges</span>
+        <div class="row" style="gap:6px"><span class="badge">Eigentümer</span><span class="badge solid">Mitarbeiter Stadt</span><span class="badge">Gewerbe</span><span class="badge">Partner</span></div>
+        <span class="lbl">Status</span>
+        <div class="row" style="gap:6px"><span class="badge solid">verfügbar</span><span class="badge soft">reserviert</span><span class="badge soft">vermietet</span><span class="badge soft">verkauft</span><span class="badge solid">aktiv</span><span class="badge soft">gesperrt</span><span class="badge soft"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:12px;height:12px"><path d="M3 3l18 18"/><path d="M10.6 6.1A9.8 9.8 0 0 1 12 6c5 0 9 6 9 6a17 17 0 0 1-2.6 3.2M6.6 6.6C4.3 8.1 3 12 3 12s4 6 9 6a8.8 8.8 0 0 0 4-1"/></svg>ausgeblendet</span><span class="badge soft">Admin</span><span class="badge soft">aus altem System übernommen</span></div>
+        <span class="lbl">Personen</span>
+        <div class="who"><div class="av">AK</div><div><div class="row" style="gap:6px"><span class="n">Anna Keller</span><span class="badge solid">Mitarbeiter Stadt</span></div><div class="sm muted">Wirtschaftsförderung Mannheim</div></div></div>
+        <div class="who"><div class="av s">TB</div><span class="n">Thomas Brandt</span><span class="badge">Eigentümer</span></div>
+        <div class="row"><span class="dot"></span><span class="sm muted">Neu-Punkt (mit unsichtbarem Text «Neu»)</span></div>
+      </div>
+      <div class="card"><div class="stats"><div><span class="lbl">Mitglieder</span><b>35</b></div><div><span class="lbl">aktiv 30 Tage</span><b>21</b></div><div><span class="lbl">Flächen</span><b>12</b></div><div><span class="lbl">Einladungen offen</span><b>3</b></div></div>
+        <div class="pad"><dl class="kv"><dt>Fläche</dt><dd class="num">142 m²</dd><dt>Schaufensterfront</dt><dd class="num">11,5 m</dd><dt>Verfügbar ab</dt><dd class="num">01.02.2027</dd><dt>Etage</dt><dd>EG</dd></dl></div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="feed"><div class="h"><span class="lbl">8.7</span><h2>Feed-Eintrag, Composer, Umfrage</h2></div>
+    <div class="grid2">
+      <div class="card pad stack" style="gap:10px">
+        <div class="chips" role="group" aria-label="Beitragstyp"><button class="chip hit" aria-pressed="true">Post</button><button class="chip hit" aria-pressed="false">Bild</button><button class="chip hit" aria-pressed="false">Video</button><button class="chip hit" aria-pressed="false">Status</button><button class="chip hit" aria-pressed="false">Umfrage</button></div>
+        <label class="sr" for="cp">Beitrag schreiben</label><textarea id="cp" class="in" style="border:0;padding:0;min-height:56px;outline:none" placeholder="Was gibt es Neues in der Innenstadt?"></textarea>
+        <div class="row" style="justify-content:space-between;border-top:1px solid var(--line);padding-top:10px"><button class="btn link sm">Sichtbar für: Nur Netzwerk Mannheim <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><button class="btn">Veröffentlichen</button></div>
+      </div>
+      <div class="card list">
+        <article class="feed">
+          <div class="fmeta"><div class="who"><div class="av">MS</div><div><div class="row" style="gap:6px"><span class="n">Maria Schulz</span><span class="badge">Gewerbe</span></div><div class="sm muted">Umfrage · Netzwerk Heidelberg · vor 2 Std.</div></div></div>
+            <span class="row" style="margin-left:auto;gap:6px"><span class="badge soft"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:12px;height:12px"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>urbown-weit</span><span class="dot" title="Neu seit Ihrem letzten Besuch"></span><span class="sr">Neu</span></span></div>
+          <p style="font-weight:600">Verkaufsoffener Sonntag im Advent – welcher Termin passt Ihnen?</p>
+          <div class="stack" style="gap:8px" role="group" aria-label="Antworten">
+            <button class="popt" role="checkbox" aria-checked="true"><i class="b" style="width:58%"></i><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg> 7. Dezember</span><span class="mono num">58 %</span></button>
+            <button class="popt" role="checkbox" aria-checked="false"><i class="b" style="width:33%"></i><span>14. Dezember</span><span class="mono num">33 %</span></button>
+            <button class="popt" role="checkbox" aria-checked="false"><i class="b" style="width:9%"></i><span>Beide</span><span class="mono num">9 %</span></button>
+          </div>
+          <p class="sm muted">12 Stimmen · Mehrfachauswahl · endet 25.11.2026</p>
+          <div class="row sm" style="gap:4px"><button class="btn link" aria-pressed="true">Gefällt mir · 3</button><button class="btn link">Kommentieren · 1</button></div>
+          <div class="comments"><div class="who"><div class="av s">TB</div><div><span class="n sm">Thomas Brandt</span> <span class="sm">Der 7. passt, dann ist die Beleuchtung fertig.</span></div></div></div>
+        </article>
+        <article class="feed">
+          <div class="fmeta"><div class="who"><div class="av">AK</div><div><div class="row" style="gap:6px"><span class="n">Anna Keller</span><span class="badge solid">Mitarbeiter Stadt</span></div><div class="sm muted">Status · vor 5 Std.</div></div></div></div>
+          <p class="status">Die Baustelle in den Planken ist ab Montag beendet.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="tabelle"><div class="h"><span class="lbl">8.10</span><h2>Tabelle</h2></div>
+    <div class="card"><div class="tbl" role="region" aria-label="Einladungen" tabindex="0"><table>
+      <thead><tr><th><label class="chk" style="min-height:0"><input type="checkbox" aria-label="Alle auswählen"></label></th><th aria-sort="descending"><button class="btn link" style="padding:0;font:inherit;text-transform:inherit;letter-spacing:inherit;color:inherit">Datum ↓</button></th><th>Person</th><th>Eingeladen von</th><th>Rolle</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        <tr><td><label class="chk" style="min-height:0"><input type="checkbox" aria-label="Auswählen"></label></td><td class="mono num">17.11.2026</td><td><b>Jonas Weber</b><div class="sm muted">Weber Immobilien</div></td><td>Thomas Brandt</td><td><span class="badge">Eigentümer</span></td><td><span class="badge soft">offen</span></td><td><div class="row" style="gap:2px;flex-wrap:nowrap"><button class="btn link">Freigeben</button><button class="btn link">Ablehnen</button></div></td></tr>
+        <tr><td><label class="chk" style="min-height:0"><input type="checkbox" aria-label="Auswählen"></label></td><td class="mono num">12.11.2026</td><td><b>Lea Fischer</b><div class="sm muted">Privat</div></td><td>Anna Keller</td><td><span class="badge">Partner</span></td><td><span class="badge solid">angenommen</span></td><td></td></tr>
+      </tbody></table></div></div>
+    <p class="sm muted">Unter 680 px werden Admin-Tabellen als Kartenliste dargestellt (je Zeile ein Eintrag mit Kennwerten und Aktionen).</p>
+  </section>
+
+  <section class="sec" id="modal"><div class="h"><span class="lbl">8.11 · 8.12</span><h2>Modal / Sheet und Toast</h2></div>
+    <div class="grid2">
+      <div class="ovdemo" aria-hidden="true">
+        <div class="modal">
+          <div class="mh"><h2>Fläche löschen?</h2><span class="btn icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span></div>
+          <div class="mb"><p>Das Inserat «Eckladen am Paradeplatz» und alle Anfragen dazu werden entfernt.</p></div>
+          <div class="mf"><span class="btn sec2">Abbrechen</span><span class="btn">Endgültig löschen</span></div>
+        </div>
+      </div>
+      <div class="stack">
+        <p class="sm muted">Handy: Sheet von unten (Vorschau links). Ab 680 px mittig mit allen Ecken gerundet. Umsetzung mit <span class="mono">&lt;dialog&gt;</span> und <span class="mono">showModal()</span>.</p>
+        <div><div class="toast" role="status">Fläche gespeichert <button class="btn link">Rückgängig</button></div></div>
+        <div><div class="toast" role="alert"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg> Hochladen fehlgeschlagen. Bitte erneut versuchen.</div></div>
+        <button class="btn sec2" style="align-self:flex-start" onclick="showToast()">Toast auslösen</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="nav"><div class="h"><span class="lbl">8.13</span><h2>Navigation</h2></div>
+    <div class="navdemo">
+      <nav class="side" aria-label="Hauptnavigation (Beispiel)">
+        <div style="padding:0 8px;display:flex;flex-direction:column;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3479 778" role="img" aria-label="urbown" style="height:26px;width:auto;display:block"><g fill="#111111"><path transform="translate(-38 749) scale(1 -1)" d="M541 0V540H401V216C401 152 356 110 288 110C228 110 198 142 198 207V540H58V178C58 59 124 -9 239 -9C312 -9 361 18 401 71V0Z"/><path transform="translate(532 749) scale(1 -1)" d="M370 406V548C362 549 357 549 353 549C289 549 233 507 203 434V540H63V0H203V287C203 369 244 410 326 410C341 410 351 409 370 406Z"/><path transform="translate(922 749) scale(1 -1)" d="M575 263C575 416 490 549 348 549C281 549 233 524 199 470V729H59V0H199V62C233 16 280 -9 348 -9C477 -9 575 100 575 263ZM435 269C435 171 386 108 317 108C246 108 199 169 199 272C199 370 247 432 317 432C386 432 435 369 435 269Z"/></g><g fill="none" stroke="#111111" stroke-width="40" stroke-linejoin="round"><path transform="translate(1536 749) scale(1 -1)" d="M569 266C569 449 470 549 301 549C136 549 35 447 35 270C35 92 136 -9 302 -9C466 -9 569 93 569 266ZM429 268C429 167 377 104 302 104C226 104 175 167 175 270C175 373 226 436 302 436C379 436 429 374 429 268Z"/><path transform="translate(2136 749) scale(1 -1)" d="M766 540H621L539 162L458 540H318L236 162L150 540H5L157 0H301L387 381L468 0H613Z"/><path transform="translate(2913 749) scale(1 -1)" d="M546 0V362C546 481 480 549 365 549C292 549 243 522 203 462V540H63V0H203V324C203 388 248 430 316 430C376 430 406 397 406 333V0Z"/></g></svg><span class="mono sm muted">Mannheim</span></div>
+        <div>
+          <div class="grp">Netzwerk</div>
+          <a href="#nav" aria-current="page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Dashboard</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l2-5h14l2 5"/><path d="M4 9v11h16V9"/><path d="M3 9h18"/><path d="M9 20v-6h6v6"/></svg>Vakante Flächen</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></svg>Immobilien</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h12v9H8l-4 3z"/><path d="M16 9h4v9l-3-2h-7v-2"/></svg>Forum</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>City News</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Events</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h7l2 2h9v11H3z"/></svg>Dokumente</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="10" r="2.2"/><circle cx="19" cy="10" r="2.2"/><path d="M7 20c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg>Gruppen</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Karte</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c3 0 5 2.2 5 5"/></svg>Mitglieder</a>
+          <div class="grp">Persönlich</div>
+          <a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H9l-5 4z"/></svg>Nachrichten<span class="cnt">3</span></a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Mein Portfolio</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="8" r="4"/><path d="M3 21c0-3.9 3.1-7 7-7"/><path d="M18 14v6M15 17h6"/></svg>Personen einladen</a>
+          <div class="grp">Verwaltung</div>
+          <a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>Admin Mannheim</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>urbown.com</a>
+        </div>
+      </nav>
+      <div style="padding:12px;display:flex;justify-content:center;align-items:flex-start;gap:20px;flex-wrap:wrap;min-width:0">
+        <div class="phone">
+          <div class="mtop"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3479 778" role="img" aria-label="urbown" style="height:24px;width:auto;display:block"><g fill="#111111"><path transform="translate(-38 749) scale(1 -1)" d="M541 0V540H401V216C401 152 356 110 288 110C228 110 198 142 198 207V540H58V178C58 59 124 -9 239 -9C312 -9 361 18 401 71V0Z"/><path transform="translate(532 749) scale(1 -1)" d="M370 406V548C362 549 357 549 353 549C289 549 233 507 203 434V540H63V0H203V287C203 369 244 410 326 410C341 410 351 409 370 406Z"/><path transform="translate(922 749) scale(1 -1)" d="M575 263C575 416 490 549 348 549C281 549 233 524 199 470V729H59V0H199V62C233 16 280 -9 348 -9C477 -9 575 100 575 263ZM435 269C435 171 386 108 317 108C246 108 199 169 199 272C199 370 247 432 317 432C386 432 435 369 435 269Z"/></g><g fill="none" stroke="#111111" stroke-width="40" stroke-linejoin="round"><path transform="translate(1536 749) scale(1 -1)" d="M569 266C569 449 470 549 301 549C136 549 35 447 35 270C35 92 136 -9 302 -9C466 -9 569 93 569 266ZM429 268C429 167 377 104 302 104C226 104 175 167 175 270C175 373 226 436 302 436C379 436 429 374 429 268Z"/><path transform="translate(2136 749) scale(1 -1)" d="M766 540H621L539 162L458 540H318L236 162L150 540H5L157 0H301L387 381L468 0H613Z"/><path transform="translate(2913 749) scale(1 -1)" d="M546 0V362C546 481 480 549 365 549C292 549 243 522 203 462V540H63V0H203V324C203 388 248 430 316 430C376 430 406 397 406 333V0Z"/></g></svg><span class="mono sm">Mannheim</span><span class="av s">MK</span></div>
+          <div class="pbody">
+            <div class="stack" style="gap:2px"><span class="lbl">Erstellen</span><h2>Was möchten Sie erstellen?</h2></div>
+            <div class="sheetgrid">
+              <a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><path d="M5 6h14M5 12h14M5 18h9"/></svg>Post</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><rect x="3" y="5" width="18" height="14"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></svg>Bild</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>Umfrage</a>
+              <a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><path d="M3 9l2-5h14l2 5"/><path d="M4 9v11h16V9"/><path d="M3 9h18"/><path d="M9 20v-6h6v6"/></svg>Vakante Fläche</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><rect x="5" y="3" width="14" height="18"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></svg>Immobilie</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><rect x="3" y="5" width="18" height="16"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Event</a>
+              <a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><rect x="3" y="4" width="18" height="16"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>City News</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><path d="M4 5h12v9H8l-4 3z"/><path d="M16 9h4v9l-3-2h-7v-2"/></svg>Forenthema</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Kartenpunkt</a>
+            </div>
+          </div>
+          <nav class="tabbar" aria-label="Navigation Handy (Beispiel)">
+            <a href="#nav" aria-current="page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Start</a><a href="#nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l2-5h14l2 5"/><path d="M4 9v11h16V9"/><path d="M3 9h18"/><path d="M9 20v-6h6v6"/></svg>Flächen</a><button class="plus" aria-haspopup="dialog"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Erstellen</button><a href="#nav" aria-label="Nachrichten, 3 ungelesen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H9l-5 4z"/></svg><span class="bub" aria-hidden="true">3</span>Nachrichten</a><button><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menü</button>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="karte"><div class="h"><span class="lbl">8.14</span><h2>Karte</h2></div>
+    <div class="row" style="justify-content:space-between"><div class="chips" role="group" aria-label="Typ"><button class="chip hit" aria-pressed="true">Vakante Flächen</button><button class="chip hit" aria-pressed="true">Immobilien</button><button class="chip hit" aria-pressed="true">Events</button><button class="chip hit" aria-pressed="false">Kartenpunkte</button></div>
+      <div class="seg" role="radiogroup" aria-label="Ansicht"><button role="radio" aria-checked="false">Liste</button><button role="radio" aria-checked="true">Karte</button></div></div>
+    <div class="map" role="img" aria-label="Beispielkarte mit Markern">
+      <svg class="streets" viewBox="0 0 600 340" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="#FFFFFF" stroke-width="10"><path d="M0 70H600M0 150H600M0 230H600M0 300H600M90 0V340M200 0V340M310 0V340M420 0V340M520 0V340"/></g><g fill="none" stroke="#DADAD5" stroke-width="1"><path d="M0 110H600M0 190H600M145 0V340M365 0V340"/></g></svg>
+      <button class="mk fl" style="left:24%;top:42%" aria-label="Vakante Fläche: Laden P7, 14"><i></i></button>
+      <button class="mk im" style="left:36%;top:84%" aria-label="Immobilie: Geschäftshaus Q2"><i></i></button>
+      <button class="mk ev sel" style="left:50%;top:62%" aria-label="Event: Stammtisch, geöffnet"><i></i></button>
+      <button class="mk pt" style="left:70%;top:44%" aria-label="Kartenpunkt: Idee Sitzbänke"><i></i></button>
+      <button class="mk nw" style="left:84%;top:72%" aria-label="Neuer Ort"><i></i></button>
+      <span class="cl" style="left:12%;top:78%">12</span>
+      <div class="popup" style="left:50%;top:auto;bottom:calc(38% + 22px)"><span class="badge" style="align-self:flex-start">Event</span><b>Stammtisch Innenstadt</b><span class="mono">Mi 18.11. · 18:30 · N2, 3</span><a href="#karte">Öffnen →</a></div>
+      <div class="zoom"><button aria-label="Vergrössern">+</button><button aria-label="Verkleinern">−</button></div>
+      <span class="attr">© OpenStreetMap-Mitwirkende</span>
+    </div>
+    <div class="legend"><span><i style="background:var(--ink)"></i>Vakante Fläche</span><span><i style="background:#fff"></i>Immobilie</span><span><i style="background:var(--ink);border-radius:50%"></i>Event</span><span><i style="background:#fff;border-radius:50%"></i>Kartenpunkt</span><span><i style="background:#fff;border-radius:50%;border-style:dashed"></i>Ort wird gesetzt</span></div>
+  </section>
+
+  <section class="sec" id="kalender"><div class="h"><span class="lbl">8.15</span><h2>Kalender</h2></div>
+    <div class="card pad stack">
+      <div class="row" style="justify-content:space-between"><div class="row" style="gap:4px"><button class="btn icon" aria-label="Vorheriger Monat"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><h2>November 2026</h2><button class="btn icon" aria-label="Nächster Monat"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button><button class="btn small sec2 hit">Heute</button></div>
+        <div class="seg" role="radiogroup" aria-label="Ansicht"><button role="radio" aria-checked="true">Monat</button><button role="radio" aria-checked="false">Liste</button></div></div>
+      <div class="cal"><div class="dh">Mo</div><div class="dh">Di</div><div class="dh">Mi</div><div class="dh">Do</div><div class="dh">Fr</div><div class="dh">Sa</div><div class="dh">So</div><div class="off">26</div><div class="off">27</div><div class="off">28</div><div class="off">29</div><div class="off">30</div><div class="off">31</div><div class="">1</div><div class="">2</div><div class="">3</div><div class="">4</div><div class="has">5<button class="ev">09:00 Rundgang Planken</button></div><div class="">6</div><div class="">7</div><div class="">8</div><div class="">9</div><div class="">10</div><div class="">11</div><div class="has">12<button class="ev">19:00 AG Leerstand</button><button class="ev">20:00 Sitzung</button></div><div class="">13</div><div class="">14</div><div class="">15</div><div class="">16</div><div class="">17</div><div class="today has"><b aria-current="date">18</b><button class="ev">18:30 Stammtisch</button></div><div class="">19</div><div class="">20</div><div class="">21</div><div class="">22</div><div class="">23</div><div class="">24</div><div class="">25</div><div class="has">26<button class="ev">17:00 Workshop Zwischennutzung</button></div><div class="">27</div><div class="">28</div><div class="">29</div><div class="">30</div><div class="off">1</div><div class="off">2</div><div class="off">3</div><div class="off">4</div><div class="off">5</div><div class="off">6</div></div>
+      <div class="list card">
+        <div class="item"><div class="datebox"><b>18</b><span class="lbl">Nov</span></div><div style="flex:1;min-width:0" class="stack" ><div style="display:flex;flex-direction:column;gap:2px"><a href="#kalender" style="font-weight:600">Stammtisch Innenstadt</a><span class="sm muted">Mi, 18.11. · 18:30 · Café Quadrat, N2, 3</span></div><div class="row"><span class="badge">Anmeldung möglich</span><button class="btn small hit" aria-pressed="true"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Angemeldet</button></div></div></div>
+        <div class="item"><div class="datebox"><b>26</b><span class="lbl">Nov</span></div><div style="flex:1;min-width:0" class="stack"><div style="display:flex;flex-direction:column;gap:2px"><a href="#kalender" style="font-weight:600">Workshop Zwischennutzung</a><span class="sm muted">Do, 26.11. · 17:00 · Rathaus, E5</span></div><div class="row"><span class="badge">Anmeldung möglich</span><button class="btn small sec2 hit" aria-pressed="false">Teilnehmen</button></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="dokumente"><div class="h"><span class="lbl">8.16</span><h2>Dokumentliste</h2></div>
+    <div class="card">
+      <div class="pad stack" style="border-bottom:1px solid var(--line)">
+        <nav class="crumbs" aria-label="Ordnerpfad"><a href="#dokumente">Netzwerk</a><span aria-hidden="true">/</span><a href="#dokumente">Protokolle</a><span aria-hidden="true">/</span><b aria-current="page">2026</b></nav>
+        <div class="row" style="justify-content:space-between"><div class="field" style="max-width:320px"><label class="sr" for="ds">Dokumente durchsuchen</label><input class="in" id="ds" type="search" placeholder="Dokumente durchsuchen"></div><div class="row"><button class="btn sec2">Neuer Ordner</button><button class="btn"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></svg>Hochladen</button></div></div>
+      </div>
+      <div class="list">
+        <div class="doc"><span class="ft dir"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h7l2 2h9v11H3z"/></svg></span><div class="b"><b>Arbeitsgruppe Leerstand</b><span class="sm muted">12 Einträge</span></div><div class="acts"><button class="btn link">Umbenennen</button><button class="btn link">Löschen</button><button class="btn icon" aria-label="Aktionen für Arbeitsgruppe Leerstand"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button></div></div>
+        <div class="doc"><span class="ft">PDF</span><div class="b"><b>Protokoll Netzwerktreffen März 2023.pdf</b><span class="sm muted"><span class="num">1,2 MB</span> · Marc Klein · hochgeladen am 14.03.2023</span></div><div class="acts"><button class="btn link">Umbenennen</button><button class="btn link">Verschieben</button><button class="btn link">Löschen</button><button class="btn icon" aria-label="Aktionen für Protokoll Netzwerktreffen März 2023"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button></div></div>
+        <div class="doc"><span class="ft">XLS</span><div class="b"><b>Leerstandsliste Innenstadt.xlsx</b><span class="sm muted"><span class="num">84 KB</span> · Anna Keller · hochgeladen am 02.11.2026</span></div><div class="acts"><button class="btn link">Umbenennen</button><button class="btn link">Verschieben</button><button class="btn link">Löschen</button><button class="btn icon" aria-label="Aktionen für Leerstandsliste Innenstadt"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="landing"><div class="h"><span class="lbl">7.2</span><h2>Landingpage-Raster</h2></div>
+    <div class="g3"><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><path d="M3 9l2-5h14l2 5"/><path d="M4 9v11h16V9"/><path d="M3 9h18"/><path d="M9 20v-6h6v6"/></svg><h3>Vakante Flächen</h3><p class="muted">Leerstände kurz inserieren: Fläche, Schaufensterfront, verfügbar ab.</p></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><rect x="5" y="3" width="14" height="18"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></svg><h3>Diskrete Immobilien</h3><p class="muted">Verkaufsinserate nur für Mitglieder.</p></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:24px;height:24px"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><h3>Umfragen</h3><p class="muted">So einfach wie im Messenger. Ergebnisse live.</p></div></div>
+  </section>
+</main>
+<div id="toastLayer" style="position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:80"></div>
+<script>
+function showToast(){const l=document.getElementById('toastLayer');l.innerHTML='<div class="toast" role="status">E-Mail mit Code gesendet</div>';clearTimeout(window._t);window._t=setTimeout(()=>l.innerHTML='',5000);}
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')!=='true')));
+document.querySelectorAll('[role=radiogroup]').forEach(g=>g.querySelectorAll('[role=radio]').forEach(b=>b.addEventListener('click',()=>{g.querySelectorAll('[role=radio]').forEach(x=>x.setAttribute('aria-checked','false'));b.setAttribute('aria-checked','true');})));
+document.querySelectorAll('[role=tablist]').forEach(g=>g.querySelectorAll('[role=tab]').forEach(b=>b.addEventListener('click',()=>{g.querySelectorAll('[role=tab]').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');})));
+</script>
+</body>
+</html>

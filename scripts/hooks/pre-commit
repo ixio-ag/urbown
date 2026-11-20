@@ -1,0 +1,32 @@
+#!/bin/sh
+# Gitleaks-Prüfung der vorgemerkten Änderungen (installiert über scripts/install-hooks.sh).
+# Nie mit --no-verify umgehen (CLAUDE.md). Meldet Gitleaks etwas: anhalten und Marc informieren.
+GITLEAKS_VERSION="v8.30.1"
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT" || exit 1
+
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks git --pre-commit --staged --redact --no-banner --config .gitleaks.toml .
+  status=$?
+elif command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
+  # Unter Windows (Git Bash) braucht Docker den Windows-Pfad und keine Pfadumwandlung.
+  HOSTDIR="$ROOT"
+  if pwd -W >/dev/null 2>&1; then HOSTDIR="$(pwd -W)"; fi
+  MSYS_NO_PATHCONV=1 docker run --rm -v "$HOSTDIR:/repo" -w /repo \
+    -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0='*' \
+    "ghcr.io/gitleaks/gitleaks:$GITLEAKS_VERSION" \
+    git --pre-commit --staged --redact --no-banner --config /repo/.gitleaks.toml /repo
+  status=$?
+else
+  echo "Gitleaks nicht verfügbar: weder 'gitleaks' installiert noch Docker gestartet." >&2
+  echo "Bitte Docker Desktop starten oder gitleaks installieren. Commit abgebrochen." >&2
+  exit 1
+fi
+
+if [ "$status" -ne 0 ]; then
+  echo "" >&2
+  echo "Gitleaks hat mögliche Geheimnisse gefunden. Commit abgebrochen." >&2
+  echo "Nicht mit --no-verify umgehen. Datei bereinigen und Marc informieren." >&2
+  exit 1
+fi
+exit 0
