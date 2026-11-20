@@ -10,9 +10,6 @@ secrets/
 
 # Lokale Daten des Docker-Stacks
 docker/volumes/
-docker/supabase/volumes/db/data/
-docker/supabase/volumes/storage/
-docker/supabase/volumes/snippets/
 
 # Node / Next.js
 node_modules/
