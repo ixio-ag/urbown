@@ -8,6 +8,7 @@ import { EinblickSection, PriceSection } from "@/components/site/shared-sections
 import { FEATURES } from "@/content/features";
 import { pageMetadata } from "@/lib/metadata";
 import { COMPANY, CONTACT_EMAIL, DEMO_URL, SITE_URL } from "@/lib/site";
+import { REFERENCE_STATS } from "@/content/reference";
 
 export const metadata = pageMetadata({
   path: "/",
@@ -102,13 +103,7 @@ export default function StartPage() {
 
       <Section variant="white" labelledBy="referenz">
         <SectionTitle label="Referenz" title="Mannheim ist seit 2022 dabei." id="referenz" />
-        <RefStats
-          items={[
-            { value: "2022", text: "Start des Netzwerks Mannheim" },
-            { value: "35", text: "Mitglieder: Eigentümer, Gewerbe, Stadt" },
-            { value: "53", text: "Immobilien im Netzwerk" },
-          ]}
-        />
+        <RefStats items={REFERENCE_STATS} />
       </Section>
 
       <PriceSection

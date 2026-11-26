@@ -1,0 +1,30 @@
+{
+  "urbown-av-vertrag-entwurf.docx": {
+    "type": "Word",
+    "bytes": 17380,
+    "size": "17 KB"
+  },
+  "urbown-av-vertrag-entwurf.pdf": {
+    "type": "PDF",
+    "bytes": 108126,
+    "size": "106 KB",
+    "pages": 6
+  },
+  "urbown-infopaket-staedte.pdf": {
+    "type": "PDF",
+    "bytes": 210352,
+    "size": "206 KB",
+    "pages": 8
+  },
+  "urbown-muster-beschlussvorlage.docx": {
+    "type": "Word",
+    "bytes": 15179,
+    "size": "15 KB"
+  },
+  "urbown-muster-beschlussvorlage.pdf": {
+    "type": "PDF",
+    "bytes": 73303,
+    "size": "72 KB",
+    "pages": 4
+  }
+}

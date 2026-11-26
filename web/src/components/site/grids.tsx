@@ -97,8 +97,8 @@ export function AudienceGrid({ items }: { items: { label: string; text: string; 
 }
 
 /** Referenz-Kennzahlen: Kasten 1,5 px, drei Zahlen Archivo 900 (UB03 6 «RefStats»). */
-export function RefStats({ items }: { items: { value: string; text: string }[] }) {
-  return (
+export function RefStats({ items, note }: { items: { value: string; text: string }[]; note?: string }) {
+  const stats = (
     <dl className="grid grid-cols-1 border-[1.5px] border-ink md:grid-cols-3">
       {items.map((it) => (
         <div
@@ -110,5 +110,12 @@ export function RefStats({ items }: { items: { value: string; text: string }[] }
         </div>
       ))}
     </dl>
+  );
+  if (!note) return stats;
+  return (
+    <div className="flex flex-col gap-3">
+      {stats}
+      <p className="text-sm text-ink-2">{note}</p>
+    </div>
   );
 }

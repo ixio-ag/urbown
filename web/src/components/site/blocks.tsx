@@ -90,3 +90,30 @@ export function GlanceList({ rows }: { rows: { term: string; value: string }[] }
     </dl>
   );
 }
+
+/** Liste mit quadratischem Aufzählungszeichen 8 px in ink (UB04 4.4). */
+export function SquareList({ items, className }: { items: ReactNode[]; className?: string }) {
+  return (
+    <ul role="list" className={cn("flex flex-col gap-2", className)}>
+      {items.map((it, i) => (
+        <li key={i} className="relative pl-5 before:absolute before:top-[0.6em] before:left-0 before:size-2 before:bg-ink">
+          {typo(it)}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Aufgabenteilung (UB04 4.4): Raster g2 mit Rahmen 1,5 px wie der Preis-Block, ohne Hervorhebung. */
+export function TaskSplit({ columns }: { columns: { label: string; items: string[] }[] }) {
+  return (
+    <ul role="list" className="grid grid-cols-1 border-t-[1.5px] border-l-[1.5px] border-ink md:grid-cols-2">
+      {columns.map((col) => (
+        <li key={col.label} className="flex min-w-0 flex-col gap-4 border-r-[1.5px] border-b-[1.5px] border-ink bg-white p-7">
+          <h3 className="lbl">{col.label}</h3>
+          <SquareList items={col.items} />
+        </li>
+      ))}
+    </ul>
+  );
+}

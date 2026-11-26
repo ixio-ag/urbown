@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ButtonLink } from "@/components/ui/button";
 import { DEMO_URL } from "@/lib/site";
 import { PriceBlock } from "./blocks";
@@ -28,12 +29,15 @@ export function PriceSection({
   title,
   lead,
   background,
+  children,
 }: {
   id: string;
   label: string;
   title: string;
   lead: string;
   background: "white" | "paper";
+  /** Zusatz unter dem Preis-Block (z. B. Hinweis «Budget» auf /staedte). */
+  children?: ReactNode;
 }) {
   return (
     <Section variant={background} labelledBy={id} innerClassName="gap-7">
@@ -41,6 +45,7 @@ export function PriceSection({
         <Lead>{lead}</Lead>
       </Split>
       <PriceBlock />
+      {children}
     </Section>
   );
 }

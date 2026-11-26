@@ -96,6 +96,19 @@ export function ButtonLink({ variant, size, lift, block, icon, className, childr
   );
 }
 
+type DownloadLinkProps = Omit<ComponentProps<"a">, "className" | "href"> &
+  ButtonVariantProps & { href: string; icon?: IconName; className?: string };
+
+/** Datei-Link im Aussehen eines Buttons (UB04 6.2): normales <a> mit download-Attribut, ohne Client-Navigation. */
+export function DownloadLink({ variant, size, lift, block, icon, className, children, ...props }: DownloadLinkProps) {
+  return (
+    <a download className={cn(buttonVariants({ variant, size, lift, block }), className)} {...props}>
+      {icon ? <Icon name={icon} size={18} /> : null}
+      {children}
+    </a>
+  );
+}
+
 type IconButtonProps = Omit<ComponentProps<"button">, "children"> & {
   icon: IconName;
   /** Pflicht: zugänglicher Name (UB02 8.1). */

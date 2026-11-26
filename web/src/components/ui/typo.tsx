@@ -13,7 +13,11 @@ export function Nowrap({ children }: { children: ReactNode }) {
 // «urbown» als eigenes Wort oder Wortteil (nicht in «urbown.com»), kurze Bindestrich-Wörter mit Zahl («6-stelligen», «2-Faktor»)
 const PATTERN = /(urbown(?!\.com)|\d+-[A-Za-zÄÖÜäöü]+)/g;
 
-function typoString(text: string, keyPrefix: string): ReactNode {
+// Abkürzungen mit Leerschlag nicht trennen: «z. B.», «u. a.», «d. h.» (geschütztes Leerzeichen, Text bleibt gleich)
+const ABBR = /\b(z|u|d)\. (B|a|h)\./g;
+
+function typoString(raw: string, keyPrefix: string): ReactNode {
+  const text = raw.replace(ABBR, "$1.\u00a0$2.");
   const parts = text.split(PATTERN);
   if (parts.length === 1) return text;
   return parts.map((part, i) => {
@@ -24,7 +28,8 @@ function typoString(text: string, keyPrefix: string): ReactNode {
 }
 
 /**
- * Typografie für Inhalte (K1, K6): setzt «urbown» als <Brand> und kurze Bindestrich-Wörter mit Zahl in <Nowrap>.
+ * Typografie für Inhalte (K1, K6): setzt «urbown» als <Brand>, kurze Bindestrich-Wörter mit Zahl in <Nowrap>
+ * und hält Abkürzungen wie «z. B.» zusammen.
  * Bearbeitet Zeichenketten, Listen und Fragmente; andere Elemente bleiben unverändert.
  */
 export function typo(node: ReactNode, keyPrefix = "t"): ReactNode {

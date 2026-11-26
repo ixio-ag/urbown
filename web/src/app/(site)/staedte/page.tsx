@@ -1,17 +1,27 @@
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { ButtonLink } from "@/components/ui/button";
-import { Faq, GlanceList, Steps } from "@/components/site/blocks";
-import { FeatureTile, RuleCell, RuleGrid } from "@/components/site/grids";
+import { ButtonLink, DownloadLink } from "@/components/ui/button";
+import { CtaBand } from "@/components/site/cta-band";
+import { DownloadCard } from "@/components/site/download-card";
+import { Faq, GlanceList, SquareList, Steps, TaskSplit } from "@/components/site/blocks";
+import { FeatureTile, RefStats, RuleCell, RuleGrid } from "@/components/site/grids";
 import { ImageBand, PHOTOS } from "@/components/site/photos";
-import { H3, Hero, HeroCard, Lead, Outline, Section, SectionTitle, Split } from "@/components/site/section";
+import { H3, Hero, HeroCard, Lead, Note, Outline, Section, SectionTitle, Split } from "@/components/site/section";
 import { PriceSection } from "@/components/site/shared-sections";
+import { typo } from "@/components/ui/typo";
+import { DOWNLOADS, INFOPAKET_FILE, downloadHref, downloadMeta } from "@/content/downloads";
+import { FAQ_STAEDTE } from "@/content/faq-staedte";
+import { FUNDING } from "@/content/funding";
+import { REFERENCE_NOTE, REFERENCE_STATS } from "@/content/reference";
 import { pageMetadata } from "@/lib/metadata";
+import { DEMO_URL } from "@/lib/site";
 
+// Texte: UB04-kommunen.md Abschnitt 4 (wörtlich)
 export const metadata = pageMetadata({
   path: "/staedte",
   title: "Für Städte & Ämter",
   description:
-    "Ein vertraulicher Kanal zu den Eigentümern Ihrer Innenstadt und ein Frühwarnsystem für Leerstand. Start in rund zwei Wochen, Hosting in der Schweiz.",
+    "Vertraulicher Kanal zu den Eigentümern Ihrer Innenstadt, Frühwarnsystem für Leerstand. Start in zwei Wochen, Daten in der Schweiz, Unterlagen zum Download.",
 });
 
 const BENEFITS = [
@@ -23,24 +33,26 @@ const BENEFITS = [
   { icon: "shield", title: "Volle Kontrolle", text: "Die Stadt verwaltet ihr Netzwerk selbst: Einladungen freigeben, Inhalte moderieren, Auswertungen abrufen." },
 ] as const;
 
-const FUNDING = [
+const TASKS = [
   {
-    tag: "Deutschland",
-    title: "Bund und Länder",
+    label: "Das übernehmen wir",
     items: [
-      "Städtebauförderung, Programm «Lebendige Zentren» (über die Länder)",
-      "Handlungsstrategie Leerstandsaktivierung des Bundesbauministeriums",
-      "Bundesprogramm «Gewerbe zu Wohnen» (seit Juli 2026)",
-      "Landesprogramme für Innenstädte und Ortskerne",
+      "Netzwerk einrichten: Adresse, Kurzadresse, Logo, Kategorien",
+      "Vorlagen für Einladungsbrief und E-Mail an die Eigentümer",
+      "Kick-off vorbereiten und moderieren",
+      "Einführung für Ihre Administration (rund eine Stunde, online)",
+      "Betrieb, Updates, Backups und Support",
+      "Quartalsbericht mit anonymisierter Auswertung",
     ],
   },
   {
-    tag: "Schweiz",
-    title: "Bund und Kantone",
+    label: "Das übernimmt die Stadt",
     items: [
-      "Modellvorhaben Nachhaltige Raumentwicklung 2025–2030 (ARE, SECO u. a.), Schwerpunkt Zentrumsfunktionen",
-      "Neue Regionalpolitik (SECO und Kantone)",
-      "Kantonale Wirtschafts- und Standortförderung",
+      "eine oder zwei Personen für die Administration benennen",
+      "Eigentümer der Innenstadt per Brief zum Kick-off einladen",
+      "Teilnehmende im Netzwerk erfassen, einzeln oder per Sammelimport",
+      "Einladungen freigeben und eigene Beiträge schreiben",
+      "Ergebnisse des Pilots auswerten und entscheiden",
     ],
   },
 ];
@@ -48,42 +60,28 @@ const FUNDING = [
 const PRIVACY = [
   [
     "Geschlossen",
-    "Kein Inhalt ist öffentlich sichtbar. Zugang nur mit Login und nur auf Einladung. Standard: Inhalte und Profile sind nur im eigenen Netzwerk sichtbar. Mitglieder können sie freiwillig für alle urbown-Mitglieder freigeben.",
+    "Kein Inhalt ist öffentlich sichtbar. Zugang nur mit Login und nur auf Einladung. Inhalte und Profile sind standardmässig nur im eigenen Netzwerk sichtbar. Mitglieder können sie freiwillig für alle urbown-Mitglieder freigeben.",
   ],
-  ["DSGVO und DSG", "Auftragsverarbeitungsvertrag inklusive. Nur notwendige Cookies, keine Werbetracker."],
   [
-    "Hosting in der Schweiz",
-    "DSGVO- und DSG-konform. Server in Zürich, verschlüsselte Backups täglich in Genf. Alle Verbindungen verschlüsselt.",
+    "Daten in der Schweiz",
+    "Datenbank, Dateien und verschlüsselte Backups liegen in Rechenzentren in Zürich und Genf. Das ist auch für deutsche Städte zulässig: Die EU anerkennt den Schweizer Datenschutz als gleichwertig.",
   ],
-  ["Ihre Daten bleiben Ihre", "Export jederzeit möglich. Bei Vertragsende erhalten Sie alle Daten und wir löschen sie."],
+  [
+    "DSGVO und DSG",
+    "Vertrag zur Auftragsverarbeitung inklusive. Nur notwendige Cookies, keine Werbetracker, keine Analyse-Dienste. Export jederzeit; bei Vertragsende erhalten Sie alle Daten, danach löschen wir sie.",
+  ],
+  [
+    "Offene Liste der Dienstleister",
+    "Für den sicheren Betrieb setzen wir wenige, vertraglich gebundene Dienstleister ein, etwa für den Schutz vor Angriffen und den Versand von E-Mails. Alle stehen im AV-Vertrag.",
+  ],
+  [
+    "Sicher angemeldet",
+    "Verschlüsselte Verbindungen, Rechte je Rolle, Zwei-Faktor-Anmeldung für Administratorinnen und Administratoren. Direktnachrichten liest niemand von urbown.",
+  ],
+  ["Barrierefrei", "Gebaut nach WCAG 2.2 AA, der Grundlage für BITV 2.0 und EN 301 549. Jede Seite wird automatisch geprüft."],
 ] as const;
 
-const FAQ = [
-  {
-    q: "Wer moderiert das Netzwerk?",
-    a: "Die Stadt benennt eine oder zwei Personen als Administration, meist aus Innenstadtbüro, Citymanagement oder Wirtschaftsförderung. Wir unterstützen beim Start und bei Bedarf dauerhaft.",
-  },
-  {
-    q: "Wie viel Aufwand entsteht für die Verwaltung?",
-    a: "Nach dem Start rechnen Städte mit zwei bis vier Stunden pro Woche: Einladungen freigeben, Beiträge der Stadt, gelegentliche Moderation.",
-  },
-  {
-    q: "Brauchen wir eine Ausschreibung?",
-    a: "Für den Pilot nicht, er ist kostenlos. Für die Zeit danach hängt es vom Angebot und den Regeln Ihres Landes bzw. Kantons ab. Bitte prüfen Sie das mit Ihrer Vergabestelle. Wir liefern alle Unterlagen.",
-  },
-  {
-    q: "Was kostet urbown die Mitglieder?",
-    a: "Nichts. Eigentümer, Gewerbe und Partner nutzen urbown kostenlos. Das ist wichtig, damit möglichst viele mitmachen.",
-  },
-  {
-    q: "Können mehrere Gemeinden ein Netzwerk teilen?",
-    a: "Ja. Für Landkreise, Regionen oder Gemeindeverbünde gibt es ein Regionalangebot mit mehreren Netzwerken unter einem Vertrag.",
-  },
-  {
-    q: "Was passiert nach dem Pilot?",
-    a: "Gegen Ende des Pilots besprechen wir die Ergebnisse und Sie erhalten ein Angebot. Ohne Ihre Zusage endet der Pilot automatisch. Damit das Budget rechtzeitig eingeplant werden kann, senden wir das Angebot auf Wunsch schon früher.",
-  },
-];
+const infopaket = downloadMeta(INFOPAKET_FILE);
 
 export default function StaedtePage() {
   return (
@@ -101,9 +99,16 @@ export default function StaedtePage() {
             <ButtonLink href="/kontakt?anliegen=demo" size="lg" lift>
               Demo-Termin vereinbaren
             </ButtonLink>
-            <ButtonLink href="/kontakt?anliegen=infopaket" variant="secondary" size="lg" lift>
-              Infopaket anfordern
-            </ButtonLink>
+            <DownloadLink
+              href={downloadHref(INFOPAKET_FILE)}
+              variant="secondary"
+              size="lg"
+              lift
+              icon="download"
+              aria-label={`Infopaket herunterladen (${infopaket.type}, ${infopaket.size})`}
+            >
+              Infopaket herunterladen
+            </DownloadLink>
           </>
         }
         aside={
@@ -112,9 +117,10 @@ export default function StaedtePage() {
               rows={[
                 { term: "Start", value: "ca. 2 Wochen" },
                 { term: "Aufwand Verwaltung", value: "ca. 2–4 Std./Woche" },
-                { term: "Hosting", value: "Schweiz" },
-                { term: "Danach", value: "individuelles Angebot" },
                 { term: "Pilot", value: "6 Monate kostenlos" },
+                { term: "Danach", value: "individuelles Angebot" },
+                { term: "Datenspeicherung", value: "Schweiz" },
+                { term: "Barrierefreiheit", value: "WCAG 2.2 AA" },
               ]}
             />
           </HeroCard>
@@ -132,10 +138,26 @@ export default function StaedtePage() {
         </RuleGrid>
       </Section>
 
-      <Section variant="white" labelledBy="ablauf">
+      <Section variant="white" labelledBy="ablauf" innerClassName="gap-10">
         <Split aside={<SectionTitle label="Ablauf" title="So arbeiten wir mit Ihrer Verwaltung." id="ablauf" />}>
           <Steps />
         </Split>
+        <div className="flex flex-col gap-4">
+          <TaskSplit columns={TASKS} />
+          <p className="text-sm text-ink-2">
+            Die Einladung zum Kick-off kommt von der Stadt. Adressen der Eigentümer geben Sie dafür nicht an uns weiter.
+          </p>
+        </div>
+      </Section>
+
+      <Section variant="paper" labelledBy="referenz">
+        <SectionTitle label="Referenz" title="Mannheim ist seit 2022 dabei." id="referenz">
+          <Lead>
+            In Mannheim tauschen sich Eigentümer, Gewerbe und Stadt seit 2022 in einem eigenen, geschlossenen Netzwerk aus: zu
+            Leerständen, Immobilien, Baustellen und gemeinsamen Aktionen in der Innenstadt.
+          </Lead>
+        </SectionTitle>
+        <RefStats items={REFERENCE_STATS} note={REFERENCE_NOTE} />
       </Section>
 
       <PriceSection
@@ -143,49 +165,100 @@ export default function StaedtePage() {
         label="Kosten"
         title="Erst testen, dann entscheiden."
         lead="Der Pilot ist kostenlos und unverbindlich. Für die Zeit danach erhalten Sie ein Angebot und alle Unterlagen für Ihre Vergabestelle."
-        background="paper"
-      />
+        background="white"
+      >
+        <Note>
+          <p className="font-bold">Budget rechtzeitig einplanen</p>
+          <p className="text-ink-2">
+            Auf Wunsch senden wir das Angebot schon zu Beginn des Pilots. So können Sie es in den Haushalt des nächsten Jahres
+            aufnehmen, bevor der Pilot endet.
+          </p>
+        </Note>
+      </PriceSection>
 
-      <Section variant="white" labelledBy="foerderung">
+      <Section variant="paper" labelledBy="foerderung">
         <SectionTitle label="Förderung" title="Programme, an die urbown anknüpfen kann." id="foerderung">
           <Lead>
-            urbown kann Teil eines geförderten Innenstadt- oder Leerstandsmanagements sein. Ob die Lizenz förderfähig ist, entscheidet
-            die zuständige Bewilligungsstelle im Einzelfall. Wir unterstützen Sie beim Antrag.
+            urbown kann Teil eines geförderten Innenstadt-, Citymanagement- oder Leerstandsprojekts sein. Ob die Kosten förderfähig
+            sind, entscheidet die zuständige Bewilligungsstelle im Einzelfall. Für Ihren Antrag liefern wir Projektbeschreibung und
+            Kostenangaben.
           </Lead>
         </SectionTitle>
-        <RuleGrid cols={2}>
-          {FUNDING.map((f) => (
-            <RuleCell key={f.tag}>
-              <Badge variant="solid">{f.tag}</Badge>
-              <H3>{f.title}</H3>
-              <ul className="flex list-disc flex-col gap-1.5 pl-4.5 text-ink-2">
-                {f.items.map((it) => (
-                  <li key={it}>{it}</li>
-                ))}
-              </ul>
+        <div className="flex flex-col gap-4">
+          <RuleGrid cols={2}>
+            {FUNDING.regions.map((f) => (
+              <RuleCell key={f.tag}>
+                <Badge variant="solid" className="self-start">
+                  {f.tag}
+                </Badge>
+                <H3>{f.title}</H3>
+                <SquareList items={f.items} className="text-ink-2" />
+              </RuleCell>
+            ))}
+          </RuleGrid>
+          <p className="text-sm text-ink-2">
+            Stand {FUNDING.stand}. Programme und Bedingungen ändern sich. Bitte prüfen Sie die aktuellen Regeln bei Ihrer
+            Bewilligungsstelle.
+          </p>
+        </div>
+      </Section>
+
+      <Section variant="white" labelledBy="datenschutz-sicherheit">
+        <SectionTitle label="Datenschutz & Sicherheit" title="Vertraulich von Anfang an." id="datenschutz-sicherheit" />
+        <RuleGrid cols={3}>
+          {PRIVACY.map(([title, text]) => (
+            <RuleCell key={title}>
+              <H3>{title}</H3>
+              <p className="text-ink-2">{typo(text)}</p>
             </RuleCell>
           ))}
         </RuleGrid>
       </Section>
 
-      <Section variant="paper" labelledBy="datenschutz-hosting">
-        <Split aside={<SectionTitle label="Datenschutz & Hosting" title="Vertraulich von Anfang an." id="datenschutz-hosting" />}>
-          <RuleGrid cols={2}>
-            {PRIVACY.map(([title, text]) => (
-              <RuleCell key={title}>
-                <H3>{title}</H3>
-                <p className="text-ink-2">{text}</p>
-              </RuleCell>
+      <Section variant="paper" labelledBy="unterlagen">
+        <SectionTitle label="Unterlagen" title="Alles für Verwaltung und Gemeinderat." id="unterlagen">
+          <Lead>
+            Zum Weitergeben, Ausdrucken und Anpassen. Die Vorlagen sind Entwürfe. Bitte prüfen Sie sie mit Ihrer Rechts- und
+            Datenschutzstelle.
+          </Lead>
+        </SectionTitle>
+        <div className="flex flex-col gap-4">
+          <RuleGrid cols={3}>
+            {DOWNLOADS.map((d) => (
+              <DownloadCard key={d.title} download={d} />
             ))}
           </RuleGrid>
-        </Split>
+          <p className="text-sm text-ink-2">
+            Lieber gedruckt oder persönlich erklärt?{" "}
+            <Link href="/kontakt?anliegen=infopaket" className="text-ink underline underline-offset-[3px] hover:decoration-2">
+              Schreiben Sie uns
+            </Link>
+            , wir senden das Infopaket und beantworten Ihre Fragen.
+          </p>
+        </div>
       </Section>
 
       <Section variant="white" labelledBy="fragen">
         <Split aside={<SectionTitle label="Häufige Fragen" title="Fragen aus Verwaltungen." id="fragen" />}>
-          <Faq items={FAQ} />
+          <Faq items={FAQ_STAEDTE} />
         </Split>
       </Section>
+
+      <CtaBand
+        id="abschluss"
+        title="Sehen Sie sich urbown in 30 Minuten an."
+        lead="Wir zeigen Ihnen das Netzwerk online und beantworten Ihre Fragen. Danach testen Sie selbst in der Demo."
+        actions={
+          <>
+            <ButtonLink href="/kontakt?anliegen=demo" size="lg" lift>
+              Demo-Termin vereinbaren
+            </ButtonLink>
+            <ButtonLink href={DEMO_URL} variant="secondary" size="lg" lift>
+              Demo selbst testen
+            </ButtonLink>
+          </>
+        }
+      />
     </>
   );
 }
