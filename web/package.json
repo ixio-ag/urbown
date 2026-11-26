@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3100",
+    "prebuild": "node scripts/download-meta.mjs",
     "build": "next build",
     "start": "next start -p 3100",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
-    "make-icons": "node scripts/make-icons.mjs"
+    "make-icons": "node scripts/make-icons.mjs",
+    "download-meta": "node scripts/download-meta.mjs"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -33,6 +35,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
+    "pdf-lib": "^1.17.1",
     "tailwindcss": "4.3.3",
     "typescript": "^5"
   },

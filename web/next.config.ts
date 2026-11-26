@@ -50,7 +50,17 @@ const nextConfig: NextConfig = {
     },
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    // Downloads (UB04 Teil C3). noindex für das Infopaket setzt proxy.ts zur Laufzeit, solange SITE_INDEXABLE nicht true ist;
+    // die beiden Vorlagen tragen noindex immer.
+    const cache = { key: "Cache-Control", value: "public, max-age=3600" };
+    const noindex = { key: "X-Robots-Tag", value: "noindex, nofollow" };
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      { source: "/downloads/:file(.*\\.pdf)", headers: [cache, { key: "Content-Disposition", value: "inline" }] },
+      { source: "/downloads/:file(.*\\.docx)", headers: [cache, { key: "Content-Disposition", value: "attachment" }] },
+      { source: "/downloads/:file(urbown-muster-beschlussvorlage\\..*)", headers: [noindex] },
+      { source: "/downloads/:file(urbown-av-vertrag-entwurf\\..*)", headers: [noindex] },
+    ];
   },
 };
 
