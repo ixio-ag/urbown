@@ -18,7 +18,7 @@ import {
   VisibilityField,
   describedBy,
 } from "@/components/ui/form";
-import { Icon, ICON_NAMES } from "@/components/ui/icons";
+import { Icon, ICON_NAMES, ICONS_REDRAWN } from "@/components/ui/icons";
 import { Logo } from "@/components/ui/logo";
 import { Segment } from "@/components/ui/segment";
 import { SkipLink } from "@/components/ui/skip-link";
@@ -38,6 +38,7 @@ const SECTIONS = [
   ["schrift", "Schrift"],
   ["logo", "Logo"],
   ["icons", "Icons"],
+  ["icon-tafel", "Icon-Tafel"],
   ["buttons", "Buttons"],
   ["felder", "Formularfelder"],
   ["auswahl", "Chips, Segment, Tabs"],
@@ -196,6 +197,24 @@ export default function StyleguidePage() {
                   <span className="font-mono text-micro text-ink-2">{name}</span>
                 </div>
               ))}
+            </Card>
+          </Section>
+
+          <Section id="icon-tafel" title="Icon-Tafel" intro="Alle Icons in 24 und 48 px. «neu» = in Block 1 neu gezeichnet, Abnahme in UB05 (K8).">
+            <Card className="grid grid-cols-2 gap-px bg-line p-px sm:grid-cols-4 lg:grid-cols-6">
+              {ICON_NAMES.map((name) => {
+                const redrawn = ICONS_REDRAWN.includes(name);
+                return (
+                  <div key={name} className="flex flex-col items-center gap-2 bg-white px-2 py-4">
+                    <div className="flex items-end gap-4">
+                      <Icon name={name} size={24} />
+                      <Icon name={name} size={48} />
+                    </div>
+                    <span className="font-mono text-xs">{name}</span>
+                    {redrawn ? <Badge variant="solid">neu</Badge> : <span className="h-5" aria-hidden="true" />}
+                  </div>
+                );
+              })}
             </Card>
           </Section>
 

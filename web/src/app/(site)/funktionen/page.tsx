@@ -37,7 +37,7 @@ export default function FunktionenPage() {
 
       <Section variant="paper">
         <h2 className="sr-only">Alle Funktionen</h2>
-        <FeatureGrid features={FEATURES} cols={3} />
+        <FeatureGrid features={FEATURES} cols={3} fillLast />
       </Section>
 
       <EinblickSection variant="funktionen" background="white" />

@@ -57,3 +57,14 @@ test("Adress-Kasten: Stadtname wird zum Kürzel", async ({ page }) => {
   await field.fill("");
   await expect(address).toHaveText("app.urbown.com/ihrestadt");
 });
+
+test("Kopfzeilen-Button «Demo anfragen» mit aria-current auf /kontakt (K10)", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  const nav = page.getByRole("navigation", { name: "Hauptnavigation" });
+  for (const url of ["/kontakt", "/kontakt?anliegen=infopaket", "/kontakt/pilot"]) {
+    await page.goto(url);
+    await expect(nav.getByRole("link", { name: "Demo anfragen" }), url).toHaveAttribute("aria-current", "page");
+  }
+  await page.goto("/staedte");
+  await expect(nav.getByRole("link", { name: "Demo anfragen" })).not.toHaveAttribute("aria-current", "page");
+});

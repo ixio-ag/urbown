@@ -1,4 +1,5 @@
 import { LegalPlaceholder } from "@/components/site/legal-placeholder";
+import { Brand } from "@/components/ui/typo";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({ path: "/impressum", title: "Impressum", noindex: true });
@@ -7,7 +8,7 @@ export default function ImpressumPage() {
   return (
     <LegalPlaceholder title="Impressum">
       <address className="not-italic">
-        urbown ist ein Angebot der
+        <Brand /> ist ein Angebot der
         <br />
         IXIO AG
         <br />

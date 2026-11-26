@@ -34,3 +34,10 @@ for (const [name, url] of PAGES) {
     });
   }
 }
+
+// Icon-Tafel (K8): alle Icons aus icons.tsx in 24 und 48 px mit Namen, neu gezeichnete markiert (Styleguide auf Port 3103)
+test("Icon-Tafel", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("http://localhost:3103/_styleguide#icon-tafel");
+  await page.locator("#icon-tafel").screenshot({ path: path.join(OUT, "icons.png") });
+});

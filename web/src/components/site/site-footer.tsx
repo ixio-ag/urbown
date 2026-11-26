@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { typo } from "@/components/ui/typo";
 import { Logo } from "@/components/ui/logo";
 import { FOOTER_NAV } from "@/content/navigation";
 import { CONTACT_EMAIL } from "@/lib/site";
@@ -18,7 +19,7 @@ export function SiteFooter() {
         <nav aria-label="Fusszeile" className="grid gap-8 sm:grid-cols-3">
           {FOOTER_NAV.map((col) => (
             <div key={col.title} className="flex flex-col">
-              <p className="lbl mb-1">{col.title}</p>
+              <p className="lbl mb-1">{typo(col.title)}</p>
               <ul>
                 {col.links.map((l) => (
                   <li key={l.label}>

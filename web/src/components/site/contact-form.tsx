@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Script from "next/script";
-import { useActionState, useEffect, useRef, useState, type FormEvent } from "react";
+import { useActionState, useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, Input, Select, Textarea, describedBy } from "@/components/ui/form";
 import { ANLIEGEN, type Anliegen } from "@/content/contact";
@@ -16,6 +16,7 @@ import {
   type FieldErrors,
 } from "@/lib/contact-schema";
 import { sendContact, type ContactState } from "@/app/(site)/kontakt/actions";
+import { NoJsNote } from "./no-js-note";
 
 type TurnstileApi = {
   render: (el: HTMLElement, opts: Record<string, unknown>) => string;
@@ -27,6 +28,8 @@ declare global {
     turnstile?: TurnstileApi;
   }
 }
+
+const subscribeNothing = () => () => {};
 
 const INITIAL: ContactState = { status: "idle" };
 
@@ -40,6 +43,8 @@ export function ContactForm({ siteKey, defaultAnliegen }: { siteKey: string; def
   const turnstileRef = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | null>(null);
   const [turnstileReady, setTurnstileReady] = useState(false);
+  // Erst nach der Hydrierung gesetzt: unterscheidet beim Server «ohne JavaScript» von «Turnstile fehlgeschlagen» (K5)
+  const hydrated = useSyncExternalStore(subscribeNothing, () => true, () => false);
 
   // Neue Server-Antwort: Browser-Fehler verwerfen (Zustand aus der Antwort ableiten)
   if (state.nonce !== seenNonce) {
@@ -183,11 +188,14 @@ export function ContactForm({ siteKey, defaultAnliegen }: { siteKey: string; def
           <input id="k-website" name="website" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
         </div>
 
+        {hydrated ? <input type="hidden" name="js" value="1" /> : null}
+
         <div ref={turnstileRef} className="sm:col-span-full empty:hidden" />
 
         <div className="flex flex-col items-start gap-3 sm:col-span-full">
           <div role="alert" className="empty:hidden">
             {state.formError ? <FieldError id="k-formfehler">{state.formError}</FieldError> : null}
+            {state.noJs ? <NoJsNote /> : null}
           </div>
           <Button type="submit" size="lg" lift loading={pending} loadingText="Wird gesendet …" className="w-full sm:w-auto">
             Anfrage senden

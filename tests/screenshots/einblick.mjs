@@ -34,6 +34,43 @@ const SHOT_CSS = `
   *, *::before, *::after { transition: none !important; animation: none !important; caret-color: transparent !important; }
 `;
 
+// Beispieldaten des Prototyps vor jeder Aufnahme korrigieren (K3, K4). Die Prototyp-Datei bleibt unverändert.
+// - Prototyp-Hinweis unter der Karte ausblenden
+// - «ß» → «ss» (Schweizer Schreibweise)
+// - Dezimalpunkt → Komma bei Zahlen mit Einheit («11.5 m» → «11,5 m») und bei Kennzahlen («4.2»); Datumsangaben (TT.MM.JJJJ) nicht
+function fixPrototypeText() {
+  for (const p of document.querySelectorAll("p")) {
+    if (p.textContent.trim().startsWith("Echte Karte (OpenStreetMap)")) p.style.display = "none";
+  }
+  const unit = /(?<![\d.])(\d+)\.(\d+)(?![\d.])(?=\s?(?:m²|m2|m\b|km\b|%|€|CHF|Std\b|h\b))/g;
+  const figure = /^(\s*)(\d+)\.(\d+)(\s*)$/;
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let changed = 0;
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+    const before = node.nodeValue;
+    let after = before.replaceAll("ß", "ss").replace(unit, "$1,$2");
+    if (!/\d+\.\d+\.\d+/.test(after)) after = after.replace(figure, "$1$2,$3$4");
+    if (after !== before) {
+      node.nodeValue = after;
+      changed += 1;
+    }
+  }
+  for (const el of document.querySelectorAll("input, textarea")) {
+    if (el.value.includes("ß")) el.value = el.value.replaceAll("ß", "ss");
+  }
+  return changed;
+}
+
+// Nach der Korrektur: kein «ß» und kein Dezimalpunkt mit Einheit mehr sichtbar (sonst Abbruch)
+function findLeftovers() {
+  const text = document.body.innerText;
+  const hits = [];
+  if (text.includes("ß")) hits.push("ß");
+  const m = text.match(/(?<![\d.])\d+\.\d+(?![\d.])(?=\s?(?:m²|m\b|%|km\b|€))/);
+  if (m) hits.push(m[0]);
+  return hits;
+}
+
 const SHOTS = [
   { name: "dashboard", device: DESKTOP, route: "start" },
   { name: "flaechen", device: PHONE, route: "flaechen" },
@@ -132,9 +169,12 @@ try {
     } else {
       await page.evaluate(() => window.scrollTo(0, 0));
     }
+    const fixed = await page.evaluate(fixPrototypeText);
+    const leftovers = await page.evaluate(findLeftovers);
+    if (leftovers.length) throw new Error(`${shot.name}: noch sichtbar: ${leftovers.join(", ")}`);
     const file = path.join(OUT_DIR, `${shot.name}.png`);
     await page.screenshot({ path: file });
-    console.log(`✓ ${shot.name}.png (${shot.device.viewport.width}×${shot.device.viewport.height}, ${shot.device.deviceScaleFactor}×)`);
+    console.log(`✓ ${shot.name}.png (${fixed} Textstellen korrigiert, ${shot.device.viewport.width}×${shot.device.viewport.height}, ${shot.device.deviceScaleFactor}×)`);
     await context.close();
   }
 } finally {

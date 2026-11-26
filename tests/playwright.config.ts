@@ -41,7 +41,8 @@ export default defineConfig({
       url: "http://localhost:3100/",
       reuseExistingServer: !process.env.CI,
       timeout: 60_000,
-      env: { ...common },
+      // ausdrücklich aus: eine lokale web/.env.local darf den Test nicht beeinflussen
+      env: { ...common, ENABLE_STYLEGUIDE: "false" },
     },
     {
       command: "npx next start -p 3103",

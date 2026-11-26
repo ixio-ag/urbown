@@ -20,7 +20,7 @@ export default function NotFound() {
       <main id="main" tabIndex={-1} className="band flex-1 bg-white pt-[clamp(3rem,8vw,6.5rem)] pb-[clamp(3.5rem,8vw,7rem)] outline-none">
         <div className="mx-auto flex max-w-site flex-col items-start gap-7">
           <Eyebrow>Fehler 404</Eyebrow>
-          <h1 className="font-display-black text-display-1 font-black hyphens-auto">Diese Seite gibt es nicht.</h1>
+          <h1 className="font-display-black text-display-1 font-black">Diese Seite gibt es nicht.</h1>
           <Lead>Vielleicht hat sich die Adresse geändert. Auf der Startseite finden Sie alles Wichtige.</Lead>
           <ButtonLink href="/" size="lg" lift>
             Zur Startseite

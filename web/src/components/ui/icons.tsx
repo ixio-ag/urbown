@@ -235,11 +235,13 @@ const PATHS = {
 
 export type IconName = keyof typeof PATHS;
 export const ICON_NAMES = Object.keys(PATHS) as IconName[];
+/** In Block 1 neu gezeichnet (nicht im Styleguide UB02), vorläufig freigegeben, Abnahme über die Icon-Tafel in UB05 (K8). */
+export const ICONS_REDRAWN: readonly IconName[] = ["download", "edit", "trash", "filter", "location", "calendar-plus", "lock", "external", "crosshair"];
 
 type IconProps = {
   name: IconName;
-  /** Grösse in px: 18 Navigation/Buttons, 20 Kopfzeile Handy, 22 Tab-Leiste, 24 Erstellen, 28 Landing. */
-  size?: 12 | 16 | 18 | 20 | 22 | 24 | 28;
+  /** Grösse in px: 18 Navigation/Buttons, 20 Kopfzeile Handy, 22 Tab-Leiste, 24 Erstellen, 28 Landing, 48 nur Icon-Tafel. */
+  size?: 12 | 16 | 18 | 20 | 22 | 24 | 28 | 48;
   className?: string;
 };
 

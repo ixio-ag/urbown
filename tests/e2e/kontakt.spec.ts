@@ -96,4 +96,30 @@ test.describe("ohne JavaScript", () => {
     await expect(page.locator("#k-vorname-fehler")).toHaveText("Bitte geben Sie Ihren Vornamen ein.");
     await expect(page.locator("#k-name")).toHaveValue("Muster");
   });
+
+  test("Hinweis «Bitte JavaScript aktivieren» über dem Formular und nach dem Senden (K5)", async ({ page }) => {
+    await page.goto("/kontakt");
+    // <noscript> steht im HTML vor dem Formular. (Playwright schaltet nur die Ausführung ab; Chromium rendert <noscript>
+    // dann nicht, daher Prüfung des Markups. In echten Browsern ohne JavaScript ist der Hinweis sichtbar.)
+    const noscript = await page.evaluate(() => {
+      const ns = document.querySelector("noscript");
+      const form = document.querySelector("form[aria-label=\"Kontaktformular\"]");
+      return {
+        text: ns?.textContent ?? "",
+        beforeForm: Boolean(ns && form && ns.compareDocumentPosition(form) & Node.DOCUMENT_POSITION_FOLLOWING),
+      };
+    });
+    expect(noscript.text).toContain("Bitte JavaScript aktivieren");
+    expect(noscript.beforeForm).toBe(true);
+
+    await page.locator("#k-vorname").fill("Anna");
+    await page.locator("#k-name").fill("Muster");
+    await page.locator("#k-email").fill("anna.muster@stadt.example");
+    await page.getByRole("button", SUBMIT).click();
+    const alert = page.getByRole("alert").filter({ hasText: "Bitte JavaScript aktivieren" });
+    await expect(alert).toBeVisible();
+    await expect(alert).toContainText("Zum Senden braucht dieses Formular JavaScript (Schutz vor Spam). Sie können uns auch direkt schreiben: info@urbown.com.");
+    await expect(page.getByText("Die Sicherheitsprüfung hat nicht geklappt")).toHaveCount(0);
+    await expect(page.locator("#k-email")).toHaveValue("anna.muster@stadt.example");
+  });
 });

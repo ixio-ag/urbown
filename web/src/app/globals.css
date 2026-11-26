@@ -81,7 +81,7 @@
   html { -webkit-text-size-adjust: 100%; }
   body { @apply bg-paper text-ink font-sans text-base antialiased lg:text-ui; }
   body.site { @apply bg-white lg:text-base; }                  /* Landingpage */
-  h1, h2, h3 { @apply font-display text-balance tracking-tight; margin: 0; }
+  h1, h2, h3 { @apply font-display text-balance tracking-tight; margin: 0; hyphens: manual; }
   :focus-visible { outline: 2px solid var(--color-ink); outline-offset: 2px; }
   ::selection { background: var(--color-ink); color: var(--color-white); }
   [hidden] { display: none !important; }
@@ -150,4 +150,12 @@
   /* Native Dialoge: Hintergrund und Scroll-Sperre (UB02 8.11) */
   dialog::backdrop { background: var(--color-scrim); }
   html:has(dialog[open]) { overflow: hidden; }
+}
+
+/* ===================================================================================
+   Ergänzungen Block 2 (UB04 Abschnitt 6.2) – festgehalten in docs/design-ergaenzungen.md.
+   =================================================================================== */
+@theme {
+  /* h1 in Heros mit Formular (Kontakt), max. 72 px (K2) */
+  --text-display-1-form: clamp(2.5rem, 5vw, 4.5rem); --text-display-1-form--line-height: 1.05;
 }

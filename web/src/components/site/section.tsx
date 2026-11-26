@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { typo } from "@/components/ui/typo";
 import { cn } from "@/lib/cn";
 
 /** Mono-Label über Titeln (Landing). */
@@ -8,21 +9,21 @@ export function Eyebrow({ children }: { children: ReactNode }) {
 
 /** Lead-Absatz Landing (UB02 3.3 text-lead, ink-2, max. 60ch). */
 export function Lead({ children, className }: { children: ReactNode; className?: string }) {
-  return <p className={cn("max-w-[60ch] text-lead text-ink-2", className)}>{children}</p>;
+  return <p className={cn("max-w-[60ch] text-lead text-ink-2", className)}>{typo(children)}</p>;
 }
 
 /** Landing h2 (Archivo 800, display-2). */
 export function H2({ children, id }: { children: ReactNode; id?: string }) {
   return (
-    <h2 id={id} className="text-display-2 font-extrabold hyphens-auto">
-      {children}
+    <h2 id={id} className="text-display-2 font-extrabold">
+      {typo(children)}
     </h2>
   );
 }
 
 /** Landing h3 (Archivo 700, 20 px). */
 export function H3({ children, className }: { children: ReactNode; className?: string }) {
-  return <h3 className={cn("text-xl font-bold", className)}>{children}</h3>;
+  return <h3 className={cn("text-xl font-bold", className)}>{typo(children)}</h3>;
 }
 
 /** Konturschrift für Titelwörter (ab 30 px). */
@@ -100,8 +101,8 @@ export function Hero({ label, title, lead, actions, aside, children }: HeroProps
       >
         <div className="flex min-w-0 flex-col gap-7">
           <Eyebrow>{label}</Eyebrow>
-          <h1 id="seitentitel" className="font-display-black text-display-1 font-black hyphens-auto">
-            {title}
+          <h1 id="seitentitel" className="font-display-black text-display-1 font-black">
+            {typo(title)}
           </h1>
           <Lead>{lead}</Lead>
           {actions ? <div className="flex flex-wrap items-center gap-3">{actions}</div> : null}

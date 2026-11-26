@@ -1,6 +1,7 @@
 import { PriceBlock } from "@/components/site/blocks";
 import { RuleCell, RuleGrid } from "@/components/site/grids";
 import { H3, Hero, Outline, Section } from "@/components/site/section";
+import { typo } from "@/components/ui/typo";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -23,7 +24,7 @@ export default function PreisePage() {
         label="Preise"
         title={
           <>
-            Kostenlos starten. <Outline>Passend weitermachen.</Outline>
+            Kostenlos starten. <Outline>Passend weiter&shy;machen.</Outline>
           </>
         }
         lead="Sechs Monate unverbindlich testen. Danach ein Angebot, das zur Grösse Ihrer Innenstadt passt, in Euro oder Franken."
@@ -36,7 +37,7 @@ export default function PreisePage() {
           {EXTRAS.map(([title, text]) => (
             <RuleCell key={title}>
               <H3>{title}</H3>
-              <p className="text-ink-2">{text}</p>
+              <p className="text-ink-2">{typo(text)}</p>
             </RuleCell>
           ))}
         </RuleGrid>

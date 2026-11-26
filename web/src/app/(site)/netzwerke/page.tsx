@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { Hero, HeroCard, Outline, Section, SectionTitle, Note } from "@/components/site/section";
 import { NETWORKS } from "@/content/networks";
+import { Nowrap } from "@/components/ui/typo";
 import { pageMetadata } from "@/lib/metadata";
 import { APP_URL, DEMO_URL } from "@/lib/site";
 
@@ -78,7 +79,7 @@ export default function NetzwerkePage() {
         <Note>
           <p className="font-bold">Erster Login nach der Umstellung?</p>
           <p className="text-ink-2">
-            Geben Sie wie gewohnt Ihre E-Mail-Adresse ein. Sie erhalten dann automatisch eine E-Mail mit einem 6-stelligen Code. Damit
+            Geben Sie wie gewohnt Ihre E-Mail-Adresse ein. Sie erhalten dann automatisch eine E-Mail mit einem <Nowrap>6-stelligen</Nowrap> Code. Damit
             bestätigen Sie, dass das Konto Ihnen gehört, und legen einmalig ein neues Passwort fest.
           </p>
         </Note>

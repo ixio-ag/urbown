@@ -1,4 +1,5 @@
 import { ContactForm } from "./contact-form";
+import { NoJsNote } from "./no-js-note";
 import { Photo, PHOTOS } from "./photos";
 import { Eyebrow, Lead, Note, Outline } from "./section";
 import type { Anliegen } from "@/content/contact";
@@ -14,7 +15,7 @@ export function KontaktView({ anliegen }: { anliegen: Anliegen }) {
       <div className="mx-auto grid max-w-site items-start gap-[clamp(2rem,5vw,4.5rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]">
         <div className="flex min-w-0 flex-col gap-7">
           <Eyebrow>Kontakt</Eyebrow>
-          <h1 id="seitentitel" className="font-display-black text-display-1 font-black hyphens-auto">
+          <h1 id="seitentitel" className="font-display-black text-display-1-form font-black">
             Lassen Sie uns über Ihre <Outline>Stadt</Outline> sprechen.
           </h1>
           <Lead>Demo-Termin, Infopaket für den Gemeinderat oder Pilotanfrage. Wir melden uns innerhalb von zwei Werktagen.</Lead>
@@ -28,6 +29,9 @@ export function KontaktView({ anliegen }: { anliegen: Anliegen }) {
           <Photo photo={PHOTOS.kontaktTasche} ratio="2/3" sizes={photoSizes} className="hidden max-w-[22rem] lg:block" />
         </div>
         <div className="flex min-w-0 flex-col gap-8">
+          <noscript>
+            <NoJsNote />
+          </noscript>
           <ContactForm siteKey={getTurnstileSiteKey()} defaultAnliegen={anliegen} />
           <Photo photo={PHOTOS.kontaktTasche} ratio="2/3" sizes={photoSizes} className="max-w-[22rem] lg:hidden" />
         </div>

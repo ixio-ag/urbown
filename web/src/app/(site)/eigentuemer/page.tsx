@@ -2,6 +2,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { RuleCell, RuleGrid } from "@/components/site/grids";
 import { ImageBand, Photo, PHOTOS } from "@/components/site/photos";
 import { H3, Hero, HeroCard, Outline, Section, SectionTitle, Split } from "@/components/site/section";
+import { typo } from "@/components/ui/typo";
 import { pageMetadata } from "@/lib/metadata";
 import { DEMO_URL } from "@/lib/site";
 
@@ -75,7 +76,7 @@ export default function EigentuemerPage() {
           {BENEFITS.map(([title, text]) => (
             <RuleCell key={title}>
               <H3>{title}</H3>
-              <p className="text-ink-2">{text}</p>
+              <p className="text-ink-2">{typo(text)}</p>
             </RuleCell>
           ))}
         </RuleGrid>

@@ -5,8 +5,24 @@ import { expect, test } from "@playwright/test";
 // - Zoom 200 %: 1280 px bei 200 % = 640 CSS-px; Reflow 320 px (WCAG 1.4.10)
 // - Tastatur-Durchgang ohne Fallen (Tab erreicht den Footer, Shift+Tab kommt zurück)
 const PAGES = ["/", "/eigentuemer", "/staedte", "/funktionen", "/preise", "/netzwerke", "/kontakt", "/impressum"];
+const ALL_ROUTES = [...PAGES, "/datenschutz", "/agb", "/gibt-es-nicht"];
 
-for (const width of [320, 360, 640]) {
+// K1: keine automatische Silbentrennung in Titeln; «urbown» nie getrennt
+test("h1/h2 ohne hyphens: auto, «urbown» in Titeln nicht trennbar", async ({ page }) => {
+  for (const path of ALL_ROUTES) {
+    await page.goto(path);
+    const result = await page.evaluate(() => ({
+      auto: [...document.querySelectorAll("h1, h2")].filter((h) => getComputedStyle(h).hyphens === "auto").map((h) => h.textContent),
+      brand: [...document.querySelectorAll("h1, h2, h3")]
+        .filter((h) => /urbown(?!.com)/.test(h.textContent ?? ""))
+        .filter((h) => ![...h.querySelectorAll("span")].some((s) => s.textContent === "urbown" && getComputedStyle(s).whiteSpace === "nowrap"))
+        .map((h) => h.textContent),
+    }));
+    expect(result, path).toEqual({ auto: [], brand: [] });
+  }
+});
+
+for (const width of [320, 360, 640, 768, 1280]) {
   test(`Kein horizontales Überlaufen bei ${width} px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 800 });
     for (const path of PAGES) {

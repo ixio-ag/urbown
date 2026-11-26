@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { ButtonLink } from "@/components/ui/button";
+import { typo } from "@/components/ui/typo";
 import { cn } from "@/lib/cn";
 import { PRICE_BOXES } from "@/content/prices";
 import { STEPS } from "@/content/steps";
@@ -16,7 +17,7 @@ export function Steps() {
           </span>
           <div className="flex flex-col gap-1">
             <H3>{s.title}</H3>
-            <p className="text-ink-2">{s.text}</p>
+            <p className="text-ink-2">{typo(s.text)}</p>
           </div>
         </li>
       ))}
@@ -40,7 +41,7 @@ export function PriceBlock() {
           <H3 className="text-4xl">{box.title}</H3>
           {box.texts.map((t) => (
             <p key={t} className="text-ink-2">
-              {t}
+              {typo(t)}
             </p>
           ))}
           {box.cta ? (
@@ -61,7 +62,7 @@ export function Faq({ items }: { items: { q: string; a: ReactNode }[] }) {
       {items.map((it, i) => (
         <details key={it.q} className={cn("group border-b border-line py-2", i === 0 && "border-t-[1.5px] border-t-ink")}>
           <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-4 py-2 font-display text-faq font-bold">
-            <span>{it.q}</span>
+            <span>{typo(it.q)}</span>
             <span aria-hidden="true" className="font-sans text-2xl leading-none font-normal group-open:hidden">
               +
             </span>
@@ -69,7 +70,7 @@ export function Faq({ items }: { items: { q: string; a: ReactNode }[] }) {
               –
             </span>
           </summary>
-          <p className="max-w-[70ch] pb-2.5 text-ink-2">{it.a}</p>
+          <p className="max-w-[70ch] pb-2.5 text-ink-2">{typo(it.a)}</p>
         </details>
       ))}
     </div>
@@ -83,7 +84,7 @@ export function GlanceList({ rows }: { rows: { term: string; value: string }[] }
       {rows.map((r, i) => (
         <div key={r.term} className={cn("flex flex-wrap justify-between gap-x-3 gap-y-1", i < rows.length - 1 && "border-b border-line pb-2")}>
           <dt>{r.term}</dt>
-          <dd className="font-bold">{r.value}</dd>
+          <dd className="font-bold">{typo(r.value)}</dd>
         </div>
       ))}
     </dl>

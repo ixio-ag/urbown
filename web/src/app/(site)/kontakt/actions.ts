@@ -13,6 +13,8 @@ export type ContactState = {
   fieldErrors?: FieldErrors;
   /** Meldung über dem Button (Sicherheitsprüfung, Rate-Limit, Versand). */
   formError?: string;
+  /** Formular ohne JavaScript gesendet (kein Turnstile-Token möglich): Hinweis aus UB04 4.13 statt formError (K5). */
+  noJs?: boolean;
   /** Eingaben zum Wiederbefüllen (auch ohne JavaScript). */
   values?: Partial<Record<ContactField, string>>;
   /** Wechselt bei jeder Antwort (Turnstile neu laden, Fokus setzen). */
@@ -55,14 +57,21 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
     return { status: "error", fieldErrors: checked.errors, values, nonce };
   }
 
+  const rawToken = formData.get("cf-turnstile-response");
+  const token = typeof rawToken === "string" && rawToken !== "" ? rawToken : null;
+
+  // Ohne JavaScript gibt es kein Token und kein Feld «js» (setzt nur das hydrierte Formular): Hinweis statt Turnstile-Meldung (K5)
+  if (!token && formData.get("js") !== "1") {
+    return { status: "error", noJs: true, values, nonce };
+  }
+
   const h = await headers();
   const ip = clientIp(h);
   if (!takeRateLimit(ip)) {
     return { status: "error", formError: MSG.rateLimit, values, nonce };
   }
 
-  const token = formData.get("cf-turnstile-response");
-  const human = await verifyTurnstile(typeof token === "string" ? token : null, ip || undefined);
+  const human = await verifyTurnstile(token, ip || undefined);
   if (!human) {
     return { status: "error", formError: MSG.turnstile, values, nonce };
   }
