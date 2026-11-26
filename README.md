@@ -100,6 +100,7 @@ npm run abnahme         # Abnahme-Bildschirmfotos 360/768/1280 px nach tests/out
 
 # Icons, Favicons, OG-Bild neu erzeugen
 node web/scripts/make-icons.mjs
+node web/scripts/download-meta.mjs     # Grösse/Seiten der Downloads (läuft auch als «prebuild»)
 ```
 
 ## Sicherheit
