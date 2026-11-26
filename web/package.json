@@ -37,7 +37,7 @@
     "eslint-config-next": "16.4.6",
     "pdf-lib": "^1.17.1",
     "tailwindcss": "4.3.3",
-    "typescript": "^5"
+    "typescript": "^7"
   },
   "engines": {
     "node": ">=24"
