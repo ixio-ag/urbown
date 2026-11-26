@@ -17,7 +17,7 @@ function formatSize(bytes) {
   const kb = bytes / 1024;
   if (kb < 1000) return `${Math.max(1, Math.ceil(kb))} KB`;
   const mb = kb / 1024;
-  return `${mb.toLocaleString("de-CH", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} MB`;
+  return `${mb.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} MB`;
 }
 
 const meta = {};

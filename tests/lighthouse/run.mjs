@@ -15,6 +15,13 @@ const PORT = 3104;
 const BASE = `http://localhost:${PORT}`;
 const PAGES = ["/", "/eigentuemer", "/staedte", "/funktionen", "/preise", "/netzwerke", "/kontakt"];
 const CATS = ["performance", "accessibility", "best-practices", "seo"];
+// Ladezeit (K9): Master-Vorgabe «< 1,5 s mobil» – FCP/LCP in Sekunden, TBT in ms, CLS
+const METRICS = [
+  ["fcp", "first-contentful-paint", (v) => `${(v / 1000).toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} s`],
+  ["lcp", "largest-contentful-paint", (v) => `${(v / 1000).toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} s`],
+  ["tbt", "total-blocking-time", (v) => `${Math.round(v)} ms`],
+  ["cls", "cumulative-layout-shift", (v) => v.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 3 })],
+];
 const TARGET = { performance: 90, accessibility: 95, "best-practices": 90, seo: 90 };
 
 async function waitFor(url, ms = 60_000) {
@@ -59,10 +66,11 @@ try {
     });
     const lhr = result.lhr;
     const scores = Object.fromEntries(CATS.map((c) => [c, Math.round((lhr.categories[c]?.score ?? 0) * 100)]));
-    rows.push({ page, ...scores });
+    const metrics = Object.fromEntries(METRICS.map(([k, id, fmt]) => [k, fmt(lhr.audits[id]?.numericValue ?? 0)]));
+    rows.push({ page, ...scores, ...metrics });
     const file = page === "/" ? "start" : page.slice(1);
     await writeFile(path.join(OUT, `${file}.json`), result.report);
-    console.log(`${page.padEnd(14)} ${CATS.map((c) => `${c}: ${scores[c]}`).join(" · ")}`);
+    console.log(`${page.padEnd(14)} ${CATS.map((c) => `${c}: ${scores[c]}`).join(" · ")} · ${METRICS.map(([k]) => `${k.toUpperCase()} ${metrics[k]}`).join(" · ")}`);
   }
 } finally {
   await chrome?.kill();
@@ -77,9 +85,9 @@ const md = [
   "Gemessen gegen `next start` mit `SITE_INDEXABLE=true`, Lighthouse-Standard «mobil» (gedrosselt).",
   `Ziel: Performance ≥ ${TARGET.performance}, Accessibility ≥ ${TARGET.accessibility}, Best Practices ≥ ${TARGET["best-practices"]}, SEO ≥ ${TARGET.seo}.`,
   "",
-  "| Seite | Performance | Accessibility | Best Practices | SEO |",
-  "|---|---|---|---|---|",
-  ...rows.map((r) => `| ${r.page} | ${ok("performance", r.performance)} | ${ok("accessibility", r.accessibility)} | ${ok("best-practices", r["best-practices"])} | ${ok("seo", r.seo)} |`),
+  "| Seite | Performance | Accessibility | Best Practices | SEO | FCP | LCP | TBT | CLS |",
+  "|---|---|---|---|---|---|---|---|---|",
+  ...rows.map((r) => `| ${r.page} | ${ok("performance", r.performance)} | ${ok("accessibility", r.accessibility)} | ${ok("best-practices", r["best-practices"])} | ${ok("seo", r.seo)} | ${r.fcp} | ${r.lcp} | ${r.tbt} | ${r.cls} |`),
   "",
 ].join("\n");
 await writeFile(path.join(OUT, "ergebnis.md"), md);

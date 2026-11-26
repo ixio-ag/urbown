@@ -45,8 +45,8 @@ for (const width of [320, 360, 640, 768, 1280]) {
   });
 }
 
-test("Tastatur-Durchgang ohne Falle (Startseite und Kontakt)", async ({ page }) => {
-  for (const path of ["/", "/kontakt"]) {
+test("Tastatur-Durchgang ohne Falle (Startseite, Städte, Kontakt)", async ({ page }) => {
+  for (const path of ["/", "/staedte", "/kontakt"]) {
     await page.goto(path);
     await page.locator("body").click({ position: { x: 1, y: 1 } });
     const seen: string[] = [];
