@@ -1,6 +1,6 @@
 # urbown 2.0 – Master-Datei
 
-Stand: 18.11.2026 (Version 8.3) · Projekt «urbown.com 2.0» · Betreiber: IXIO AG, Zug
+Stand: 26.11.2026 (Version 8.4) · Projekt «urbown.com 2.0» · Betreiber: IXIO AG, Zug
 
 Diese Datei ist die gemeinsame Arbeitsgrundlage für alle Projekt-Chats. **Ein Chat = eine Teilaufgabe.** Jeder Chat:
 1. liest zuerst diese Datei (Projektwissen: `claude/urbown-master.md`) und die Ergebnisse der Vor-Chats,
@@ -19,8 +19,9 @@ Diese Datei ist die gemeinsame Arbeitsgrundlage für alle Projekt-Chats. **Ein C
 1. **UB00 – Prototypen prüfen** ✅ **Prototypen freigegeben am 13.11.2026** (Landingpage, mannheim, demo). Referenz Mannheim: 35 Mitglieder, 53 Immobilien (Zähler der Landingpage).
 2. **UB01 – Neustart** ✅ **abgeschlossen 13.11.2026.** Plattform festgelegt: **gleicher Stack wie drivers.one** (Next.js + Supabase self-hosted auf Exoscale Zürich, Cloudflare, Resend, GitHub `ixio-ag`). Hosting nur in der Schweiz. Ergebnis: `claude/UB01-architektur.md` (Architektur, Datenmodell, Hosting-/Staging-/Backup-Plan).
 3. **UB02 – Design-System** ✅ **abgeschlossen 18.11.2026.** Ergebnis: `claude/UB02-design.md` (Tokens für Tailwind CSS 4, Komponenten mit Zuständen, Barrierefreiheit WCAG 2.2 AA, Zuordnung Prototyp → Seiten), `claude/UB02-styleguide.html` (visuelle Übersicht aller Bausteine), Logos als SVG in `claude/UB02-logo/`.
-4. **UB03 – Landingpage** ✅ **Spezifikation abgeschlossen 18.11.2026.** Ergebnis: `claude/UB03-landingpage-texte.md` (alle Seitentexte, Fotos, Bereich «Einblick», Kontaktformular, SEO) und `claude/UB03-claude-code-block1.md` (erster Arbeitsauftrag an Claude Code: Repository-Grundgerüst, Docker-Stack, Design-System, Landingpage, Tests). **Umsetzung: Claude Code, Block 1.**
-5. **UB04 – Städte & Ämter** ⏳ *als Nächstes*, sobald Claude Code Block 1 abgeschlossen hat (UB04 beginnt mit der Abnahme von Block 1). Danach UB05, UB06 … der Reihe nach, immer nur ein Chat gleichzeitig.
+4. **UB03 – Landingpage** ✅ **Spezifikation abgeschlossen 18.11.2026.** Ergebnis: `claude/UB03-landingpage-texte.md` (alle Seitentexte, Fotos, Bereich «Einblick», Kontaktformular, SEO) und `claude/UB03-claude-code-block1.md` (erster Arbeitsauftrag an Claude Code). **Claude Code Block 1 umgesetzt 20.11.2026, abgenommen mit Korrekturen 26.11.2026 (UB04).**
+5. **UB04 – Städte & Ämter** ✅ **abgeschlossen 26.11.2026.** Ergebnis: `claude/UB04-kommunen.md` (Abnahme Block 1, Korrekturliste K1–K11, Förderprogramme geprüft, neue Seite `/staedte`, Downloads, Design-Ergänzungen), `claude/UB04-claude-code-block2.md` (Auftrag Block 2), 3 Downloads (Infopaket-PDF, Muster-Beschlussvorlage, AV-Vertrag-Entwurf). **Umsetzung: Claude Code, Block 2.**
+6. **UB05 – Netzwerke in einer App** ⏳ *als Nächstes*, sobald Claude Code Block 2 abgeschlossen hat (UB05 beginnt mit der Abnahme von Block 2). Danach UB06, UB07 … der Reihe nach, immer nur ein Chat gleichzeitig.
 
 Die Prototypen sind nach der Freigabe die verbindliche Vorlage für Design, Texte, Seiten, Module und Datenfelder. Die Umsetzung erfolgt auf der in UB01 festgelegten Plattform (Abschnitt 4.1) mit den Bausteinen aus UB02.
 
@@ -39,6 +40,8 @@ Hinweise zu den Prototypen: Daten liegen nur im Browser (Beispieldaten). Die Kar
 
 **Ergänzungen Prototyp → Umsetzung (UB03):** Landingpage mit **5 Fotos in Graustufen** (ruhige Bildbänder, kein Text auf Fotos) und neuem Bereich **«Einblick»** mit Bildschirmfotos der App auf Start und Funktionen, damit Interessierte die App ohne Demo sehen (bis UB24 aus dem Prototyp erzeugt, danach aus demo.urbown.com). Liste aller Änderungen: `claude/UB03-landingpage-texte.md` Abschnitt 1.
 
+**Ergänzungen UB04:** Seite «Für Städte & Ämter» überarbeitet (Aufgabenteilung, Referenz Mannheim, Förderung Stand 11/2026, Datenschutz & Sicherheit, Unterlagen zum Download, 11 FAQ). **Hosting-Formulierung präzisiert:** «Daten in der Schweiz» bzw. «Datenbank, Dateien und Backups in der Schweiz»; die Dienstleister Cloudflare (Schutz, DNS) und Resend (E-Mail-Versand) mit Sitz in den USA werden offen genannt (AV-Vertrag, FAQ). Nicht mehr verwenden: «alle Daten ausschliesslich in der Schweiz». Design-Ergänzungen aus Block 1 sind in `claude/UB04-kommunen.md` Abschnitt 6 angenommen (bis zum nächsten UB02-Update).
+
 ## 1. Ziel
 
 urbown.com (Landingpage), mannheim.urbown.com (erstes Stadtnetzwerk) und demo.urbown.com (exakte Kopie mit Demodaten) werden neu aufgebaut: schwarz/weiss, schnell, fürs Handy optimiert, einfach – mit Superadmin-Bereich für alle Städte, Admin-Bereich je Stadt, Newsletter und Übernahme der bestehenden Mannheimer Mitglieder.
@@ -47,7 +50,7 @@ urbown.com (Landingpage), mannheim.urbown.com (erstes Stadtnetzwerk) und demo.ur
 
 | Thema | Vorgabe |
 |---|---|
-| Design | Nur Schwarz und Weiss (plus Grautöne für Linien/Sekundärtext). **Keine dunklen Hintergründe.** Design-System: `claude/UB02-design.md` (verbindlich für alle Module). Logo: «urb» gefüllt, «own» als Kontur (Helvetica Bold). **SVG-Dateien aus UB02** in `claude/UB02-logo/` (mit den Original-PNGs deckungsgleich geprüft): `urbown-logo.svg` ab 40 px Höhe, **`urbown-logo-web.svg` mit kräftigerer Kontur bei «own» unter 40 px** (Kopfzeile, Sidebar, Handy), dazu Quadrat- und App-Icons. Liegt die Vektordatei des Originals vor, werden die Pfade daraus übernommen (Abschnitt 9, Punkt 1). **Fotos nur in Graustufen**, ohne Text und ohne Abdunkelung darauf (UB03). |
+| Design | Nur Schwarz und Weiss (plus Grautöne für Linien/Sekundärtext). **Keine dunklen Hintergründe.** Design-System: `claude/UB02-design.md` (verbindlich für alle Module), Nachtrag `claude/UB04-kommunen.md` Abschnitt 6. Logo: «urb» gefüllt, «own» als Kontur (Helvetica Bold). **SVG-Dateien aus UB02** in `claude/UB02-logo/` (mit den Original-PNGs deckungsgleich geprüft): `urbown-logo.svg` ab 40 px Höhe, **`urbown-logo-web.svg` mit kräftigerer Kontur bei «own» unter 40 px** (Kopfzeile, Sidebar, Handy), dazu Quadrat- und App-Icons. Liegt die Vektordatei des Originals vor, werden die Pfade daraus übernommen (Abschnitt 9, Punkt 1). **Fotos nur in Graustufen**, ohne Text und ohne Abdunkelung darauf (UB03). **Titel ohne automatische Silbentrennung**, «urbown» wird nie getrennt (UB04, K1). |
 | Handy | Mobile first. Jede Funktion muss auf dem Smartphone voll bedienbar sein. Installierbar als Web-App (PWA). |
 | Speed | Ladezeit < 1,5 s mobil, Lighthouse > 90, keine Slider-/Pagebuilder-Plugins. |
 | Struktur | **Eine Web-App für alle Netzwerke** (entschieden 12.11.2026). Login zentral unter `app.urbown.com`, das System leitet nach dem Login automatisch ins eigene Netzwerk (`app.urbown.com/mannheim`). Wer in mehreren Netzwerken ist, wählt nach dem Login und wechselt oben links. `stadt.urbown.com` bleibt nur als **Kurzadresse** (Weiterleitung) für Flyer und Briefe. Jedes Netzwerk ist geschlossen (nur mit Login). Neue Features gelten sofort für alle Netzwerke und die Demo. |
@@ -56,9 +59,9 @@ urbown.com (Landingpage), mannheim.urbown.com (erstes Stadtnetzwerk) und demo.ur
 | Sicherheit | 2-Faktor-Anmeldung (2FA) wird angeboten, ist aber **kein Muss**. Pflicht für den Superadmin; für Stadt-Admins je Netzwerk aktivierbar. |
 | Superadmin | Heisst «urbown.com». Sieht und verwaltet **alles** über alle Netzwerke, kann jede Stadt als Admin betreten, versendet Newsletter. |
 | Stadt-Admin | Verwaltet das eigene Netzwerk (Mitglieder, Einladungen, Moderation, Inhalte, Einstellungen). |
-| Sprache | **Nur Deutsch** (Sie-Form). Keine Mehrsprachigkeit nötig. |
+| Sprache | **Nur Deutsch** (Sie-Form). Keine Mehrsprachigkeit nötig. Ausnahme: Muster-Beschlussvorlage für deutsche Gemeinderäte in deutscher Rechtschreibung (UB04). |
 | Migration | Bestehende Mannheimer Mitglieder werden **vor dem Livegang** per Sammelimport übernommen (Export aus dem alten WordPress: **nur Vorname, Name, E-Mail**; kein Abtippen). **Inhalte werden nicht importiert**, der Projektinhaber erfasst sie manuell; Dokumente erhalten dabei ihr ursprüngliches Datum (Feld «hochgeladen am», nur Admins). Jedes Konto erhält den Vermerk «aus altem System übernommen». **Erster Login:** Das Mitglied gibt wie gewohnt seine E-Mail ein → das System erkennt das übernommene Konto → **es erhält automatisch eine E-Mail mit einem 6-stelligen Code** (15 Minuten gültig, erneut anforderbar) → Code eingeben → neues Passwort festlegen → optional 2FA → Netzwerk. Der Hinweis «Wir haben Ihnen eine E-Mail geschickt» wird ausdrücklich angezeigt. Ohne Code-Bestätigung kein neues Passwort (Schutz vor Kontoübernahme). Zusätzlich Launch-Newsletter. Alte Passwörter werden nicht übernommen. |
-| Recht | DSGVO + Schweizer DSG, **Hosting nur in der Schweiz** (Exoscale Zürich/Genf, entschieden 13.11.2026; für deutsche Städte zulässig, da die Schweiz von der EU als angemessen anerkannt ist), Barrierefreiheit nach **WCAG 2.2 AA** (Prüfliste `claude/UB02-design.md` Abschnitt 9). |
+| Recht | DSGVO + Schweizer DSG, **Hosting nur in der Schweiz** (Exoscale Zürich/Genf, entschieden 13.11.2026; für deutsche Städte zulässig, da die Schweiz von der EU als angemessen anerkannt ist), Barrierefreiheit nach **WCAG 2.2 AA** (Prüfliste `claude/UB02-design.md` Abschnitt 9). Unterauftragsverarbeiter offen nennen (Exoscale, Cloudflare, Resend, Kartenanbieter); AV-Vertrag-Entwurf aus UB04, Endfassung UB25. Schweizer Gemeinden unterstehen dem kantonalen Datenschutzrecht. |
 | Märkte | Deutschland und Schweiz. |
 | Pricing | **Öffentlich neutral, ohne Paketnamen:** «6 Monate kostenlos testen» (unverbindlich, endet automatisch) und danach ein **individuelles Angebot** als fester Jahrespreis in EUR oder CHF; für Mitglieder immer kostenlos. Keine Formulierungen wie «Die Stadt zahlt». **Intern (nur für Angebote):** Richtwerte pro Jahr klein ca. 4.800 € / CHF 5.900, mittel ca. 9.600 € / CHF 11.900, gross ab 18.000 € / CHF 21.900. Angebot früh im Pilot senden, damit die Stadt es im Haushalt einplanen kann. |
 
@@ -152,7 +155,8 @@ Wie vakante Flächen, aber für den Verkauf einer Immobilie.
 - Stadt-Admins sehen und moderieren freigegebene Inhalte ihres Netzwerks; der Superadmin sieht alles.
 
 ### 3.17 Landingpage & Demo
-- urbown.com neu: Startseite, Funktionen, Für Eigentümer, **Für Städte & Ämter** (eigene Seite), Preise, Netzwerke & Login, Demo anfragen, Kontakt. Texte: `claude/UB03-landingpage-texte.md`.
+- urbown.com neu: Startseite, Funktionen, Für Eigentümer, **Für Städte & Ämter** (eigene Seite, überarbeitet in UB04: `claude/UB04-kommunen.md` Abschnitt 4), Preise, Netzwerke & Login, Demo anfragen, Kontakt. Texte: `claude/UB03-landingpage-texte.md`, für `/staedte` `claude/UB04-kommunen.md`.
+- **Downloads für Kommunen** unter `urbown.com/downloads/`: Infopaket (PDF, 8 Seiten), Muster-Beschlussvorlage (Word + PDF), AV-Vertrag-Entwurf (Word + PDF). Quelle des Infopakets im Repository unter `docs/grundlagen/downloads/infopaket-quelle/`; Förderstand halbjährlich prüfen.
 - **Bereich «Einblick»** auf Start und Funktionen: Bildschirmfotos der App (Computer und Handy) aus dem Demo-Netzwerk, erzeugt per Skript `npm run screenshots` (bis UB24 aus dem Prototyp, ab UB24 aus demo.urbown.com).
 - Demo: Netzwerk `demo` (`app.urbown.com/demo`, Kurzadresse demo.urbown.com), exakte Kopie eines Netzwerks mit Demodaten, nächtlicher Reset.
 
@@ -179,7 +183,7 @@ Details, Datenmodell und Pläne: `claude/UB01-architektur.md`. Gestaltung und Ba
 | Backups | restic verschlüsselt nach Genf, 30 Tage täglich + 12 Wochen wöchentlich, vor jeder Migration, Restore-Test monatlich; Uptime Kuma (bestehende Instanz von drivers.one) |
 
 ### 4.2 E-Mail
-- **Resend** (wie drivers.one), Absender-Domain urbown.com mit SPF/DKIM/DMARC, eigene Vorlagen, Warteschlange mit Wiederholung. Newsletter als eigene Lösung mit Einzelversand, Testversand und Abmeldelink. Pro-Plan nötig (Newsletter-Volumen). Datenregion für die Rechtstexte in UB25 klären. Das Kontaktformular der Landingpage (UB03) sendet über Resend an info@urbown.com; die Absender-Domain muss vor dem Staging-Test bei Resend bestätigt sein (Einrichtung in UB05 zusammen mit den Cloudflare-Einträgen).
+- **Resend** (wie drivers.one), Absender-Domain urbown.com mit SPF/DKIM/DMARC, eigene Vorlagen, Warteschlange mit Wiederholung. Newsletter als eigene Lösung mit Einzelversand, Testversand und Abmeldelink. Pro-Plan nötig (Newsletter-Volumen). Das Kontaktformular der Landingpage (UB03) sendet über Resend an info@urbown.com; die Absender-Domain muss vor dem Staging-Test bei Resend bestätigt sein (Einrichtung in UB05 zusammen mit den Cloudflare-Einträgen). **Sende-Region: Irland (`eu-west-1`)** beim Anlegen der Domain wählen (UB04). Hinweis UB04: Die Region bestimmt nur den Versandort; Konto- und Versanddaten speichert Resend in den USA (30 Tage), abgesichert über EU-U.S. Data Privacy Framework und Standardvertragsklauseln. In UB25 prüfen: Swiss-U.S.-DPF und eine Alternative mit Speicherung in CH/EU. Absender vorläufig «urbown <no-reply@urbown.com>» (endgültig UB07).
 
 ### 4.3 Inserat-Import per URL – Einschätzung
 - **Gut machbar:** Import von Seiten, die strukturierte Daten liefern (eigene Website des Eigentümers/Maklers mit Schema.org- oder OpenGraph-Daten → Titel, Text, Bilder, Preis).
@@ -190,8 +194,9 @@ Details, Datenmodell und Pläne: `claude/UB01-architektur.md`. Gestaltung und Ba
 ### 4.4 Arbeitsweise (wie drivers.one)
 - **Projekt-Chats (UBxx)** spezifizieren, entscheiden, prüfen und pflegen Master und UB-Dateien; sie schreiben die Arbeitsaufträge an Claude Code (`claude/UBxx-claude-code-blockN.md`).
 - **Claude Code** baut auf dem PC im Repository `ixio-ag/urbown` (lokaler Docker-Stack), mit `CLAUDE.md` und `docs/claude-code-uebergabe.md`. Blockarbeit, Deployment nur nach ausdrücklicher Freigabe (HALT-Regel). Claude Code liest nie Dateien mit Zugangsdaten; Secrets nur in Proton Pass (Tresor «urbown Infrastruktur») und auf dem Server.
-- **Grundlagen im Repository:** Marc legt Master, UB-Dateien, Logos, Prototypen und Fotos unter `docs/grundlagen/` ab (aktuelle Fassung aus dem Projektwissen); Claude Code verändert diesen Ordner nicht.
-- **Abnahme:** Jeder Block endet mit einem Bericht von Claude Code (inkl. Lighthouse, axe, Bildschirmfotos unter `tests/output/abnahme/`). Der nächste Projekt-Chat prüft ihn zuerst und nimmt Korrekturen in den nächsten Block auf.
+- **Grundlagen im Repository:** Marc legt Master, UB-Dateien, Logos, Prototypen, Fotos und Downloads unter `docs/grundlagen/` ab (aktuelle Fassung aus dem Projektwissen); Claude Code verändert diesen Ordner nicht.
+- **Abnahme:** Jeder Block endet mit einem Bericht von Claude Code (inkl. Lighthouse mit FCP/LCP, axe, Bildschirmfotos unter `tests/output/abnahme/`, letzter Commit). Der nächste Projekt-Chat prüft ihn zuerst und nimmt Korrekturen in den nächsten Block auf.
+- **Blöcke bisher:** Block 1 (UB03) Grundgerüst, Design-System, Landingpage ✅ abgenommen 26.11.2026 · Block 2 (UB04) Korrekturen K1–K11, `/staedte`, Downloads ⏳ in Arbeit · Block 3 (UB05) Netzwerke, App-Shell, erstes Staging-Deployment.
 
 ## 5. Rollen und Rechte
 
@@ -213,9 +218,9 @@ Legende: ✅ erledigt · ⏳ als Nächstes · ☐ offen
 | UB00 | Vision, Präsentation, Master-Datei, Prototypen Landingpage + Mannheim + Demo | ✅ freigegeben 13.11.2026 |
 | UB01 | Bestandsaufnahme & Architektur (Neustart) | ✅ 13.11.2026 (drivers.one-Stack, Exoscale CH) |
 | UB02 | Design-System aus Prototypen ableiten | ✅ 18.11.2026 (Tokens Tailwind 4, Komponenten, Logo-SVGs, Styleguide) |
-| UB03 | Landingpage urbown.com umsetzen | ✅ 18.11.2026 Texte + Auftrag Block 1 (Grundgerüst, Design-System, Landingpage); Code durch Claude Code |
-| UB04 | Abnahme Block 1 + Seite Städte & Ämter + Infopaket | ⏳ als Nächstes (nach Abschluss Block 1) |
-| UB05 | Netzwerke in einer App: Adressen, Kurzadressen, Netzwerk-Wechsel, Sichtbarkeit, Stadt-Vorlage, Klonen | ☐ |
+| UB03 | Landingpage urbown.com umsetzen | ✅ 18.11.2026 Texte + Auftrag Block 1; Block 1 gebaut 20.11.2026, abgenommen 26.11.2026 |
+| UB04 | Abnahme Block 1 + Seite Städte & Ämter + Infopaket | ✅ 26.11.2026 (Korrekturliste K1–K11, Förderung geprüft, `/staedte` neu, 3 Downloads, Auftrag Block 2) |
+| UB05 | Abnahme Block 2 + Netzwerke in einer App: Adressen, Kurzadressen, Netzwerk-Wechsel, Sichtbarkeit, Stadt-Vorlage, Klonen | ⏳ als Nächstes (nach Abschluss Block 2) |
 | UB06 | Login, 2FA, Rollen & Badges | ☐ |
 | UB07 | Personen einladen | ☐ |
 | UB08 | Superadmin-Dashboard | ☐ |
@@ -241,7 +246,7 @@ Legende: ✅ erledigt · ⏳ als Nächstes · ☐ offen
 | UB28 | Vertrieb & Akquise Städte | ☐ |
 
 Jedes Paket unten enthält: Inhalt · Ergebnis · Startnachricht (kopierbar) · Hochladen im Chat · Projektwissen.
-**Für alle Bau-Pakete ab UB03 gilt:** Oberfläche nur mit den Bausteinen und Tokens aus `claude/UB02-design.md`; neue Bausteine dort nachtragen (bis zum nächsten UB02-Update sammelt Claude Code sie in `docs/design-ergaenzungen.md`; die Landing-Bausteine stehen in `claude/UB03-landingpage-texte.md` Abschnitt 6).
+**Für alle Bau-Pakete ab UB03 gilt:** Oberfläche nur mit den Bausteinen und Tokens aus `claude/UB02-design.md` (Nachtrag `claude/UB04-kommunen.md` Abschnitt 6); neue Bausteine dort nachtragen (bis zum nächsten UB02-Update sammelt Claude Code sie in `docs/design-ergaenzungen.md`; die Landing-Bausteine stehen in `claude/UB03-landingpage-texte.md` Abschnitt 6).
 
 ---
 
@@ -256,50 +261,45 @@ Jedes Paket unten enthält: Inhalt · Ergebnis · Startnachricht (kopierbar) · 
 - `claude/UB02-design.md` – Grundsätze, Anpassungen für Barrierefreiheit, Tokens (Farben mit Kontrastwerten, Schriften, Grössen, Abstände, Radien, Breakpoints), fertige `globals.css` mit `@theme` (mit Tailwind 4 kompiliert und geprüft), Logo-Regeln, Icons, Layout, 17 Komponenten mit Zuständen, Prüfliste WCAG 2.2 AA, Zuordnung Prototyp → Seiten (die freigegebenen Prototypen sind die Mockups), Übergabe an Claude Code.
 - `claude/UB02-styleguide.html` – sichtbare Übersicht aller Bausteine und Zustände (Desktop und Handy geprüft).
 - `claude/UB02-logo/` – `urbown-logo.svg`, `urbown-logo-web.svg` (kräftigere Kontur «own»), `urbown-quadrat.svg`, `urbown-icon.svg`, `urbown-icon-maskable.svg`. Aus Helvetica-Bold-Geometrie nachgezeichnet und mit den Original-PNGs deckungsgleich geprüft.
+- Nachtrag (UB04): Design-Ergänzungen aus Block 1 und Block 2 in `claude/UB04-kommunen.md` Abschnitt 6, beim nächsten UB02-Update übernehmen.
 
 ---
 
 ### UB03 – Landingpage urbown.com ✅
 **Inhalt:** Landingpage im Next.js-Projekt (statisch gerendert, ohne Pagebuilder); Seiten: Startseite, Für Eigentümer, Für Städte & Ämter, Funktionen, Preise, Netzwerke & Login, Kontakt (Formular mit Turnstile, Versand über Resend), Impressum/AGB/Datenschutz (Platzhalter bis UB25). Texte aus dem Prototyp; Hosting-Text «Hosting in der Schweiz». SEO-Grundlagen, Lighthouse > 90. Erster Block für Claude Code inkl. Repository-Grundgerüst (`CLAUDE.md`, Docker-Stack lokal) und Design-System-Grundlage aus UB02.
 **Ergebnis (18.11.2026):**
-- `claude/UB03-landingpage-texte.md` – Änderungen gegenüber dem Prototyp, Adressen, Kopf/Footer, SEO-Titel und -Beschreibungen, alle Seitentexte (inkl. «Für Städte & Ämter» 1:1 mit Hosting-Korrektur als Grundlage für UB04), Kontaktformular mit Meldungen und Mailtext, Rechtstext-Platzhalter, 404, Fotos (Zuordnung, Fokuspunkt, Alt-Text), Bereich «Einblick», Landing-Bausteine.
-- `claude/UB03-claude-code-block1.md` – Vorbereitung für Marc, Nachricht an Claude Code, Auftrag Block 1 (Teile A–F: Repository mit Gitleaks/Dependabot/CI, Docker-Stack mit Supabase und Mailpit, Next.js mit Auslieferung nach Hostname, Design-System inkl. Icons/Favicons/PWA-Icons/`/_styleguide`, Landingpage, Tests mit axe/Lighthouse/Abnahme-Bildschirmfotos), Inhalt der `CLAUDE.md`.
+- `claude/UB03-landingpage-texte.md` – Änderungen gegenüber dem Prototyp, Adressen, Kopf/Footer, SEO-Titel und -Beschreibungen, alle Seitentexte, Kontaktformular mit Meldungen und Mailtext, Rechtstext-Platzhalter, 404, Fotos, Bereich «Einblick», Landing-Bausteine. (`/staedte` ersetzt durch UB04 Abschnitt 4.)
+- `claude/UB03-claude-code-block1.md` – Vorbereitung für Marc, Nachricht an Claude Code, Auftrag Block 1 (Teile A–F), Inhalt der `CLAUDE.md`.
 - Fotopaket `urbown-fotos-landing.zip` (5 Fotos in Graustufen + 3 Reserve), liegt beim Projektinhaber und im Repository unter `docs/grundlagen/fotos/`.
-- Entscheide: Fotos in Graustufen als Bildbänder; Bereich «Einblick» mit Bildschirmfotos (Antwort auf die Frage des Projektinhabers); Logo-JPG nicht nötig (SVGs aus UB02 genügen, nur eine Vektordatei des Originals würde etwas verbessern).
+- Entscheide: Fotos in Graustufen als Bildbänder; Bereich «Einblick» mit Bildschirmfotos; Logo-JPG nicht nötig.
+- **Block 1 (Claude Code, 20.11.2026):** Repository, Docker-Stack, Next.js 16.4, Design-System (31 Bausteine, 48 Icons, `/_styleguide`), alle Landing-Seiten, Kontaktformular, 31 Tests; Lighthouse 94–100, axe 0 Verstösse. Abgenommen mit Korrekturen in UB04.
 
 ---
 
-### UB04 – Abnahme Block 1 + Seite für Kommunen + Infopaket
-**Inhalt:** Zuerst Abnahme von Claude Code Block 1 (Bericht, Lighthouse, axe, Abnahme-Bildschirmfotos) und Korrekturliste. Dann urbown.com/staedte überarbeiten (in Block 1 nach Prototyp gebaut): Nutzen für die Stadt, Ablauf, Kosten + Pilotangebot, Datenschutz & Hosting (Schweiz), Förderhinweise (Städtebauförderung, Leerstandsaktivierung, «Gewerbe zu Wohnen»; per Websuche prüfen), Referenz Mannheim, FAQ Verwaltung, Demo-Termin. Downloads: Infopaket-PDF, Muster-Beschlussvorlage, AV-Vertrag (Entwurf). Arbeitsauftrag Block 2 an Claude Code (Korrekturen + Seite Städte + Downloads).
-**Ergebnis:** `claude/UB04-kommunen.md`, 3 Downloads, `claude/UB04-claude-code-block2.md`.
-
-**Startnachricht UB04:**
-```
-UB04 – Abnahme Block 1 + Seite für Kommunen + Infopaket.
-Lies im Projektwissen «claude/urbown-master.md» (Version 8.3), «claude/UB01-architektur.md» (Abschnitt 5), «claude/UB02-design.md», «claude/UB03-landingpage-texte.md» und «claude/UB03-claude-code-block1.md».
-Zuerst: Prüfe mit mir den Bericht von Claude Code zu Block 1 anhand der hochgeladenen Bildschirmfotos und der Lighthouse-Werte und erstelle die Korrekturliste.
-Aufgabe: Überarbeite die Seite «Für Städte & Ämter» (urbown.com/staedte, Hosting-Text «Schweiz») und erstelle die Downloads (Infopaket-PDF, Muster-Beschlussvorlage für den Gemeinderat, AV-Vertrag-Entwurf mit den Unterauftragsverarbeitern aus UB01). Prüfe die aktuellen Förderprogramme per Websuche. Schreibe den Arbeitsauftrag Block 2 an Claude Code (Korrekturen aus der Abnahme, Seite Städte, Downloads).
-Lege die Inhalte als «claude/UB04-kommunen.md» und «claude/UB04-claude-code-block2.md» ab, Status in der Master-Datei aktualisieren.
-Am Ende: Startnachricht UB05 im Codeblock, Upload-Liste, Projektwissen-Liste.
-```
-**Im Chat hochladen:** Bericht von Claude Code zu Block 1 (Text aus dem Chat oder `docs/claude-code-uebergabe.md`); Abnahme-Bildschirmfotos aus `tests/output/abnahme/` (je Seite 360 px und 1280 px genügen); eigene Notizen/Screenshots von Auffälligkeiten; Zahlen/Zitate aus Mannheim (falls vorhanden); Ansprechperson der Stadt Mannheim (Rolle).
-**Projektwissen:** master, UB01, UB02, UB03 (Texte + Auftrag Block 1).
+### UB04 – Abnahme Block 1 + Seite für Kommunen + Infopaket ✅
+**Inhalt:** Abnahme von Claude Code Block 1 und Korrekturliste; urbown.com/staedte überarbeiten (Nutzen, Ablauf, Kosten + Pilot, Datenschutz & Hosting Schweiz, Förderhinweise per Websuche geprüft, Referenz Mannheim, FAQ Verwaltung, Demo-Termin); Downloads; Arbeitsauftrag Block 2.
+**Ergebnis (26.11.2026):**
+- `claude/UB04-kommunen.md` – Abnahme Block 1 (Lighthouse, axe, Bildschirmfotos, Abweichungen), **Korrekturliste K1–K11** (u. a. Silbentrennung in Titeln inkl. «ur-bown», Kontakt-h1, Prototyp-Hinweis im Einblick-Bild, «ß»/Dezimalpunkt in Beispieldaten, Hinweis ohne JavaScript), Antworten auf die 7 Fragen von Claude Code, **Förderprogramme Stand 11/2026** (DE: Städtebauförderung «Lebendige Zentren» 2026 mit 380 Mio. € Bundesmitteln, Landesprogramme NRW/BW, «Gewerbe zu Wohnen» KfW 266; CH: NRP, kantonale Standortförderung, EspaceSuisse; entfernt: Handlungsstrategie Leerstandsaktivierung, Modellvorhaben 2025–2030), Erkenntnis «Daten in der Schweiz» vs. US-Dienstleister, **alle Texte der neuen Seite `/staedte`**, Downloads, Design-Ergänzungen (Abschnitt 6), offene Punkte.
+- `claude/UB04-claude-code-block2.md` – Vorbereitung für Marc, Nachricht an Claude Code, Auftrag Block 2 (Teile A–E: Korrekturen, Seite Städte, Downloads mit Metadaten und Kopfzeilen, Tests/Lighthouse mit FCP/LCP, Icon-Tafel).
+- Downloads (beim Projektinhaber, im Repository unter `docs/grundlagen/downloads/`): `urbown-infopaket-staedte.pdf` (8 Seiten, mit Tags), `urbown-muster-beschlussvorlage.docx/.pdf` (Deutschland, Anhang Schweiz), `urbown-av-vertrag-entwurf.docx/.pdf` (Art. 28 DSGVO / Art. 9 DSG, Anlagen TOM und Unterauftragsverarbeiter), `infopaket-quelle/` (HTML-Quelle).
+- Entscheide: Turnstile bleibt interaction-only mit Hinweis ohne JS; neue Icons vorläufig freigegeben (Abnahme UB05); Beispieldaten im Screenshot-Skript korrigieren; OG-Bild freigegeben; Infopaket ohne Formular herunterladbar; Beschlussvorlage in deutscher Rechtschreibung; Resend-Region Irland.
 
 ---
 
-### UB05 – Netzwerke in einer App
-**Inhalt:** Netzwerke als Mandanten in einer App: Adressen `app.urbown.com/[netzwerk]`, Kurzadressen `[stadt].urbown.com` als Weiterleitung (Cloudflare-Wildcard), zentraler Login mit automatischer Weiterleitung und Netzwerk-Auswahl, Netzwerk-Wechsel, Sichtbarkeit je Inhalt und Profil (Standard nur Netzwerk, RLS), Vorlage-Netzwerk, «Neue Stadt anlegen» (< 5 Min.), «Netzwerk klonen» (für Demo), Branding je Netzwerk (Logo, Website-Button). Cloudflare-Zone urbown.com besteht seit 18.11.2026 (alle Einträge «DNS only»); in UB05 kommen die Einträge für `app`, `api`, `staging` und die Wildcard-Weiterleitung dazu (Altbestand mannheim/demo/www bleibt bis Go-Live auf Hostpoint), dazu die Resend-Domain (SPF/DKIM) für Kontaktformular und Systemmails. Exoscale-Instanz Schritt für Schritt einrichten, erstes Deployment der Landingpage auf `staging.urbown.com`. App-Shell (Sidebar, Kopfzeile Handy, Tab-Leiste mit «Erstellen») nach UB02 Abschnitt 8.13.
-**Ergebnis:** Code im Repository; `claude/UB05-netzwerke.md` (Anleitung neue Stadt).
+### UB05 – Abnahme Block 2 + Netzwerke in einer App
+**Inhalt:** Zuerst Abnahme von Claude Code Block 2 (Bericht, K1–K11, `/staedte`, Downloads, Lighthouse mit FCP/LCP, Bildschirmfotos) und **Abnahme der Icon-Tafel** (`icons.png`). Dann: Netzwerke als Mandanten in einer App: Adressen `app.urbown.com/[netzwerk]`, Kurzadressen `[stadt].urbown.com` als Weiterleitung (Cloudflare-Wildcard), zentraler Login mit automatischer Weiterleitung und Netzwerk-Auswahl, Netzwerk-Wechsel, Sichtbarkeit je Inhalt und Profil (Standard nur Netzwerk, RLS), Vorlage-Netzwerk, «Neue Stadt anlegen» (< 5 Min.), «Netzwerk klonen» (für Demo), Branding je Netzwerk (Logo, Website-Button). Cloudflare-Zone urbown.com besteht seit 18.11.2026 (alle Einträge «DNS only»); in UB05 kommen die Einträge für `app`, `api`, `staging` und die Wildcard-Weiterleitung dazu (Altbestand mannheim/demo/www bleibt bis Go-Live auf Hostpoint), dazu die Resend-Domain (SPF/DKIM, **Region Irland**) für Kontaktformular und Systemmails. Exoscale-Instanz Schritt für Schritt einrichten, erstes Deployment der Landingpage auf `staging.urbown.com`. App-Shell (Sidebar, Kopfzeile Handy, Tab-Leiste mit «Erstellen») nach UB02 Abschnitt 8.13. Arbeitsauftrag Block 3 an Claude Code.
+**Ergebnis:** Korrekturliste Block 2; `claude/UB05-netzwerke.md` (Anleitung neue Stadt); `claude/UB05-claude-code-block3.md`.
 
 **Startnachricht UB05:**
 ```
-UB05 – Netzwerke in einer App.
-Lies im Projektwissen «claude/urbown-master.md» (Abschnitte 2, 3.18, 4), «claude/UB01-architektur.md» (Abschnitte 2.3, 4.1, 6) und «claude/UB02-design.md» (Abschnitte 7.1, 8.13).
-Aufgabe: Setze die Netzwerke als Mandanten in einer App um: app.urbown.com/[netzwerk], Kurzadressen [stadt].urbown.com als Cloudflare-Weiterleitung, zentraler Login mit automatischer Weiterleitung und Netzwerk-Auswahl, Netzwerk-Wechsel, Sichtbarkeit je Inhalt und Profil (Standard nur Netzwerk, RLS), Vorlage-Netzwerk, «Neue Stadt anlegen», «Netzwerk klonen», Branding je Netzwerk, App-Shell nach UB02. Führe mich durch die Exoscale-Instanz, die neuen Cloudflare-Einträge und die Resend-Domain (Zone urbown.com ist seit 18.11.2026 bei Cloudflare, Altbestand bleibt bis Go-Live unverändert) und plane das erste Deployment der Landingpage auf staging.urbown.com.
-Lege die Anleitung als «claude/UB05-netzwerke.md» ab, Status in der Master-Datei aktualisieren.
+UB05 – Abnahme Block 2 + Netzwerke in einer App.
+Lies im Projektwissen «claude/urbown-master.md» (Version 8.4, Abschnitte 2, 3.18, 4), «claude/UB01-architektur.md» (Abschnitte 2.3, 4.1, 6), «claude/UB02-design.md» (Abschnitte 7.1, 8.13), «claude/UB04-kommunen.md» (Abschnitte 1.4, 4, 6) und «claude/UB04-claude-code-block2.md».
+Zuerst: Prüfe mit mir den Bericht von Claude Code zu Block 2 (Korrekturen K1–K11, Seite /staedte, Downloads) anhand der Bildschirmfotos, der Icon-Tafel und der Lighthouse-Werte, nimm die neuen Icons ab und erstelle die Korrekturliste.
+Aufgabe: Setze die Netzwerke als Mandanten in einer App um: app.urbown.com/[netzwerk], Kurzadressen [stadt].urbown.com als Cloudflare-Weiterleitung, zentraler Login mit automatischer Weiterleitung und Netzwerk-Auswahl, Netzwerk-Wechsel, Sichtbarkeit je Inhalt und Profil (Standard nur Netzwerk, RLS), Vorlage-Netzwerk, «Neue Stadt anlegen», «Netzwerk klonen», Branding je Netzwerk, App-Shell nach UB02. Führe mich durch die Exoscale-Instanz, die neuen Cloudflare-Einträge und die Resend-Domain (Region Irland; Zone urbown.com ist seit 18.11.2026 bei Cloudflare, Altbestand bleibt bis Go-Live unverändert) und plane das erste Deployment der Landingpage auf staging.urbown.com. Schreibe den Arbeitsauftrag Block 3 an Claude Code (Korrekturen aus der Abnahme, Netzwerke, App-Shell, Deployment-Vorbereitung).
+Lege die Ergebnisse als «claude/UB05-netzwerke.md» und «claude/UB05-claude-code-block3.md» ab, Status in der Master-Datei aktualisieren.
 Am Ende: Startnachricht UB06 im Codeblock, Upload-Liste, Projektwissen-Liste.
 ```
-**Im Chat hochladen:** CX19-Runbook von drivers.one (`docs/cx19-produktions-deployment.md`) als Vorlage; aktueller DNS-Export aus Cloudflare (Import and Export → Export); aktueller `docs/claude-code-uebergabe.md`.
+**Im Chat hochladen:** Bericht von Claude Code zu Block 2 (`docs/claude-code-uebergabe.md`); Abnahme-Bildschirmfotos aus `tests/output/abnahme/` (je Seite 360 und 1280 px, mindestens `staedte` und `kontakt`, dazu `icons.png`); `docs/design-ergaenzungen.md`; eigene Notizen/Screenshots von Auffälligkeiten; CX19-Runbook von drivers.one (`docs/cx19-produktions-deployment.md`) als Vorlage; aktueller DNS-Export aus Cloudflare (Import and Export → Export).
 **Projektwissen:** master, UB01, UB02, UB04.
 
 ---
@@ -333,7 +333,7 @@ Aufgabe: Baue das Einladungsformular, die Admin-Benachrichtigung per Mail, die E
 Lege das Ergebnis als «claude/UB07-einladen.md» ab, Status in der Master-Datei aktualisieren.
 Am Ende: Startnachricht UB08 im Codeblock, Upload-Liste, Projektwissen-Liste.
 ```
-**Im Chat hochladen:** gewünschte Absender-E-Mail-Adresse für Systemmails (Dienst: Resend, entschieden; Vorschlag aus UB03: «urbown <no-reply@urbown.com>»).
+**Im Chat hochladen:** gewünschte Absender-E-Mail-Adresse für Systemmails (Dienst: Resend, entschieden; vorläufig «urbown <no-reply@urbown.com>»).
 **Projektwissen:** master, UB01, UB02, UB06.
 
 ---
@@ -526,14 +526,14 @@ Am Ende: Startnachricht UB19 im Codeblock, Upload-Liste, Projektwissen-Liste.
 ---
 
 ### UB19 – Karte
-**Inhalt:** Locations eintragen (Adresse/Klick, Titel, Kurzbeschreibung, Thema), Gesamtkarte mit Filtern, Cluster, mobile Bedienung; Karten-Komponente wiederverwendbar für vakante Flächen, Inserate, Events; Entscheid Kartenanbieter (Kacheln in Graustufen + Adresssuche).
+**Inhalt:** Locations eintragen (Adresse/Klick, Titel, Kurzbeschreibung, Thema), Gesamtkarte mit Filtern, Cluster, mobile Bedienung; Karten-Komponente wiederverwendbar für vakante Flächen, Inserate, Events; Entscheid Kartenanbieter (Kacheln in Graustufen + Adresssuche). Danach Anlage 3 des AV-Vertrags (UB04) mit dem gewählten Anbieter nachführen.
 **Ergebnis:** Code; `claude/UB19-karte.md`.
 
 **Startnachricht UB19:**
 ```
 UB19 – Karte.
 Lies im Projektwissen «claude/urbown-master.md» (Abschnitt 3.9), «claude/UB01-architektur.md» (Abschnitt 4.5), «claude/UB02-design.md» (Abschnitt 8.14) und «claude/UB11-dashboard.md».
-Aufgabe: Entscheide mit mir den Kartenanbieter (Vorschlag MapTiler, Zug; Kacheln in Graustufen) und baue die Karte mit Leaflet/OpenStreetMap: Mitglieder tragen Locations mit Titel und Kurzbeschreibung ein, Gesamtkarte filterbar nach Thema/Typ. Baue die Karte als wiederverwendbare Komponente für vakante Flächen, Inserate und Events.
+Aufgabe: Entscheide mit mir den Kartenanbieter (Vorschlag MapTiler, Zug; Kacheln in Graustufen) und baue die Karte mit Leaflet/OpenStreetMap: Mitglieder tragen Locations mit Titel und Kurzbeschreibung ein, Gesamtkarte filterbar nach Thema/Typ. Baue die Karte als wiederverwendbare Komponente für vakante Flächen, Inserate und Events. Halte Ort der Datenverarbeitung und Vertragsgrundlage des Anbieters für den AV-Vertrag fest.
 Lege das Ergebnis als «claude/UB19-karte.md» ab, Status in der Master-Datei aktualisieren.
 Am Ende: Startnachricht UB20 im Codeblock, Upload-Liste, Projektwissen-Liste.
 ```
@@ -611,7 +611,7 @@ Am Ende: Startnachricht UB24 im Codeblock, Upload-Liste, Projektwissen-Liste.
 ---
 
 ### UB24 – demo.urbown.com
-**Inhalt:** Netzwerk `demo` als Klon ohne echte Personendaten, realistische Demodaten für alle Module (aus Prototyp `seed()`), Demo-Zugänge (Mitglied, Stadt-Admin), nächtlicher Reset per `pg_cron`. Danach die **Bildschirmfotos der Landingpage** (Bereich «Einblick», UB03 Abschnitt 5) mit `npm run screenshots -- --source=demo` aus der echten Demo neu erzeugen.
+**Inhalt:** Netzwerk `demo` als Klon ohne echte Personendaten, realistische Demodaten für alle Module (aus Prototyp `seed()`, in Schweizer Schreibweise ohne «ß», Dezimalkomma), Demo-Zugänge (Mitglied, Stadt-Admin), nächtlicher Reset per `pg_cron`. Danach die **Bildschirmfotos der Landingpage** (Bereich «Einblick», UB03 Abschnitt 5) mit `npm run screenshots -- --source=demo` aus der echten Demo neu erzeugen.
 **Ergebnis:** Demo live; neue Bildschirmfotos auf der Landingpage; `claude/UB24-demo.md` (Zugänge, Reset).
 
 **Startnachricht UB24:**
@@ -628,19 +628,19 @@ Am Ende: Startnachricht UB25 im Codeblock, Upload-Liste, Projektwissen-Liste.
 ---
 
 ### UB25 – Recht, Datenschutz, Sicherheit
-**Inhalt:** Datenschutzerklärung (DSGVO + DSG, nur tatsächlich genutzte Dienste: Exoscale, Cloudflare inkl. Turnstile, Resend, Kartenanbieter), AGB (neue Funktionen, Pricing), Impressum vollständig (ersetzt die Platzhalter aus UB03), Community Guide, AV-Vertrag, Cookie-Lösung (nur notwendige Cookies), Sicherheitscheck (Updates, 2FA Admins, Rate-Limits, Backups), Barrierefreiheitserklärung.
-**Ergebnis:** Texte; `claude/UB25-recht.md`.
+**Inhalt:** Datenschutzerklärung (DSGVO + DSG, nur tatsächlich genutzte Dienste: Exoscale, Cloudflare inkl. Turnstile, Resend, Kartenanbieter), AGB (neue Funktionen, Pricing), Impressum vollständig (ersetzt die Platzhalter aus UB03), Community Guide, **AV-Vertrag: Endfassung aus dem Entwurf UB04** (inkl. Abgrenzung/gemeinsame Verantwortlichkeit § 11, Resend Swiss-U.S. DPF, ggf. E-Mail-Dienst mit Speicherung CH/EU), Muster-Beschlussvorlage prüfen, Cookie-Lösung (nur notwendige Cookies), Sicherheitscheck (Updates, 2FA Admins, Rate-Limits, Backups, CSP-Hashes statt `'unsafe-inline'` prüfen), Barrierefreiheitserklärung.
+**Ergebnis:** Texte; `claude/UB25-recht.md`; aktualisierte Downloads.
 
 **Startnachricht UB25:**
 ```
 UB25 – Recht, Datenschutz, Sicherheit.
-Lies im Projektwissen «claude/urbown-master.md», «claude/UB01-architektur.md» (Abschnitte 5 und 6), «claude/UB02-design.md» (Abschnitt 9, Barrierefreiheit) und «claude/UB03-landingpage-texte.md» (Abschnitte 3.7 und 3.8).
-Aufgabe: Aktualisiere Datenschutzerklärung, AGB, Impressum, Community Guide, AV-Vertrag, Cookie-Lösung und Barrierefreiheitserklärung für urbown 2.0 und führe einen Sicherheitscheck durch. Nutze die Erkenntnisse aus der Rechtstexte-Prüfung von drivers.one. Hinweis: Entwürfe, juristische Prüfung durch Anwalt empfohlen.
+Lies im Projektwissen «claude/urbown-master.md», «claude/UB01-architektur.md» (Abschnitte 5 und 6), «claude/UB02-design.md» (Abschnitt 9, Barrierefreiheit), «claude/UB03-landingpage-texte.md» (Abschnitte 3.7 und 3.8) und «claude/UB04-kommunen.md» (Abschnitte 3, 5, 7).
+Aufgabe: Aktualisiere Datenschutzerklärung, AGB, Impressum, Community Guide, AV-Vertrag (Endfassung aus dem Entwurf UB04), Cookie-Lösung und Barrierefreiheitserklärung für urbown 2.0 und führe einen Sicherheitscheck durch. Nutze die Erkenntnisse aus der Rechtstexte-Prüfung von drivers.one. Hinweis: Entwürfe, juristische Prüfung durch Anwalt empfohlen.
 Lege das Ergebnis als «claude/UB25-recht.md» ab, Status in der Master-Datei aktualisieren.
 Am Ende: Startnachricht UB26 im Codeblock, Upload-Liste, Projektwissen-Liste.
 ```
-**Im Chat hochladen:** aktuelle AGB/Datenschutz von urbown (oder Link), Anwaltspaket/Rechtstexte von drivers.one als Vorlage, Handelsregister-/UID-Angaben der IXIO AG.
-**Projektwissen:** master, UB01, UB02, UB03.
+**Im Chat hochladen:** aktuelle AGB/Datenschutz von urbown (oder Link), Anwaltspaket/Rechtstexte von drivers.one als Vorlage, Handelsregister-/UID-Angaben der IXIO AG, `urbown-av-vertrag-entwurf.docx` und `urbown-muster-beschlussvorlage.docx` aus UB04.
+**Projektwissen:** master, UB01, UB02, UB03, UB04.
 
 ---
 
@@ -662,7 +662,7 @@ Am Ende: Startnachricht UB27 im Codeblock, Upload-Liste, Projektwissen-Liste.
 ---
 
 ### UB27 – Launch-Newsletter
-**Inhalt:** Entwurf Abschnitt 7 mit den tatsächlich umgesetzten Features finalisieren, im Newsletter-Modul gestalten, Testversand, Versand an Mannheim.
+**Inhalt:** Entwurf Abschnitt 7 mit den tatsächlich umgesetzten Features finalisieren (Datenschutz-Satz nach UB04 Abschnitt 3), im Newsletter-Modul gestalten, Testversand, Versand an Mannheim.
 **Ergebnis:** Newsletter versendet; `claude/UB27-newsletter.md`.
 
 **Startnachricht UB27:**
@@ -679,17 +679,17 @@ Am Ende: Startnachricht UB28 im Codeblock, Upload-Liste, Projektwissen-Liste.
 ---
 
 ### UB28 – Vertrieb & Akquise Städte
-**Inhalt:** 30 Zielstädte mit Ansprechrollen, Akquise-Mail, Telefonleitfaden, Präsentation Erstgespräch, Förderleitfaden je Bundesland (Start Baden-Württemberg) und Schweiz (ARE/SECO, Kantone), Fallstudie Mannheim.
+**Inhalt:** 30 Zielstädte mit Ansprechrollen, Akquise-Mail, Telefonleitfaden, Präsentation Erstgespräch, Förderleitfaden je Bundesland (Start Baden-Württemberg) und Schweiz (SECO/NRP, Kantone, EspaceSuisse), Fallstudie Mannheim. Förderstand aus UB04 Abschnitt 2 aktualisieren (Infopaket-Quelle und `funding.ts`), nächste Generation der Modellvorhaben vormerken.
 **Ergebnis:** `claude/UB28-vertrieb.md` + Präsentation.
 
 **Startnachricht UB28:**
 ```
 UB28 – Vertrieb & Akquise Städte.
 Lies im Projektwissen «claude/urbown-master.md», «claude/UB04-kommunen.md» und die Vision-Präsentation.
-Aufgabe: Erstelle Zielstädte-Liste (30, Deutschland und Schweiz), Akquise-Mail, Telefonleitfaden, Präsentation fürs Erstgespräch, Förderleitfaden Baden-Württemberg und Schweiz und Fallstudie Mannheim. Aktuelle Förderprogramme per Websuche prüfen.
+Aufgabe: Erstelle Zielstädte-Liste (30, Deutschland und Schweiz), Akquise-Mail, Telefonleitfaden, Präsentation fürs Erstgespräch, Förderleitfaden Baden-Württemberg und Schweiz und Fallstudie Mannheim. Aktuelle Förderprogramme per Websuche prüfen und den Förderstand von Infopaket und Website nachführen.
 Lege das Ergebnis als «claude/UB28-vertrieb.md» ab, Status in der Master-Datei aktualisieren.
 ```
-**Im Chat hochladen:** Kennzahlen Mannheim nach Launch (Mitglieder, Aktivität, Leerstände).
+**Im Chat hochladen:** Kennzahlen Mannheim nach Launch (Mitglieder, Aktivität, Leerstände); Infopaket-Quelle (`docs/grundlagen/downloads/infopaket-quelle/`).
 **Projektwissen:** master, UB02 (Logo), UB04.
 
 ---
@@ -723,7 +723,7 @@ urbown Mannheim hat ein komplettes Update erhalten: klarer, schneller, fürs Han
 - **Dokumente in Ordnern** – übersichtlich ablegen, ändern, finden.
 - **Karte:** Orte mit Titel und Kurzbeschreibung eintragen und nach Themen filtern.
 - **Mein Portfolio:** alle Ihre Beiträge, Inserate und Events an einem Ort – und Sie bestimmen genau, wofür Sie E-Mails erhalten.
-- **Mehr Sicherheit:** optionale 2-Faktor-Anmeldung, Daten ausschliesslich in der Schweiz gespeichert.
+- **Mehr Sicherheit:** optionale 2-Faktor-Anmeldung, Ihre Daten werden in der Schweiz gespeichert. *(Formulierung UB04: nicht «ausschliesslich»)*
 - **Personen einladen:** Eigentümer und Partner mit wenigen Angaben ins Netzwerk einladen.
 {in UB27 mit tatsächlich umgesetzten Features abgleichen}
 
@@ -750,13 +750,16 @@ urbown.com · IXIO AG · Bahnhofplatz · 6300 Zug · Abmelden · Datenschutz
 | Event-Widget für Websites von Stadt/Verein | Sichtbarkeit nach aussen |
 | Native App (iOS/Android) über Expo, gleicher Backend-Stack wie drivers.one | Präsenz in den App-Stores |
 | Kurzes Erklärvideo (60–90 s) auf der Landingpage, aus Bildschirmaufnahmen der Demo | Einstieg ohne Demo-Termin |
+| Vorlage Einladungsbrief der Stadt an die Eigentümer (Word) als vierter Download | Start des Pilots erleichtern (UB04 verspricht Briefvorlage im Ablauf; spätestens bis zum ersten Pilot erstellen) |
 
 ## 9. Offene Punkte / Input vom Projektinhaber
 
-1. Vektordatei des Logos (SVG, AI, EPS oder PDF), falls vorhanden. **Stand UB03 (18.11.2026):** nicht nötig für den Start – die SVGs in `claude/UB02-logo/` sind aus der Helvetica-Bold-Geometrie nachgezeichnet und mit den PNGs deckungsgleich. **Ein JPG bringt nichts** (Pixelbild ohne Transparenz, schlechter als das vorhandene PNG). Nur eine echte Vektordatei würde die Pfade ersetzen; taucht sie auf, im nächsten Chat hochladen.
+1. Vektordatei des Logos (SVG, AI, EPS oder PDF), falls vorhanden. **Stand UB03 (18.11.2026):** nicht nötig für den Start – die SVGs in `claude/UB02-logo/` sind aus der Helvetica-Bold-Geometrie nachgezeichnet und mit den PNGs deckungsgleich. **Ein JPG bringt nichts.** Nur eine echte Vektordatei würde die Pfade ersetzen; taucht sie auf, im nächsten Chat hochladen.
 2. Mitgliederliste Mannheim, Vorname/Name/E-Mail (für UB23).
 3. ~~Entscheid Hosting DE/CH und GitHub-Repository~~ → entschieden in UB01: Schweiz (Exoscale), Repository `ixio-ag/urbown`. **Stand 18.11.2026:** GitHub-Repository `ixio-ag/urbown` angelegt ✅ · Proton-Pass-Tresor «urbown Infrastruktur» ✅ · Cloudflare-Zone urbown.com angelegt ✅ (Konto info@ixio.ch, 57 Einträge 1:1 aus der Hostpoint-Zone inkl. Wildcards, DKIM, DMARC, SPF; alle «DNS only»; DNSSEC aus; Registrar bleibt Hostpoint). Nameserver-Umstellung auf `curt.ns.cloudflare.com` / `nucum.ns.cloudflare.com` durch Marc, danach Test Websites + Mail senden/empfangen. Hinweise: Hostpoint-Zone nicht löschen (Rückweg); falls Hostpoint DKIM-Schlüssel erneuert, in Cloudflare nachtragen; SSL-Erneuerung der WordPress-Seiten in 2–3 Monaten prüfen.
 4. Bestätigung Pricing DE/CH + Pilot (6 Monate gratis, erste 10 Städte).
 5. Zieltermin Go-Live.
 6. **Bildrechte Landingpage (UB03):** Lizenz für die drei Fotolia-/Adobe-Stock-Bilder (Fussgängerzone auf `/staedte`, zwei in Reserve) sowie das Placeit-Mockup mit der urbown-Tasche (eingesetzt auf `/kontakt`) bestätigen. Die übrigen Fotos stammen von Pexels/Unsplash/Pixabay (frei nutzbar).
-7. **Claude Code Block 1 starten (UB03):** Vorbereitung nach `claude/UB03-claude-code-block1.md` Teil 1 (Grundlagen und Fotos unter `docs/grundlagen/`, optional drivers.one-`CLAUDE.md` als Vorlage), dann Nachricht aus Teil 2 an Claude Code.
+7. ~~Claude Code Block 1 starten~~ ✅ erledigt (20.11.2026). **Neu: Claude Code Block 2 starten** nach `claude/UB04-claude-code-block2.md` Teil 1 (Grundlagen und Downloads unter `docs/grundlagen/`, optional drivers.one-`CLAUDE.md`), dann Nachricht aus Teil 2.
+8. **Referenz Mannheim (UB04):** Zitat und Rolle der Ansprechperson bei der Stadt (mit Einverständnis) für `/staedte` und Infopaket; Text der Referenz (`UB04-kommunen.md` 4.5) bestätigen.
+9. **Förderprogramme:** BW-«Sofortprogramm Einzelhandel/Innenstadt» endet am 31.12.2026 (Antrag ≥ 10 Wochen vor Vorhabenbeginn) – für Mannheim nur noch nutzbar, wenn kurzfristig ein Vorhaben ansteht; sonst entfällt es im nächsten Förderstand.

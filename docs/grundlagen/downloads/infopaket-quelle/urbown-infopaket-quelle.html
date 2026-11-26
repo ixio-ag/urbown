@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>urbown – Infopaket für Städte, Gemeinden und Ämter</title>
+<meta name="author" content="IXIO AG, urbown">
+<meta name="description" content="Nutzen, Ablauf, Kosten, Datenschutz und Förderung von urbown für Städte und Gemeinden. Stand November 2026.">
+<!--
+  Quelle des Infopakets (UB04, 26.11.2026). PDF erzeugen:
+  Chromium/Playwright, A4, printBackground, tagged, outline, Fusszeile siehe make-infopaket.mjs.
+  Förderstand (Seite 8) halbjährlich prüfen.
+-->
+<style>
+@font-face{font-family:Archivo;font-weight:500;src:url(fonts/archivo-latin-500-normal.woff2)}
+@font-face{font-family:Archivo;font-weight:700;src:url(fonts/archivo-latin-700-normal.woff2)}
+@font-face{font-family:Archivo;font-weight:800;src:url(fonts/archivo-latin-800-normal.woff2)}
+@font-face{font-family:Archivo;font-weight:900;src:url(fonts/archivo-latin-900-normal.woff2)}
+@font-face{font-family:Inter;font-weight:400;src:url(fonts/inter-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:500;src:url(fonts/inter-latin-500-normal.woff2)}
+@font-face{font-family:Inter;font-weight:600;src:url(fonts/inter-latin-600-normal.woff2)}
+@font-face{font-family:Inter;font-weight:700;src:url(fonts/inter-latin-700-normal.woff2)}
+@font-face{font-family:Plex;font-weight:400;src:url(fonts/ibm-plex-mono-latin-400-normal.woff2)}
+@font-face{font-family:Plex;font-weight:500;src:url(fonts/ibm-plex-mono-latin-500-normal.woff2)}
+
+@page{size:A4;margin:16mm 17mm 20mm 17mm}
+:root{--ink:#111111;--ink2:#55554F;--ink3:#6B6B65;--line:#E2E2DD;--paper:#F6F6F4}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font-family:Inter,Arial,sans-serif;font-size:9pt;line-height:1.45;color:var(--ink)}
+.page{break-after:page;position:relative}
+.page:last-child{break-after:auto}
+h1,h2,h3{font-family:Archivo,Arial,sans-serif;margin:0;letter-spacing:-.02em;text-wrap:balance}
+h1{font-weight:900;font-size:36pt;line-height:1.02}
+h2{font-weight:800;font-size:17pt;line-height:1.1;margin:0 0 2.6mm}
+h3{font-weight:700;font-size:11pt;line-height:1.25;margin:0 0 1.2mm;letter-spacing:-.01em}
+p{margin:0 0 2.4mm}
+.o{color:transparent;-webkit-text-stroke:1.1px var(--ink)}
+.lbl{font-family:Plex,monospace;font-size:7.2pt;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin:0 0 2mm;display:block}
+.lead{font-size:10.6pt;line-height:1.5;color:var(--ink2);max-width:150mm}
+.muted{color:var(--ink2)}
+.small{font-size:8pt;color:var(--ink2)}
+.mono{font-family:Plex,monospace}
+.sec{border-top:1px solid var(--ink);padding-top:3.6mm;margin-top:5mm}
+.sec.first{margin-top:0}
+.grid{display:grid;border-left:1px solid var(--ink);border-top:1px solid var(--ink)}
+.grid>div{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:3mm 3.6mm}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}
+.grid p{color:var(--ink2);margin:0;font-size:8.5pt;line-height:1.42}
+.box{border:1.5px solid var(--ink);padding:3.2mm 4mm}
+.box.strong{outline:1.5px solid var(--ink);outline-offset:-3px}
+.kv{width:100%;border-collapse:collapse}
+.kv td{padding:2mm 0;border-bottom:1px solid var(--line);vertical-align:top}
+.kv tr:last-child td{border-bottom:0}
+.kv td:last-child{text-align:right;font-weight:600}
+table.t{width:100%;border-collapse:collapse;font-size:8.4pt}
+table.t th{font-family:Plex,monospace;font-weight:400;font-size:7pt;text-transform:uppercase;letter-spacing:.08em;color:var(--ink2);text-align:left;padding:1.6mm 2mm;border-bottom:1px solid var(--ink)}
+table.t td{padding:2mm;border-bottom:1px solid var(--line);vertical-align:top}
+ul{margin:0;padding-left:4.2mm}
+li{margin:0 0 1.2mm}
+.grid li{color:var(--ink2);font-size:8.4pt}
+.steps{list-style:none;padding:0;margin:0;border-top:1px solid var(--ink)}
+.steps li{display:grid;grid-template-columns:16mm 1fr;gap:3mm;padding:2.3mm 0;border-bottom:1px solid var(--line);margin:0}
+.steps .n{font-family:Archivo;font-weight:900;font-size:20pt;line-height:1;color:transparent;-webkit-text-stroke:1px var(--ink)}
+.steps p{color:var(--ink2);margin:0}
+.tag{display:inline-block;font-family:Plex,monospace;font-size:7pt;letter-spacing:.05em;text-transform:uppercase;padding:.3mm 1.4mm;border:1px solid var(--ink);border-radius:2px;margin-bottom:2mm}
+.tag.solid{background:var(--ink);color:#fff}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border:1.5px solid var(--ink)}
+.stats>div{padding:4mm;border-right:1px solid var(--ink)}
+.stats>div:last-child{border-right:0}
+.stats b{display:block;font-family:Archivo;font-weight:900;font-size:20pt;line-height:1;margin-bottom:1.5mm}
+.stats span{color:var(--ink2);font-size:8.6pt}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+.cover-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:26mm}
+.cover-top svg{height:12mm;width:auto}
+.cover h1{font-size:44pt;margin:3mm 0 7mm}
+.cover .glance{width:96mm;margin-top:12mm}
+.cover-foot{position:absolute;left:0;right:0;bottom:0;border-top:1px solid var(--ink);padding-top:3.5mm;display:flex;justify-content:space-between;font-size:8.4pt;color:var(--ink2)}
+.check li{list-style:none;position:relative;padding-left:5mm}
+.check{padding-left:0}
+.check li::before{content:"";position:absolute;left:0;top:1.7mm;width:2.2mm;height:2.2mm;background:var(--ink)}
+.note{border:1.5px solid var(--ink);padding:3mm 4mm;margin-top:4mm;font-size:8.6pt}
+.note b{display:block;margin-bottom:.8mm}
+.avoid{break-inside:avoid}
+</style>
+</head>
+<body>
+
+<!-- Seite 1 -->
+<section class="page cover" style="height:257mm">
+  <div class="cover-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3456 755" role="img" aria-label="urbown"><title>urbown</title><g fill="#111111"><path transform="translate(-50 738) scale(1 -1)" d="M541 0V540H401V216C401 152 356 110 288 110C228 110 198 142 198 207V540H58V178C58 59 124 -9 239 -9C312 -9 361 18 401 71V0Z"/><path transform="translate(520 738) scale(1 -1)" d="M370 406V548C362 549 357 549 353 549C289 549 233 507 203 434V540H63V0H203V287C203 369 244 410 326 410C341 410 351 409 370 406Z"/><path transform="translate(910 738) scale(1 -1)" d="M575 263C575 416 490 549 348 549C281 549 233 524 199 470V729H59V0H199V62C233 16 280 -9 348 -9C477 -9 575 100 575 263ZM435 269C435 171 386 108 317 108C246 108 199 169 199 272C199 370 247 432 317 432C386 432 435 369 435 269Z"/></g><g fill="none" stroke="#111111" stroke-width="17" stroke-linejoin="round"><path transform="translate(1524 738) scale(1 -1)" d="M569 266C569 449 470 549 301 549C136 549 35 447 35 270C35 92 136 -9 302 -9C466 -9 569 93 569 266ZM429 268C429 167 377 104 302 104C226 104 175 167 175 270C175 373 226 436 302 436C379 436 429 374 429 268Z"/><path transform="translate(2124 738) scale(1 -1)" d="M766 540H621L539 162L458 540H318L236 162L150 540H5L157 0H301L387 381L468 0H613Z"/><path transform="translate(2902 738) scale(1 -1)" d="M546 0V362C546 481 480 549 365 549C292 549 243 522 203 462V540H63V0H203V324C203 388 248 430 316 430C376 430 406 397 406 333V0Z"/></g></svg>
+    <span class="lbl" style="margin:0">Stand November 2026</span>
+  </div>
+  <span class="lbl">Infopaket für Städte, Gemeinden und Ämter</span>
+  <h1>Ein Netzwerk für alle, die Ihre <span class="o">Innenstadt</span> besitzen.</h1>
+  <p class="lead">Die meisten Flächen in der Innenstadt gehören privaten Eigentümern. urbown gibt Ihrer Verwaltung einen direkten, vertraulichen Kanal zu ihnen und ein Frühwarnsystem für Leerstand. Sie starten in rund zwei Wochen, ohne eigene IT-Projekte.</p>
+  <div class="box glance">
+    <span class="lbl">Auf einen Blick</span>
+    <table class="kv">
+      <tr><td>Start</td><td>ca. 2 Wochen</td></tr>
+      <tr><td>Aufwand Verwaltung</td><td>ca. 2–4 Std./Woche</td></tr>
+      <tr><td>Pilot</td><td>6 Monate kostenlos</td></tr>
+      <tr><td>Danach</td><td>individuelles Angebot</td></tr>
+      <tr><td>Datenspeicherung</td><td>Schweiz</td></tr>
+      <tr><td>Barrierefreiheit</td><td>WCAG 2.2 AA</td></tr>
+    </table>
+  </div>
+  <div class="cover-foot"><span>urbown.com · info@urbown.com</span><span>IXIO AG · Bahnhofplatz · 6300 Zug · Schweiz</span></div>
+</section>
+
+<!-- Seite 2 -->
+<section class="page">
+  <div class="sec first">
+    <span class="lbl">Kurz gesagt</span>
+    <h2>Ein geschlossenes Netzwerk pro Stadt.</h2>
+    <p class="lead">urbown verbindet Eigentümer, Gewerbe und Stadtverwaltung in einem eigenen, geschlossenen Netzwerk pro Stadt. Leerstände werden früh sichtbar, Flächen finden schneller neue Nutzer, Entscheidungen fallen gemeinsam.</p>
+  </div>
+  <div class="sec">
+    <span class="lbl">Das Problem</span>
+    <h2>Leerstand kündigt sich an. Nur hört es niemand.</h2>
+    <p>Ein Mieter zieht in sechs Monaten aus, ein Erbe will verkaufen, ein Händler sucht 100 m² in bester Lage. Diese Informationen gibt es in jeder Stadt. Sie laufen nur nirgends zusammen. Gleichzeitig sind viele Eigentümer für die Verwaltung schwer erreichbar: Sie wohnen nicht vor Ort, sind in keinem Verein und lesen keine Amtsblätter.</p>
+    <p>urbown ist der Ort, an dem diese Informationen zusammenkommen: geschlossen, vertraulich und mit der Stadt am Tisch.</p>
+  </div>
+  <div class="sec">
+    <span class="lbl">So funktioniert urbown</span>
+    <h2>Eigenes Netzwerk, eigene Adresse, nur auf Einladung.</h2>
+    <div class="grid g3 avoid">
+      <div><h3>Eigene Adresse</h3><p>Ihre Stadt erhält ein Netzwerk unter app.urbown.com/ihrestadt und die Kurzadresse ihrestadt.urbown.com für Briefe und Flyer.</p></div>
+      <div><h3>Nur auf Einladung</h3><p>Mitglieder laden weitere Eigentümer, Gewerbe und Partner ein. Die Stadt gibt jede Einladung frei. So bleibt jedes Profil echt.</p></div>
+      <div><h3>Geschlossen</h3><p>Kein Inhalt ist öffentlich. Standardmässig sieht nur das eigene Netzwerk, was Mitglieder teilen.</p></div>
+    </div>
+  </div>
+  <div class="sec">
+    <span class="lbl">Für wen</span>
+    <h2>Drei Gruppen, ein gemeinsames Interesse.</h2>
+    <div class="grid g3 avoid">
+      <div><h3>Eigentümer</h3><p>Früh wissen, was in der Nachbarschaft passiert. Flächen diskret vermarkten. Direkter Draht zur Stadt.</p></div>
+      <div><h3>Gewerbe</h3><p>Passende Flächen finden, bevor sie öffentlich inseriert werden. Mitreden bei Baustellen, Lieferzonen und Aktionen.</p></div>
+      <div><h3>Stadt und Ämter</h3><p>Ein direkter Draht zu allen Eigentümern. Ein Frühwarnsystem für Leerstand. Beteiligung ohne Papier.</p></div>
+    </div>
+    <p class="small" style="margin-top:3mm">Für Mitglieder ist urbown immer kostenlos. Das ist wichtig, damit möglichst viele mitmachen.</p>
+  </div>
+</section>
+
+<!-- Seite 3 -->
+<section class="page">
+  <div class="sec first">
+    <span class="lbl">Nutzen für die Stadt</span>
+    <h2>Was Ihre Verwaltung gewinnt.</h2>
+    <div class="grid g2">
+      <div><h3>Frühwarnsystem Leerstand</h3><p>Eigentümer melden anstehende Auszüge, bevor Flächen leer stehen. Sie sehen, wo Handlungsbedarf entsteht, und können früh vermitteln.</p></div>
+      <div><h3>Direkter Draht zu Eigentümern</h3><p>Viele Eigentümer sind für die Verwaltung schwer erreichbar. Im Netzwerk erreichen Sie sie mit einem Beitrag, auf dem Handy und per E-Mail.</p></div>
+      <div><h3>Beteiligung, die funktioniert</h3><p>Umfragen zu Öffnungszeiten, Baustellen oder Gestaltung. Ergebnisse in Echtzeit, ohne Papier und ohne Saalmiete.</p></div>
+      <div><h3>Lagebild auf der Karte</h3><p>Leerstände, Problemstellen und Ideen der Mitglieder auf einer Karte, nach Themen gefiltert.</p></div>
+      <div><h3>Informationen gezielt verbreiten</h3><p>Förderprogramme, Baustellen, Termine: Sie informieren die richtigen Menschen direkt, auf Wunsch nach Rolle getrennt.</p></div>
+      <div><h3>Volle Kontrolle</h3><p>Die Stadt verwaltet ihr Netzwerk selbst: Einladungen freigeben, Inhalte moderieren, Auswertungen abrufen.</p></div>
+    </div>
+  </div>
+  <div class="sec">
+    <span class="lbl">Nutzen für die Mitglieder</span>
+    <h2>Warum Eigentümer mitmachen.</h2>
+    <div class="grid g2">
+      <div><h3>Leerstand vermeiden</h3><p>Einen anstehenden Auszug früh melden. Gewerbe und Partner sehen die Fläche, bevor sie leer steht.</p></div>
+      <div><h3>Diskret verkaufen</h3><p>Immobilien nur im geschlossenen Kreis inserieren. Die genaue Adresse erst auf Anfrage.</p></div>
+      <div><h3>Mitreden</h3><p>Baustellen, Beleuchtung, Lieferzonen, verkaufsoffene Sonntage: diskutieren und abstimmen.</p></div>
+      <div><h3>Fürs Handy gemacht</h3><p>Inserat in zwei Minuten vom Smartphone. Installierbar wie eine App. Sie bestimmen, wofür Sie E-Mails erhalten.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Seite 4 -->
+<section class="page">
+  <div class="sec first">
+    <span class="lbl">Funktionen</span>
+    <h2>Alles, was eine Innenstadt braucht.</h2>
+    <p class="muted" style="margin-bottom:4mm">Ein Werkzeug für Leerstand, Austausch und Beteiligung. Fürs Handy gemacht, schnell und einfach zu bedienen.</p>
+    <div class="grid g3">
+      <div><h3>Vakante Flächen</h3><p>Leerstände kurz inserieren: Fläche, Schaufensterfront, verfügbar ab. In Liste und Karte.</p></div>
+      <div><h3>Diskrete Immobilien</h3><p>Verkaufsinserate nur für Mitglieder. Import per Link oder OpenImmo.</p></div>
+      <div><h3>Dashboard</h3><p>Nach dem Login alles Neue auf einen Blick: Themen, Flächen, Inserate, News.</p></div>
+      <div><h3>Umfragen</h3><p>So einfach wie im Messenger. Ergebnisse live.</p></div>
+      <div><h3>Forum</h3><p>Themen eröffnen, diskutieren, Erfahrungen teilen.</p></div>
+      <div><h3>City News</h3><p>Jedes Mitglied schreibt Beiträge, mit Bild und Quelle.</p></div>
+      <div><h3>Events &amp; Kalender</h3><p>Stammtische, Workshops, Aktionen. Mit Anmeldung.</p></div>
+      <div><h3>Dokumente</h3><p>Übersichtliche Ordner für Verträge, Protokolle, Förderinfos.</p></div>
+      <div><h3>Gruppen</h3><p>Arbeitsgruppen und Nachbarschaften mit eigenen Themen.</p></div>
+      <div><h3>Karte</h3><p>Orte mit Titel und Kurzbeschreibung markieren, nach Themen filtern.</p></div>
+      <div><h3>Direktnachrichten</h3><p>Anfragen zu Flächen und Inseraten direkt an den Eigentümer.</p></div>
+      <div><h3>Mein Portfolio</h3><p>Alle eigenen Inhalte an einem Ort. Mitglieder bestimmen, wofür sie E-Mails erhalten.</p></div>
+    </div>
+  </div>
+  <div class="sec">
+    <span class="lbl">Verwaltung</span>
+    <h2>Für die Administration der Stadt.</h2>
+    <div class="grid g3">
+      <div><h3>Einladungen mit Freigabe</h3><p>Mitglieder schlagen Personen vor, die Stadt gibt frei. Rollen: Eigentümer, Mitarbeiter Stadt, Gewerbe, Partner.</p></div>
+      <div><h3>Moderation</h3><p>Gemeldete Inhalte prüfen, Inserate vor Veröffentlichung freigeben, Mitglieder verwalten.</p></div>
+      <div><h3>Auswertungen</h3><p>Beteiligung, Themen und Flächen im Überblick. Export als Tabelle.</p></div>
+      <div><h3>Sammelimport</h3><p>Bestehende Kontakte aus Excel übernehmen. Jede Person legt beim ersten Login ihr Passwort fest.</p></div>
+      <div><h3>Branding</h3><p>Logo und Website-Button Ihrer Stadt oder Ihres Vereins im Netzwerk.</p></div>
+      <div><h3>Mobil und sicher</h3><p>Als App installierbar. Zwei-Faktor-Anmeldung, für Administratoren verpflichtend einstellbar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Seite 5 -->
+<section class="page">
+  <div class="sec first">
+    <span class="lbl">Ablauf</span>
+    <h2>So arbeiten wir mit Ihrer Verwaltung.</h2>
+    <ol class="steps">
+      <li><span class="n">01</span><div><h3>Demo ansehen</h3><p>Wir zeigen das Netzwerk in 30 Minuten online, Sie testen danach selbst auf demo.urbown.com.</p></div></li>
+      <li><span class="n">02</span><div><h3>Netzwerk einrichten</h3><p>Ihre Stadt erhält ein eigenes, geschlossenes Netzwerk unter app.urbown.com/ihrestadt und die Kurzadresse ihrestadt.urbown.com für Flyer und Briefe. Startklar in rund zwei Wochen.</p></div></li>
+      <li><span class="n">03</span><div><h3>Kick-off mit Eigentümern</h3><p>Die Stadt lädt 20 bis 50 Eigentümer der Innenstadt ein. Wir moderieren den Start.</p></div></li>
+      <li><span class="n">04</span><div><h3>Netzwerk wächst</h3><p>Mitglieder laden weitere Eigentümer, Gewerbe und Partner ein. Die Stadt gibt jede Einladung frei.</p></div></li>
+      <li><span class="n">05</span><div><h3>Quartalsbericht</h3><p>Die Stadt erhält eine anonymisierte Auswertung: Beteiligung, Themen, gemeldete und vermittelte Flächen.</p></div></li>
+    </ol>
+  </div>
+  <div class="sec">
+    <span class="lbl">Aufgaben</span>
+    <h2>Wer macht was.</h2>
+    <div class="cols avoid">
+      <div class="box"><span class="lbl">Das übernehmen wir</span>
+        <ul class="check">
+          <li>Netzwerk einrichten: Adresse, Kurzadresse, Logo, Kategorien</li>
+          <li>Vorlagen für Einladungsbrief und E-Mail an die Eigentümer</li>
+          <li>Kick-off vorbereiten und moderieren</li>
+          <li>Einführung für Ihre Administration (rund eine Stunde, online)</li>
+          <li>Betrieb, Updates, Backups und Support</li>
+          <li>Quartalsbericht mit anonymisierter Auswertung</li>
+        </ul></div>
+      <div class="box"><span class="lbl">Das übernimmt die Stadt</span>
+        <ul class="check">
+          <li>eine oder zwei Personen für die Administration benennen</li>
+          <li>Eigentümer der Innenstadt per Brief zum Kick-off einladen</li>
+          <li>Teilnehmende im Netzwerk erfassen, einzeln oder per Sammelimport</li>
+          <li>Einladungen freigeben und eigene Beiträge schreiben</li>
+          <li>Ergebnisse des Pilots auswerten und entscheiden</li>
+        </ul></div>
+    </div>
+    <p class="small" style="margin-top:2.5mm">Die Einladung zum Kick-off kommt von der Stadt. Adressen der Eigentümer geben Sie dafür nicht an uns weiter. Aufwand nach dem Start: rund zwei bis vier Stunden pro Woche.</p>
+  </div>
+  <div class="sec avoid">
+    <span class="lbl">Zeitplan Pilot</span>
+    <table class="t">
+      <tr><th style="width:30mm">Wann</th><th>Was</th></tr>
+      <tr><td class="mono">Woche 1–2</td><td>Netzwerk einrichten, Administration einführen, Einladungsbrief versenden</td></tr>
+      <tr><td class="mono">Woche 3–4</td><td>Kick-off mit Eigentümern, erste Mitglieder, erste Beiträge der Stadt</td></tr>
+      <tr><td class="mono">Monat 2–5</td><td>Netzwerk wächst, Quartalsbericht, auf Wunsch Angebot für die Fortführung</td></tr>
+      <tr><td class="mono">Monat 5–6</td><td>Auswertung, Gespräch über Ergebnisse, Entscheid. Ohne Zusage endet der Pilot automatisch</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- Seite 6 -->
+<section class="page">
+  <div class="sec first">
+    <span class="lbl">Kosten</span>
+    <h2>Erst testen, dann entscheiden.</h2>
+    <p class="lead" style="margin-bottom:4mm">Der Pilot ist kostenlos und unverbindlich. Für die Zeit danach erhalten Sie ein Angebot und alle Unterlagen für Ihre Vergabestelle.</p>
+    <div class="grid g3 avoid" style="border-width:1.5px">
+      <div style="outline:2px solid #111;outline-offset:-3px"><span class="lbl">Start</span><h3>6 Monate kostenlos testen</h3><p>Ihr eigenes Netzwerk, vollständig eingerichtet. Alle Funktionen, Begleitung beim Start, Kick-off mit Eigentümern. Unverbindlich, endet automatisch.</p></div>
+      <div><span class="lbl">Danach</span><h3>Ein Angebot, das zu Ihrer Stadt passt</h3><p>Gegen Ende des Pilots erhalten Sie ein Angebot. Es richtet sich nach der Grösse Ihrer Innenstadt und der gewünschten Begleitung, als fester Jahrespreis in Euro oder Franken. Sie entscheiden dann, ob es weitergeht.</p></div>
+      <div><span class="lbl">Immer</span><h3>Für Mitglieder kostenlos</h3><p>Eigentümer, Gewerbe und Partner nutzen urbown ohne Kosten. So machen möglichst viele mit.</p><p style="margin-top:2mm">Inklusive: alle Funktionen, Hosting in der Schweiz, Updates, Support und Datenschutz-Unterlagen.</p></div>
+    </div>
+  </div>
+  <div class="sec">
+    <span class="lbl">Weitere Möglichkeiten</span>
+    <div class="grid g3 avoid">
+      <div><h3>Region</h3><p>Ein Netzwerk für eine ganze Region oder je Gemeinde ein eigenes Netzwerk unter einem gemeinsamen Vertrag.</p></div>
+      <div><h3>Mehrjährig</h3><p>Bei längerer Laufzeit wird es günstiger. Das planen wir gern gemeinsam.</p></div>
+      <div><h3>Partner</h3><p>Banken, Verwaltungen und Makler können ein Netzwerk als Partner unterstützen.</p></div>
+    </div>
+  </div>
+  <div class="sec">
+    <span class="lbl">Haushalt und Vergabe</span>
+    <h2>Gut vorbereitet für Ihre Gremien.</h2>
+    <div class="grid g3 avoid">
+      <div><h3>Budget rechtzeitig einplanen</h3><p>Auf Wunsch senden wir das Angebot schon zu Beginn des Pilots. So können Sie es in den Haushalt des nächsten Jahres aufnehmen, bevor der Pilot endet.</p></div>
+      <div><h3>Vergabe</h3><p>Für den kostenlosen Pilot ist keine Ausschreibung nötig. Für die Zeit danach gelten die Regeln Ihres Landes bzw. Kantons. Wir liefern Leistungsbeschreibung und Unterlagen.</p></div>
+      <div><h3>Beschluss</h3><p>Für den Pilot genügt in vielen Städten ein Entscheid der Verwaltung. Für Gremien gibt es unsere Muster-Beschlussvorlage.</p></div>
+    </div>
+  </div>
+  <div class="note avoid"><b>Unterlagen zum Herunterladen auf urbown.com/staedte</b>Muster-Beschlussvorlage (Word, PDF) · Vertrag zur Auftragsverarbeitung, Entwurf (Word, PDF) · dieses Infopaket (PDF)</div>
+</section>
+
+<!-- Seite 7 -->
+<section class="page">
+  <div class="sec first">
+    <span class="lbl">Datenschutz und Sicherheit</span>
+    <h2>Vertraulich von Anfang an.</h2>
+    <div class="grid g3">
+      <div><h3>Geschlossen</h3><p>Kein Inhalt ist öffentlich sichtbar. Zugang nur mit Login und nur auf Einladung. Inhalte und Profile sind standardmässig nur im eigenen Netzwerk sichtbar. Mitglieder können sie freiwillig für alle urbown-Mitglieder freigeben.</p></div>
+      <div><h3>Daten in der Schweiz</h3><p>Datenbank, Dateien und verschlüsselte Backups liegen in Rechenzentren in Zürich und Genf. Das ist auch für deutsche Städte zulässig: Die EU anerkennt den Schweizer Datenschutz als gleichwertig.</p></div>
+      <div><h3>DSGVO und DSG</h3><p>Vertrag zur Auftragsverarbeitung inklusive. Nur notwendige Cookies, keine Werbetracker, keine Analyse-Dienste. Export jederzeit; bei Vertragsende erhalten Sie alle Daten, danach löschen wir sie.</p></div>
+      <div><h3>Offene Liste der Dienstleister</h3><p>Für den sicheren Betrieb setzen wir wenige, vertraglich gebundene Dienstleister ein. Alle stehen unten und im AV-Vertrag.</p></div>
+      <div><h3>Sicher angemeldet</h3><p>Verschlüsselte Verbindungen, Rechte je Rolle, Zwei-Faktor-Anmeldung für Administratorinnen und Administratoren. Direktnachrichten liest niemand von urbown.</p></div>
+      <div><h3>Barrierefrei</h3><p>Gebaut nach WCAG 2.2 AA, der Grundlage für BITV 2.0 und EN 301 549. Jede Seite wird automatisch geprüft.</p></div>
+    </div>
+  </div>
+  <div class="sec avoid">
+    <span class="lbl">Dienstleister (Unterauftragsverarbeiter)</span>
+    <table class="t">
+      <tr><th style="width:38mm">Dienstleister</th><th>Aufgabe</th><th style="width:44mm">Ort der Daten</th></tr>
+      <tr><td><b>Exoscale</b><br><span class="small">Akenes SA, Lausanne, Schweiz</span></td><td>Server, Datenbank, Dateien, Backups</td><td>Schweiz (Zürich, Backups Genf)</td></tr>
+      <tr><td><b>Cloudflare</b><br><span class="small">Cloudflare, Inc., USA</span></td><td>Adressen (DNS), Schutz vor Angriffen, verschlüsselte Verbindungen, Spamschutz im Kontaktformular</td><td>weltweites Netz; Protokolle USA/Europa. Swiss-U.S. und EU-U.S. Data Privacy Framework</td></tr>
+      <tr><td><b>Resend</b><br><span class="small">USA</span></td><td>Versand der E-Mails (Codes, Einladungen, Benachrichtigungen, Newsletter)</td><td>Versand aus Irland; Speicherung USA, 30 Tage. EU-U.S. Data Privacy Framework, Standardvertragsklauseln</td></tr>
+      <tr><td><b>Kartenanbieter</b><br><span class="small">vorgesehen: MapTiler AG, Zug</span></td><td>Kartenkacheln und Adresssuche</td><td>wird vor dem Start der Kartenfunktion festgelegt</td></tr>
+    </table>
+    <p class="small" style="margin-top:2mm">Keine Analyse- oder Werbedienste. Quellcode, Fernzugang und Überwachung laufen ohne Personendaten der Mitglieder. Verbindlich ist die Liste im AV-Vertrag.</p>
+  </div>
+  <div class="note avoid"><b>Betrieb</b>Eigener Server nur für urbown, jedes Netzwerk logisch getrennt, Rechte werden in der Datenbank geprüft. Backups täglich verschlüsselt (30 Tage täglich, 12 Wochen wöchentlich), Wiederherstellung monatlich getestet. Sicherheitsupdates laufend, jede Änderung wird vor der Freigabe geprüft.</div>
+</section>
+
+<!-- Seite 8 -->
+<section class="page">
+  <div class="sec first">
+    <span class="lbl">Förderung · Stand November 2026</span>
+    <h2>Programme, an die urbown anknüpfen kann.</h2>
+    <p class="muted">urbown kann Teil eines geförderten Innenstadt-, Citymanagement- oder Leerstandsprojekts sein. Ob die Kosten förderfähig sind, entscheidet die zuständige Bewilligungsstelle im Einzelfall. Für Ihren Antrag liefern wir Projektbeschreibung und Kostenangaben.</p>
+    <div class="grid g2 avoid" style="margin-top:3mm">
+      <div><span class="tag solid">Deutschland</span><h3>Bund und Länder</h3>
+        <ul>
+          <li>Städtebauförderung, Programm «Lebendige Zentren» (über die Länder): 2026 erstmals 1 Mrd. € Bundesmittel, davon 380 Mio. € für «Lebendige Zentren»; z. B. für Citymanagement oder Verfügungsfonds in einem Fördergebiet</li>
+          <li>Landesprogramme, z. B. «Zukunftsfähige Innenstädte und Ortszentren» (Nordrhein-Westfalen) oder «Sofortprogramm Einzelhandel/Innenstadt», Förderlinie Stadtmarketing (Baden-Württemberg, bis Ende 2026)</li>
+          <li>Für Eigentümer im Netzwerk: «Gewerbe zu Wohnen» (KfW 266, seit Juli 2026), bis 30 000 € Zuschuss je neuer Wohnung im ehemaligen Gewerbe</li>
+        </ul></div>
+      <div><span class="tag solid">Schweiz</span><h3>Bund, Kantone und Beratung</h3>
+        <ul>
+          <li>Neue Regionalpolitik (SECO und Kantone, 2024–2031) für Gemeinden im ländlichen Raum, in Berggebieten und Grenzregionen</li>
+          <li>Kantonale Wirtschafts- und Standortförderung</li>
+          <li>Beratung zur Zentrumsentwicklung von EspaceSuisse (z. B. Nutzungsstrategie), mit urbown als Werkzeug für die Umsetzung</li>
+        </ul></div>
+    </div>
+    <p class="small" style="margin-top:2mm">Programme und Bedingungen ändern sich. Bitte prüfen Sie die aktuellen Regeln bei Ihrer Bewilligungsstelle.</p>
+  </div>
+  <div class="sec avoid">
+    <span class="lbl">Referenz</span>
+    <h2>Mannheim ist seit 2022 dabei.</h2>
+    <p class="muted">In Mannheim tauschen sich Eigentümer, Gewerbe und Stadt seit 2022 in einem eigenen, geschlossenen Netzwerk aus: zu Leerständen, Immobilien, Baustellen und gemeinsamen Aktionen in der Innenstadt.</p>
+    <div class="stats" style="margin-top:3mm">
+      <div><b>2022</b><span>Start des Netzwerks Mannheim</span></div>
+      <div><b>35</b><span>Mitglieder: Eigentümer, Gewerbe, Stadt</span></div>
+      <div><b>53</b><span>Immobilien im Netzwerk</span></div>
+    </div>
+  </div>
+  <div class="sec avoid">
+    <span class="lbl">Nächste Schritte</span>
+    <h2>Sehen Sie sich urbown in 30 Minuten an.</h2>
+    <div class="cols">
+      <div><ul class="check">
+        <li>Demo-Termin vereinbaren: urbown.com/kontakt</li>
+        <li>Selbst testen: demo.urbown.com</li>
+        <li>Unterlagen: urbown.com/staedte</li>
+      </ul></div>
+      <div class="box"><span class="lbl">Kontakt</span>
+        <p class="mono" style="font-size:11pt;margin-bottom:1mm">info@urbown.com</p>
+        <p class="small" style="margin:0">urbown ist ein Angebot der IXIO AG, Bahnhofplatz, 6300 Zug, Schweiz. Wir melden uns innerhalb von zwei Werktagen.</p></div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
